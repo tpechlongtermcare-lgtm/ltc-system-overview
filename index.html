@@ -108,63 +108,93 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',Georgia,serif}
 .callout-gold{background:var(--gold-light);border-left:3px solid var(--gold)}
 .callout-gold .c-body h4{color:var(--gold)}
 
-/* ═══ SaaS ARCHITECTURE DIAGRAM ═══ */
-.arch-wrap{margin:32px 0;padding:0}
-.arch-diagram{position:relative;display:flex;flex-direction:column;gap:0}
-
-/* Each layer row */
+/* SaaS Architecture */
+.arch-wrap{margin:32px 0}
+.arch-diagram{display:flex;flex-direction:column;gap:0}
 .a-row{display:flex;align-items:stretch;min-height:88px}
 .a-label{width:52px;flex-shrink:0;writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase}
 .a-body{flex:1;padding:16px 20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-
-/* Node cards */
 .a-node{background:var(--surface);border-radius:10px;padding:10px 14px;box-shadow:0 2px 10px rgba(0,0,0,.06);display:flex;align-items:center;gap:10px;border:1.5px solid #E8EAF0;min-width:180px;flex:1;max-width:280px;transition:.2s}
 .a-node:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-2px)}
 .a-node .n-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
 .a-node .n-title{font-size:.76rem;font-weight:700;color:var(--text)}
 .a-node .n-desc{font-size:.58rem;color:var(--text3);line-height:1.3;margin-top:1px}
-
-/* Connector between layers */
 .a-conn{display:flex;align-items:center;padding-left:52px;height:28px}
 .a-conn-bar{flex:1;display:flex;align-items:center;justify-content:center;position:relative}
 .a-conn-bar::before{content:'';position:absolute;left:20%;right:20%;height:0;border-top:2px dashed var(--text3);opacity:.35}
 .a-conn-label{background:var(--bg);padding:0 10px;font-size:.56rem;color:var(--text3);font-weight:500;position:relative;z-index:1}
-.a-conn-arrows{display:flex;gap:20px;position:absolute;left:10%;right:10%;justify-content:space-between;pointer-events:none}
-.a-conn-arrows span{font-size:.7rem;color:var(--text3);opacity:.5}
 
-/* Layer colors */
-.l-user .a-label{background:var(--teal)}
+.l-user .a-label{background:var(--teal);border-radius:var(--radius) 0 0 var(--radius)}
 .l-user .a-body{background:var(--teal-light);border:2px solid var(--teal);border-left:0;border-radius:0 var(--radius) var(--radius) 0}
-.l-user .a-label{border-radius:var(--radius) 0 0 var(--radius)}
 .l-user .n-icon{background:var(--teal-light);color:var(--teal)}
-
-.l-app .a-label{background:var(--navy)}
+.l-app .a-label{background:var(--navy);border-radius:var(--radius) 0 0 var(--radius)}
 .l-app .a-body{background:var(--navy-light);border:2px solid var(--navy);border-left:0;border-radius:0 var(--radius) var(--radius) 0}
-.l-app .a-label{border-radius:var(--radius) 0 0 var(--radius)}
 .l-app .n-icon{background:var(--navy-light);color:var(--navy)}
-
-.l-ai .a-label{background:var(--coral)}
+.l-ai .a-label{background:var(--coral);border-radius:var(--radius) 0 0 var(--radius)}
 .l-ai .a-body{background:var(--coral-light);border:2px solid var(--coral);border-left:0;border-radius:0 var(--radius) var(--radius) 0}
-.l-ai .a-label{border-radius:var(--radius) 0 0 var(--radius)}
 .l-ai .n-icon{background:var(--coral-light);color:var(--coral)}
-
-.l-data .a-label{background:var(--gold)}
+.l-data .a-label{background:var(--gold);border-radius:var(--radius) 0 0 var(--radius)}
 .l-data .a-body{background:var(--gold-light);border:2px solid var(--gold);border-left:0;border-radius:0 var(--radius) var(--radius) 0}
-.l-data .a-label{border-radius:var(--radius) 0 0 var(--radius)}
 .l-data .n-icon{background:var(--gold-light);color:var(--gold)}
-
-.l-out .a-label{background:#546E7A}
+.l-out .a-label{background:#546E7A;border-radius:var(--radius) 0 0 var(--radius)}
 .l-out .a-body{background:#ECEFF1;border:2px solid #546E7A;border-left:0;border-radius:0 var(--radius) var(--radius) 0}
-.l-out .a-label{border-radius:var(--radius) 0 0 var(--radius)}
 .l-out .n-icon{background:#ECEFF1;color:#546E7A}
 
 .divider{height:1px;background:linear-gradient(to right,transparent,#D8DBE4,transparent);margin:48px 0}
 .footer{background:var(--ink);color:rgba(255,255,255,.55);padding:40px 28px;text-align:center;font-size:.78rem;margin-top:60px}
 .footer strong{color:rgba(255,255,255,.85)}
 .footer .f-line{margin-top:6px;font-size:.7rem}
-
 .fade-in{opacity:0;transform:translateY(20px);animation:fadeUp .6s ease forwards}
 @keyframes fadeUp{to{opacity:1;transform:none}}
+
+/* ═══════ AI GUIDE CHATBOT ═══════ */
+.ai-fab{position:fixed;bottom:28px;right:28px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;border:none;font-size:1.5rem;cursor:pointer;box-shadow:0 6px 24px rgba(13,124,102,.4);z-index:1000;display:flex;align-items:center;justify-content:center;transition:.3s}
+.ai-fab:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(13,124,102,.5)}
+.ai-fab.open{border-radius:16px;width:48px;height:48px;font-size:1.2rem;bottom:488px;right:28px}
+.ai-pulse{position:absolute;width:100%;height:100%;border-radius:50%;background:var(--teal);animation:fabPulse 2s infinite;opacity:0}
+@keyframes fabPulse{0%{transform:scale(1);opacity:.4}100%{transform:scale(1.8);opacity:0}}
+
+.ai-panel{position:fixed;bottom:28px;right:28px;width:380px;height:520px;background:var(--surface);border-radius:20px;box-shadow:0 16px 64px rgba(15,25,35,.18);z-index:999;display:none;flex-direction:column;overflow:hidden;border:1px solid #E4E6EC}
+.ai-panel.show{display:flex}
+.ai-panel-head{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;padding:16px 20px;display:flex;align-items:center;gap:10px}
+.ai-panel-head .ai-avatar{width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.ai-panel-head .ai-title{font-weight:700;font-size:.9rem}
+.ai-panel-head .ai-sub{font-size:.68rem;opacity:.8}
+.ai-panel-close{margin-left:auto;background:rgba(255,255,255,.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center}
+
+.ai-chat{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.ai-chat::-webkit-scrollbar{width:4px}
+.ai-chat::-webkit-scrollbar-thumb{background:#D0D5DE;border-radius:2px}
+
+.ai-msg{max-width:88%;animation:msgIn .3s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ai-bot{align-self:flex-start}
+.ai-user{align-self:flex-end}
+.ai-bubble{padding:10px 14px;border-radius:14px;font-size:.82rem;line-height:1.55}
+.ai-bot .ai-bubble{background:#F0F2F6;color:var(--text);border-bottom-left-radius:4px}
+.ai-user .ai-bubble{background:var(--teal);color:#fff;border-bottom-right-radius:4px}
+.ai-bot .ai-bubble a{color:var(--teal);font-weight:600;text-decoration:underline;cursor:pointer}
+
+.ai-quick{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.ai-quick-btn{padding:5px 11px;border-radius:16px;border:1.5px solid var(--teal);background:transparent;color:var(--teal);font-size:.72rem;font-weight:500;cursor:pointer;transition:.2s;white-space:nowrap}
+.ai-quick-btn:hover{background:var(--teal);color:#fff}
+
+.ai-input-wrap{padding:10px 14px;border-top:1px solid #ECEEF2;display:flex;gap:8px;align-items:center;background:#FAFBFE}
+.ai-input{flex:1;padding:9px 14px;border:1.5px solid #DEE2EE;border-radius:20px;font-size:.82rem;font-family:'Instrument Sans',sans-serif;outline:none;color:var(--text);transition:.2s}
+.ai-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,124,102,.1)}
+.ai-input::placeholder{color:var(--text3)}
+.ai-send{width:34px;height:34px;border-radius:50%;background:var(--teal);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:.2s;flex-shrink:0}
+.ai-send:hover{background:var(--teal-dark)}
+
+.ai-typing{display:flex;gap:4px;padding:8px 14px}
+.ai-typing span{width:6px;height:6px;border-radius:50%;background:var(--text3);animation:dotBounce .6s infinite alternate}
+.ai-typing span:nth-child(2){animation-delay:.2s}
+.ai-typing span:nth-child(3){animation-delay:.4s}
+@keyframes dotBounce{to{opacity:.3;transform:translateY(-4px)}}
+
+/* Guide tour highlight */
+.tour-highlight{animation:tourGlow 1.5s ease-in-out 2;position:relative}
+@keyframes tourGlow{0%,100%{box-shadow:0 0 0 0 rgba(13,124,102,0)}50%{box-shadow:0 0 0 8px rgba(13,124,102,.15)}}
 
 @media(max-width:860px){
   .hero h1{font-size:1.8rem}
@@ -174,12 +204,14 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',Georgia,serif}
   .browser{width:100%;max-width:480px}
   .phone{width:100%;max-width:280px;margin:0 auto}
   .a-node{min-width:140px}
+  .ai-panel{width:calc(100vw - 24px);right:12px;bottom:12px;height:70vh}
+  .ai-fab{bottom:16px;right:16px}
+  .ai-fab.open{bottom:calc(70vh + 20px)}
 }
 @media(max-width:560px){
   .dim-grid{grid-template-columns:1fr}
   .stats-bar{grid-template-columns:repeat(2,1fr)}
-  .a-body{flex-direction:column}
-  .a-node{max-width:100%}
+  .a-body{flex-direction:column}.a-node{max-width:100%}
 }
 </style>
 </head>
@@ -187,7 +219,7 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',Georgia,serif}
 <div class="container">
 
 <!-- ═══════════ HERO ═══════════ -->
-<section class="hero fade-in">
+<section class="hero fade-in" id="sec-hero">
   <div class="track-badge">◆ TRACK 4 — Digital Transformation &amp; AI in Care Operations</div>
   <h1>Multi-Dimensional Family Support Assessment System</h1>
   <p class="lead">A cloud-based SaaS platform that quantifies family support strength, predicts visitation decline risks, and enables proactive social work interventions in long-term care institutions.</p>
@@ -198,8 +230,7 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',Georgia,serif}
   </div>
 </section>
 
-<!-- ═══════════ STATS ═══════════ -->
-<div class="stats-bar fade-in" style="animation-delay:.1s">
+<div class="stats-bar fade-in" style="animation-delay:.1s" id="sec-stats">
   <div class="stat-item"><div class="num">782</div><div class="unit">Visitation Records Analyzed</div></div>
   <div class="stat-item"><div class="num">20</div><div class="unit">Hours / Month Saved</div></div>
   <div class="stat-item"><div class="num">15%</div><div class="unit">High-Risk Cases Detected</div></div>
@@ -208,7 +239,7 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',Georgia,serif}
 </div>
 
 <!-- ═══════════ FRAMEWORK ═══════════ -->
-<section class="section fade-in" style="animation-delay:.2s">
+<section class="section fade-in" id="sec-framework">
   <div class="sec-label">Assessment Framework</div>
   <div class="sec-title">Four-Dimensional Scoring Model</div>
   <p class="sec-desc">Overcoming single-metric blind spots by integrating four complementary dimensions for a holistic view of resident-family dynamics and regulatory visitation compliance.</p>
@@ -222,272 +253,359 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',Georgia,serif}
 
 <div class="divider"></div>
 
-<!-- ═══════════ SaaS ARCHITECTURE DIAGRAM ═══════════ -->
-<section class="section">
+<!-- ═══════════ ARCHITECTURE ═══════════ -->
+<section class="section" id="sec-arch">
   <div class="sec-label">System Architecture</div>
   <div class="sec-title">Cloud SaaS Architecture</div>
-  <p class="sec-desc">Zero hardware cost — entirely serverless cloud-hosted, leveraging existing administrative workflows. Highly replicable for resource-limited LTC institutions worldwide.</p>
-
-  <div class="arch-wrap">
-    <div class="arch-diagram">
-
-      <!-- USER LAYER -->
-      <div class="a-row l-user">
-        <div class="a-label">USERS</div>
-        <div class="a-body">
-          <div class="a-node"><div class="n-icon">👨‍👩‍👧</div><div><div class="n-title">Family Portal</div><div class="n-desc">Mobile Web — Visit booking, TOCC health screening, satisfaction survey, AI chatbot</div></div></div>
-          <div class="a-node"><div class="n-icon">👩‍⚕️</div><div><div class="n-title">Social Worker Dashboard</div><div class="n-desc">Desktop — Heatmap screening, 4-tier risk alerts, action recommendations</div></div></div>
-          <div class="a-node"><div class="n-icon">💉</div><div><div class="n-title">Nursing Admin</div><div class="n-desc">NPS analysis, PDCA improvement plans, score adjustment</div></div></div>
-        </div>
-      </div>
-
-      <!-- CONNECTOR -->
-      <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ HTTPS · REST API ▲</div></div></div>
-
-      <!-- APPLICATION LAYER -->
-      <div class="a-row l-app">
-        <div class="a-label">APP</div>
-        <div class="a-body">
-          <div class="a-node"><div class="n-icon">⚙️</div><div><div class="n-title">Serverless Web Engine</div><div class="n-desc">SPA routing, session management, role-based access control</div></div></div>
-          <div class="a-node"><div class="n-icon">🧮</div><div><div class="n-title">4D Scoring Engine</div><div class="n-desc">Multi-dimensional weighted calculation, threshold evaluation</div></div></div>
-          <div class="a-node"><div class="n-icon">📊</div><div><div class="n-title">Analytics Pipeline</div><div class="n-desc">NPS computation, satisfaction aggregation, trend analysis</div></div></div>
-        </div>
-      </div>
-
-      <!-- CONNECTOR -->
-      <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ Internal Processing ▲</div></div></div>
-
-      <!-- AI ENGINE LAYER -->
-      <div class="a-row l-ai">
-        <div class="a-label">AI</div>
-        <div class="a-body">
-          <div class="a-node"><div class="n-icon">🤖</div><div><div class="n-title">Risk Prediction</div><div class="n-desc">Sliding window analysis, trend detection, 4-tier risk classification</div></div></div>
-          <div class="a-node"><div class="n-icon">📖</div><div><div class="n-title">NLP Matching</div><div class="n-desc">170+ synonym expansion, 3-level emotion detection, weighted scoring</div></div></div>
-          <div class="a-node"><div class="n-icon">📮</div><div><div class="n-title">Complaint Triage</div><div class="n-desc">13-scenario pre-screening, severity classification, auto-categorization</div></div></div>
-        </div>
-      </div>
-
-      <!-- CONNECTOR -->
-      <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ Read / Write ▲</div></div></div>
-
-      <!-- DATA LAYER -->
-      <div class="a-row l-data">
-        <div class="a-label">DATA</div>
-        <div class="a-body">
-          <div class="a-node"><div class="n-icon">📅</div><div><div class="n-title">Visitation Records</div><div class="n-desc">Booking logs, TOCC screening, check-in timestamps</div></div></div>
-          <div class="a-node"><div class="n-icon">📊</div><div><div class="n-title">Survey &amp; Feedback</div><div class="n-desc">13-item satisfaction, NPS scores, opinion box entries</div></div></div>
-          <div class="a-node"><div class="n-icon">🤖</div><div><div class="n-title">AI Interaction Logs</div><div class="n-desc">Chat history, hit rate analytics, emotion distribution</div></div></div>
-        </div>
-      </div>
-
-      <!-- CONNECTOR -->
-      <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ Event Triggers</div></div></div>
-
-      <!-- OUTPUT LAYER -->
-      <div class="a-row l-out">
-        <div class="a-label">OUTPUT</div>
-        <div class="a-body">
-          <div class="a-node"><div class="n-icon">📧</div><div><div class="n-title">Auto Email Service</div><div class="n-desc">Complaint replies, overdue alerts (7-day), survey open notifications</div></div></div>
-          <div class="a-node"><div class="n-icon">🚨</div><div><div class="n-title">Risk Alert Dispatch</div><div class="n-desc">Tier 3–4 risk alerts → Social worker push notification</div></div></div>
-          <div class="a-node"><div class="n-icon">📋</div><div><div class="n-title">Reports &amp; Export</div><div class="n-desc">Regulatory compliance reports, PDCA documentation</div></div></div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="callout callout-teal">
-    <div class="c-icon">🌏</div>
-    <div class="c-body">
-      <h4>Replicability &amp; Scalability</h4>
-      <p>The entire platform runs on a <strong>serverless cloud architecture with zero hardware cost</strong>. Customizable scoring thresholds and modular design enable any LTC institution to deploy with minimal technical expertise — addressing digital transformation barriers for small-to-medium care facilities globally.</p>
-    </div>
-  </div>
+  <p class="sec-desc">Zero hardware cost — entirely serverless cloud-hosted. Highly replicable for resource-limited LTC institutions worldwide.</p>
+  <div class="arch-wrap"><div class="arch-diagram">
+    <div class="a-row l-user"><div class="a-label">USERS</div><div class="a-body">
+      <div class="a-node"><div class="n-icon">👨‍👩‍👧</div><div><div class="n-title">Family Portal</div><div class="n-desc">Mobile — Visit booking, TOCC, survey, AI chatbot</div></div></div>
+      <div class="a-node"><div class="n-icon">👩‍⚕️</div><div><div class="n-title">Social Worker Dashboard</div><div class="n-desc">Heatmap screening, 4-tier risk alerts</div></div></div>
+      <div class="a-node"><div class="n-icon">💉</div><div><div class="n-title">Nursing Admin</div><div class="n-desc">NPS analysis, PDCA improvement</div></div></div>
+    </div></div>
+    <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ HTTPS · REST API ▲</div></div></div>
+    <div class="a-row l-app"><div class="a-label">APP</div><div class="a-body">
+      <div class="a-node"><div class="n-icon">⚙️</div><div><div class="n-title">Serverless Web Engine</div><div class="n-desc">SPA routing, session, RBAC</div></div></div>
+      <div class="a-node"><div class="n-icon">🧮</div><div><div class="n-title">4D Scoring Engine</div><div class="n-desc">Weighted calculation, threshold eval</div></div></div>
+      <div class="a-node"><div class="n-icon">📊</div><div><div class="n-title">Analytics Pipeline</div><div class="n-desc">NPS, satisfaction, trend analysis</div></div></div>
+    </div></div>
+    <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ Internal Processing ▲</div></div></div>
+    <div class="a-row l-ai"><div class="a-label">AI</div><div class="a-body">
+      <div class="a-node"><div class="n-icon">🤖</div><div><div class="n-title">Risk Prediction</div><div class="n-desc">Sliding window, 4-tier classification</div></div></div>
+      <div class="a-node"><div class="n-icon">📖</div><div><div class="n-title">NLP Matching</div><div class="n-desc">170+ synonyms, emotion detection</div></div></div>
+      <div class="a-node"><div class="n-icon">📮</div><div><div class="n-title">Complaint Triage</div><div class="n-desc">13-scenario pre-screening</div></div></div>
+    </div></div>
+    <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ Read / Write ▲</div></div></div>
+    <div class="a-row l-data"><div class="a-label">DATA</div><div class="a-body">
+      <div class="a-node"><div class="n-icon">📅</div><div><div class="n-title">Visitation Records</div><div class="n-desc">Booking, TOCC, check-in logs</div></div></div>
+      <div class="a-node"><div class="n-icon">📊</div><div><div class="n-title">Survey &amp; Feedback</div><div class="n-desc">Satisfaction, NPS, opinion box</div></div></div>
+      <div class="a-node"><div class="n-icon">🤖</div><div><div class="n-title">AI Interaction Logs</div><div class="n-desc">Chat history, hit rate, emotions</div></div></div>
+    </div></div>
+    <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ Event Triggers</div></div></div>
+    <div class="a-row l-out"><div class="a-label">OUTPUT</div><div class="a-body">
+      <div class="a-node"><div class="n-icon">📧</div><div><div class="n-title">Auto Email Service</div><div class="n-desc">Replies, overdue alerts, notifications</div></div></div>
+      <div class="a-node"><div class="n-icon">🚨</div><div><div class="n-title">Risk Alert Dispatch</div><div class="n-desc">Tier 3–4 → Social worker push</div></div></div>
+      <div class="a-node"><div class="n-icon">📋</div><div><div class="n-title">Reports &amp; Export</div><div class="n-desc">Compliance reports, PDCA docs</div></div></div>
+    </div></div>
+  </div></div>
+  <div class="callout callout-teal"><div class="c-icon">🌏</div><div class="c-body"><h4>Replicability</h4><p>Serverless cloud, zero hardware cost, customizable thresholds — <strong>highly replicable</strong> for LTC institutions worldwide.</p></div></div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ═══════════ FAMILY VISITATION MODULE ═══════════ -->
-<section class="section">
+<!-- ═══════════ FAMILY VISITATION ═══════════ -->
+<section class="section" id="sec-family">
   <div class="sec-label">Family Visitation</div>
   <div class="sec-title">Cloud-Based Visitor Registration &amp; Engagement</div>
-  <p class="sec-desc">The family-facing mobile portal serves as the primary data capture layer — transforming routine check-ins into structured multi-dimensional assessment data.</p>
-
+  <p class="sec-desc">Transforming routine check-ins into structured multi-dimensional assessment data.</p>
   <div class="screen-section">
     <div class="screen-text">
       <h3>Self-Service Family Portal</h3>
-      <p>Families access the system via a personalized URL (distributed through messaging apps). No account creation required — identity embedded in the link for <strong>zero-friction adoption</strong>.</p>
+      <p>Families access via personalized URL — no account creation, <strong>zero-friction adoption</strong>.</p>
       <ul class="feature-list">
-        <li><div class="f-icon" style="background:var(--teal-light);color:var(--teal)">📅</div><span><strong>Visit Scheduling</strong> — Calendar-based slot booking with capacity management and real-time confirmation</span></li>
-        <li><div class="f-icon" style="background:var(--coral-light);color:var(--coral)">📋</div><span><strong>TOCC Health Screening</strong> — Travel, Occupation, Contact, Cluster declaration for infection control compliance</span></li>
-        <li><div class="f-icon" style="background:var(--gold-light);color:var(--gold)">⭐</div><span><strong>Visit Point Card</strong> — Gamified monthly visit tracker encouraging consistent engagement — directly feeds Dimension 2</span></li>
-        <li><div class="f-icon" style="background:var(--navy-light);color:var(--navy)">📊</div><span><strong>Compliance Rate</strong> — Booking vs. actual registration ratio — data integrity metric for the assessment model</span></li>
+        <li><div class="f-icon" style="background:var(--teal-light);color:var(--teal)">📅</div><span><strong>Visit Scheduling</strong> — Calendar-based slot booking with capacity management</span></li>
+        <li><div class="f-icon" style="background:var(--coral-light);color:var(--coral)">📋</div><span><strong>TOCC Health Screening</strong> — Infection control compliance</span></li>
+        <li><div class="f-icon" style="background:var(--gold-light);color:var(--gold)">⭐</div><span><strong>Visit Point Card</strong> — Gamified tracker → feeds Dimension 2</span></li>
+        <li><div class="f-icon" style="background:var(--navy-light);color:var(--navy)">📊</div><span><strong>Compliance Rate</strong> — Data integrity metric</span></li>
       </ul>
-      <div class="callout callout-gold" style="margin-top:12px">
-        <div class="c-icon">📐</div>
-        <div class="c-body">
-          <h4>Data → Dimensions Mapping</h4>
-          <p>Every registration event automatically feeds the 4D model: unique visitors → <strong>D1 Breadth</strong>, total visits → <strong>D2 Intensity</strong>, monthly patterns → <strong>D3 Stability</strong>, sudden drops → <strong>D4 Attention</strong>.</p>
-        </div>
-      </div>
+      <div class="callout callout-gold" style="margin-top:12px"><div class="c-icon">📐</div><div class="c-body"><h4>Data → Dimensions</h4><p>Unique visitors → <strong>D1</strong>, total visits → <strong>D2</strong>, patterns → <strong>D3</strong>, drops → <strong>D4</strong>.</p></div></div>
     </div>
-    <div class="phone">
-      <div class="phone-screen">
-        <div class="phone-status"></div>
-        <div class="phone-header">
-          <div class="logo" style="background:var(--teal-light);color:var(--teal)">🏥</div>
-          <div><div class="title">LTC Family Portal</div><div class="sub">Self-Service System</div></div>
-        </div>
-        <div class="phone-body">
-          <div class="pc">
-            <div style="text-align:center;padding:8px 0"><div style="font-size:1.4rem">👋</div><h5 style="font-size:.7rem">Welcome, Mrs. Wang</h5><div style="font-size:.48rem;color:var(--text3)">Resident: Wang Y. ｜ Bed 220-1</div></div>
-            <div class="pc-card" style="border-left:3px solid var(--teal);text-align:center">
-              <div style="font-size:.52rem;font-weight:600;color:var(--teal-dark)">🌟 Monthly Visit Points</div>
-              <div style="font-size:1rem;margin:4px 0">⭐⭐⭐<span style="opacity:.25">☆☆</span></div>
-              <div style="font-size:.44rem;color:var(--text3)">3 of 5 visits this month</div>
-            </div>
-            <div class="pc-card">
-              <div style="font-size:.52rem;font-weight:600">📊 Registration Compliance</div>
-              <div style="height:5px;background:#EEE;border-radius:3px;margin:4px 0;overflow:hidden"><div style="width:85%;height:100%;background:var(--teal);border-radius:3px"></div></div>
-              <div style="font-size:.44rem;color:var(--text3)">85% — 7 booked / 6 registered</div>
-            </div>
-            <div style="height:1px;background:#EEE;margin:6px 0"></div>
-            <h5>📅 Upcoming Visit</h5>
-            <div class="pc-card" style="border-left:2px solid var(--navy)"><div style="font-size:.5rem;font-weight:600;color:var(--navy)">Mar 3 — 09:30-10:30</div><div style="font-size:.44rem;color:var(--text3)">2 visitors ｜ TOCC required at check-in</div></div>
-            <h5>📢 Announcements</h5>
-            <div class="pc-card" style="border-left:2px solid var(--gold)"><div style="font-size:.5rem;font-weight:600;color:var(--gold)">Spring Craft Workshop</div><div style="font-size:.44rem;color:var(--text3)">Mar 20 — Now accepting sign-ups</div></div>
-          </div>
-        </div>
-        <div class="phone-tab">
-          <div class="tab on"><span class="ti">🏠</span>Home</div>
-          <div class="tab"><span class="ti">📅</span>Visit</div>
-          <div class="tab"><span class="ti">📋</span>TOCC</div>
-          <div class="tab"><span class="ti">📊</span>Survey</div>
-          <div class="tab"><span class="ti">📮</span>Feedback</div>
-          <div class="tab"><span class="ti">🤖</span>AI</div>
-        </div>
-      </div>
-    </div>
+    <div class="phone"><div class="phone-screen">
+      <div class="phone-status"></div>
+      <div class="phone-header"><div class="logo" style="background:var(--teal-light);color:var(--teal)">🏥</div><div><div class="title">LTC Family Portal</div><div class="sub">Self-Service System</div></div></div>
+      <div class="phone-body"><div class="pc">
+        <div style="text-align:center;padding:8px 0"><div style="font-size:1.4rem">👋</div><h5 style="font-size:.7rem">Welcome, Mrs. Wang</h5><div style="font-size:.48rem;color:var(--text3)">Resident: Wang Y. ｜ Bed 220-1</div></div>
+        <div class="pc-card" style="border-left:3px solid var(--teal);text-align:center"><div style="font-size:.52rem;font-weight:600;color:var(--teal-dark)">🌟 Monthly Visit Points</div><div style="font-size:1rem;margin:4px 0">⭐⭐⭐<span style="opacity:.25">☆☆</span></div><div style="font-size:.44rem;color:var(--text3)">3 of 5 visits this month</div></div>
+        <div class="pc-card"><div style="font-size:.52rem;font-weight:600">📊 Registration Compliance</div><div style="height:5px;background:#EEE;border-radius:3px;margin:4px 0;overflow:hidden"><div style="width:85%;height:100%;background:var(--teal);border-radius:3px"></div></div><div style="font-size:.44rem;color:var(--text3)">85% — 7 booked / 6 registered</div></div>
+        <div style="height:1px;background:#EEE;margin:6px 0"></div>
+        <h5>📅 Upcoming Visit</h5>
+        <div class="pc-card" style="border-left:2px solid var(--navy)"><div style="font-size:.5rem;font-weight:600;color:var(--navy)">Mar 3 — 09:30</div><div style="font-size:.44rem;color:var(--text3)">2 visitors ｜ TOCC required</div></div>
+      </div></div>
+      <div class="phone-tab"><div class="tab on"><span class="ti">🏠</span>Home</div><div class="tab"><span class="ti">📅</span>Visit</div><div class="tab"><span class="ti">📋</span>TOCC</div><div class="tab"><span class="ti">📊</span>Survey</div><div class="tab"><span class="ti">📮</span>Feedback</div><div class="tab"><span class="ti">🤖</span>AI</div></div>
+    </div></div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ═══════════ SOCIAL WORKER SCREENING ═══════════ -->
-<section class="section">
+<!-- ═══════════ SCREENING ═══════════ -->
+<section class="section" id="sec-screening">
   <div class="sec-label">Social Worker Screening</div>
-  <div class="sec-title">AI-Driven Risk Detection &amp; Heatmap Visualization</div>
-  <p class="sec-desc">The core innovation — transforming raw visitation data into actionable risk intelligence. In qualitative interviews, 90% of staff reported heatmaps "significantly improved screening efficiency."</p>
-
+  <div class="sec-title">AI-Driven Risk Detection &amp; Heatmap</div>
+  <p class="sec-desc">90% of staff reported heatmaps "significantly improved screening efficiency."</p>
   <div class="screen-section rev">
     <div class="screen-text">
-      <h3>Heatmap-Based Visual Screening</h3>
-      <p>The heatmap provides an instant, at-a-glance view of every resident's family engagement across months. Color intensity maps directly to the AI's <strong>4-tier risk classification</strong>:</p>
+      <h3>4-Tier Risk Classification</h3>
       <ul class="feature-list">
-        <li><div class="f-icon" style="background:var(--teal-light);color:var(--teal)">🟢</div><span><strong>Tier 1 — Adequate</strong>: Consistent engagement, no action needed</span></li>
-        <li><div class="f-icon" style="background:var(--gold-light);color:var(--gold)">🟡</div><span><strong>Tier 2 — Monitor</strong>: Mild decline detected, passive observation</span></li>
-        <li><div class="f-icon" style="background:var(--coral-light);color:var(--coral)">🟠</div><span><strong>Tier 3 — Alert</strong>: Significant drop, social worker outreach initiated</span></li>
-        <li><div class="f-icon" style="background:var(--coral-light);color:#9B1B1B">🔴</div><span><strong>Tier 4 — Critical</strong>: Zero visits detected, immediate intervention required</span></li>
+        <li><div class="f-icon" style="background:var(--teal-light);color:var(--teal)">🟢</div><span><strong>Tier 1 — Adequate</strong>: Consistent engagement</span></li>
+        <li><div class="f-icon" style="background:var(--gold-light);color:var(--gold)">🟡</div><span><strong>Tier 2 — Monitor</strong>: Mild decline</span></li>
+        <li><div class="f-icon" style="background:var(--coral-light);color:var(--coral)">🟠</div><span><strong>Tier 3 — Alert</strong>: Social worker outreach</span></li>
+        <li><div class="f-icon" style="background:var(--coral-light);color:#9B1B1B">🔴</div><span><strong>Tier 4 — Critical</strong>: Immediate intervention</span></li>
       </ul>
-      <div class="callout callout-coral" style="margin-top:14px">
-        <div class="c-icon">📞</div>
-        <div class="c-body">
-          <h4>Proactive Detection Results (N=117)</h4>
-          <p>AI flagged 15% of records as high-risk. Follow-up revealed: <strong>45%</strong> caregiver burnout/work conflicts, <strong>30%</strong> family health issues — enabling targeted support rather than generic reminders.</p>
-        </div>
-      </div>
+      <div class="callout callout-coral" style="margin-top:14px"><div class="c-icon">📞</div><div class="c-body"><h4>Results (N=117)</h4><p><strong>45%</strong> caregiver burnout, <strong>30%</strong> family health issues.</p></div></div>
     </div>
-    <div class="browser">
-      <div class="browser-bar"><div class="browser-dot" style="background:#E74C3C"></div><div class="browser-dot" style="background:#F1C40F"></div><div class="browser-dot" style="background:#2ECC71"></div><div class="browser-url">ltc-platform.cloud/admin/screening</div></div>
-      <div class="browser-body">
-        <div class="sc">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-            <h4 style="margin:0">📊 Family Support Heatmap</h4>
-            <span class="sc-badge" style="background:var(--teal-light);color:var(--teal)">Live Data</span>
-          </div>
-          <div class="heatmap">
-            <div class="hm-header"></div><div class="hm-header">Oct</div><div class="hm-header">Nov</div><div class="hm-header">Dec</div><div class="hm-header">Jan</div><div class="hm-header">Feb</div><div class="hm-header">Mar</div>
-            <div class="hm-label">Wang Y. (220-1)</div>
-            <div class="hm-cell" style="background:#2E7D32">4</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#2E7D32">5</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#2E7D32">4</div><div class="hm-cell" style="background:#66BB6A">3</div>
-            <div class="hm-label">Chen Z. (218-3)</div>
-            <div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#FFA726">1</div><div class="hm-cell" style="background:#EF5350">0</div><div class="hm-cell" style="background:#EF5350;font-weight:800">0</div><div class="hm-cell" style="background:#C62828;font-weight:800">0</div>
-            <div class="hm-label">Lin Y. (215-1)</div>
-            <div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#FFA726">1</div><div class="hm-cell" style="background:#FFA726">1</div><div class="hm-cell" style="background:#EF5350">0</div>
-            <div class="hm-label">Huang M. (216-2)</div>
-            <div class="hm-cell" style="background:#2E7D32">5</div><div class="hm-cell" style="background:#2E7D32">4</div><div class="hm-cell" style="background:#2E7D32">4</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#2E7D32">4</div><div class="hm-cell" style="background:#2E7D32">5</div>
-            <div class="hm-label">Deng L. (220-2)</div>
-            <div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#FFA726">1</div><div class="hm-cell" style="background:#FFA726">1</div>
-            <div class="hm-label">Zhang W. (219-1)</div>
-            <div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#FFA726">1</div><div class="hm-cell" style="background:#EF5350">0</div><div class="hm-cell" style="background:#EF5350;font-weight:800">0</div>
-          </div>
-          <div style="display:flex;gap:12px;font-size:.48rem;color:var(--text3);margin-top:4px">
-            <span>🟢 Adequate (3+)</span><span>🟡 Monitor (1-2)</span><span>🔴 Critical (0)</span>
-          </div>
-          <div class="sc-divider"></div>
-          <h4>🚨 AI Risk Alerts — Sliding Window Detection</h4>
-          <div class="sc-card" style="border-left:3px solid #C62828;background:var(--coral-light)">
-            <div style="font-size:.6rem;font-weight:700;color:#C62828">🔴 TIER 4 — Chen Z. (218-3)</div>
-            <div style="font-size:.55rem;margin-top:2px">Zero visits × 3 months. <strong>→ Immediate social worker contact</strong></div>
-          </div>
-          <div class="sc-card" style="border-left:3px solid #EF5350;background:var(--coral-light)">
-            <div style="font-size:.6rem;font-weight:700;color:var(--coral)">🟠 TIER 3 — Zhang W. (219-1)</div>
-            <div style="font-size:.55rem;margin-top:2px">Decline: 3→1→0 over 3 months. <strong>→ Outreach phone call</strong></div>
-          </div>
-          <div class="sc-card" style="border-left:3px solid #FFA726;background:var(--gold-light)">
-            <div style="font-size:.6rem;font-weight:700;color:var(--gold)">🟡 TIER 2 — Deng L. (220-2)</div>
-            <div style="font-size:.55rem;margin-top:2px">Gradual decrease detected. <strong>→ Passive monitoring</strong></div>
-          </div>
+    <div class="browser"><div class="browser-bar"><div class="browser-dot" style="background:#E74C3C"></div><div class="browser-dot" style="background:#F1C40F"></div><div class="browser-dot" style="background:#2ECC71"></div><div class="browser-url">ltc-platform.cloud/admin/screening</div></div>
+      <div class="browser-body"><div class="sc">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="margin:0">📊 Family Support Heatmap</h4><span class="sc-badge" style="background:var(--teal-light);color:var(--teal)">Live</span></div>
+        <div class="heatmap">
+          <div class="hm-header"></div><div class="hm-header">Oct</div><div class="hm-header">Nov</div><div class="hm-header">Dec</div><div class="hm-header">Jan</div><div class="hm-header">Feb</div><div class="hm-header">Mar</div>
+          <div class="hm-label">Wang Y.</div><div class="hm-cell" style="background:#2E7D32">4</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#2E7D32">5</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#2E7D32">4</div><div class="hm-cell" style="background:#66BB6A">3</div>
+          <div class="hm-label">Chen Z.</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#FFA726">1</div><div class="hm-cell" style="background:#EF5350">0</div><div class="hm-cell" style="background:#EF5350">0</div><div class="hm-cell" style="background:#C62828">0</div>
+          <div class="hm-label">Lin Y.</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#FFA726">1</div><div class="hm-cell" style="background:#FFA726">1</div><div class="hm-cell" style="background:#EF5350">0</div>
+          <div class="hm-label">Huang M.</div><div class="hm-cell" style="background:#2E7D32">5</div><div class="hm-cell" style="background:#2E7D32">4</div><div class="hm-cell" style="background:#2E7D32">4</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#2E7D32">4</div><div class="hm-cell" style="background:#2E7D32">5</div>
+          <div class="hm-label">Zhang W.</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#FFA726">1</div><div class="hm-cell" style="background:#EF5350">0</div><div class="hm-cell" style="background:#EF5350">0</div>
         </div>
-      </div>
+        <div style="display:flex;gap:12px;font-size:.48rem;color:var(--text3);margin-top:4px"><span>🟢 3+</span><span>🟡 1-2</span><span>🔴 0</span></div>
+        <div class="sc-divider"></div>
+        <h4>🚨 AI Risk Alerts</h4>
+        <div class="sc-card" style="border-left:3px solid #C62828;background:var(--coral-light)"><div style="font-size:.6rem;font-weight:700;color:#C62828">🔴 TIER 4 — Chen Z.</div><div style="font-size:.55rem;margin-top:2px">0 visits × 3 months → <strong>Immediate contact</strong></div></div>
+        <div class="sc-card" style="border-left:3px solid #EF5350;background:var(--coral-light)"><div style="font-size:.6rem;font-weight:700;color:var(--coral)">🟠 TIER 3 — Zhang W.</div><div style="font-size:.55rem;margin-top:2px">3→1→0 decline → <strong>Outreach call</strong></div></div>
+      </div></div>
     </div>
   </div>
-
-  <!-- Staff Impact Stats -->
-  <div style="margin-top:36px">
+  <div style="margin-top:36px" id="sec-impact">
     <div class="sec-label">Qualitative Impact</div>
-    <div class="sec-title" style="font-size:1.3rem">Staff Interview Findings (N=10)</div>
+    <div class="sec-title" style="font-size:1.3rem">Staff Findings (N=10)</div>
     <div class="dim-grid" style="grid-template-columns:repeat(3,1fr);margin-top:20px">
-      <div class="dim-card d1">
-        <div style="font-size:2rem;font-weight:900;color:var(--teal);font-family:'DM Serif Display',serif">90%</div>
-        <p>Reported visual tools (heatmaps) <strong>significantly improved screening efficiency</strong></p>
-      </div>
-      <div class="dim-card d2">
-        <div style="font-size:2rem;font-weight:900;color:var(--coral);font-family:'DM Serif Display',serif">80%</div>
-        <p>Felt a <strong>notable reduction in professional anxiety</strong> about missing vulnerable cases</p>
-      </div>
-      <div class="dim-card d3">
-        <div style="font-size:2rem;font-weight:900;color:var(--gold);font-family:'DM Serif Display',serif">70%</div>
-        <p>Stated it <strong>enhanced interdisciplinary communication</strong> across the care team</p>
-      </div>
+      <div class="dim-card d1"><div style="font-size:2rem;font-weight:900;color:var(--teal);font-family:'DM Serif Display',serif">90%</div><p>Heatmaps <strong>improved screening efficiency</strong></p></div>
+      <div class="dim-card d2"><div style="font-size:2rem;font-weight:900;color:var(--coral);font-family:'DM Serif Display',serif">80%</div><p><strong>Reduced professional anxiety</strong> about missing cases</p></div>
+      <div class="dim-card d3"><div style="font-size:2rem;font-weight:900;color:var(--gold);font-family:'DM Serif Display',serif">70%</div><p><strong>Enhanced interdisciplinary communication</strong></p></div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ═══════════ CONCLUSION ═══════════ -->
-<section class="section" style="text-align:center;max-width:700px;margin-left:auto;margin-right:auto;margin-bottom:0">
+<section class="section" style="text-align:center;max-width:700px;margin-left:auto;margin-right:auto;margin-bottom:0" id="sec-conclusion">
   <div class="sec-label" style="justify-content:center">Conclusion</div>
   <div class="sec-title" style="font-size:1.5rem">Proactive Care Through Digital Innovation</div>
-  <p style="font-size:.92rem;color:var(--text2);line-height:1.7;margin-top:12px">This study demonstrates that meaningful digital transformation in LTC doesn't require massive budgets. By embedding AI-driven multi-dimensional assessment into existing workflows, we shift from reactive responses to <strong>proactive risk management</strong> — ensuring no vulnerable resident is left without timely intervention.</p>
-  <div class="callout callout-teal" style="text-align:left;margin-top:20px">
-    <div class="c-icon">🌏</div>
-    <div class="c-body">
-      <h4>Global Applicability</h4>
-      <p>Serverless cloud architecture, zero hardware cost, and customizable thresholds make this system <strong>highly replicable</strong> for LTC institutions worldwide — particularly in regions facing similar super-aging challenges and staffing bottlenecks.</p>
-    </div>
-  </div>
+  <p style="font-size:.92rem;color:var(--text2);line-height:1.7;margin-top:12px">By embedding AI-driven multi-dimensional assessment into existing workflows, we shift from reactive responses to <strong>proactive risk management</strong> — ensuring no vulnerable resident is left without timely intervention.</p>
+  <div class="callout callout-teal" style="text-align:left;margin-top:20px"><div class="c-icon">🌏</div><div class="c-body"><h4>Global Applicability</h4><p>Zero hardware cost and customizable thresholds make this <strong>highly replicable</strong> for LTC institutions worldwide.</p></div></div>
 </section>
 
 </div>
 
 <div class="footer">
   <strong>Multi-Dimensional Family Support Assessment System</strong><br>
-  Taipei City Hospital — Affiliated Public Long-Term Care Institution, Taiwan<br>
-  <div class="f-line">TRACK 4: Digital Transformation and the Impact of AI on Care and Operations ｜ 2026</div>
+  Taipei City Hospital — Affiliated Public LTC Institution, Taiwan<br>
+  <div class="f-line">TRACK 4: Digital Transformation &amp; AI in Care Operations ｜ 2026</div>
+</div>
+
+<!-- ═══════════ AI GUIDE CHATBOT ═══════════ -->
+<button class="ai-fab" id="aiFab" onclick="toggleAI()">
+  <span class="ai-pulse"></span>
+  🤖
+</button>
+
+<div class="ai-panel" id="aiPanel">
+  <div class="ai-panel-head">
+    <div class="ai-avatar">🤖</div>
+    <div><div class="ai-title">AI System Guide</div><div class="ai-sub">Ask me anything about this project</div></div>
+    <button class="ai-panel-close" onclick="toggleAI()">✕</button>
+  </div>
+  <div class="ai-chat" id="aiChat"></div>
+  <div class="ai-input-wrap">
+    <input class="ai-input" id="aiInput" placeholder="Ask a question..." onkeydown="if(event.key==='Enter')sendMsg()">
+    <button class="ai-send" onclick="sendMsg()">↑</button>
+  </div>
 </div>
 
 <script>
+// ═══════════ AI KNOWLEDGE BASE ═══════════
+const KB = [
+  {
+    keys: ['hello','hi','hey','start','guide','tour','help','what','overview','about','introduction','intro'],
+    answer: `Welcome! 👋 I'm your AI guide for the <strong>Multi-Dimensional Family Support Assessment System</strong>.\n\nThis system was developed at a 50-bed public LTC institution in Taiwan over a 17-month action research study (N=782 records).\n\nWhat would you like to explore?`,
+    quick: ['4D Framework','Family Portal','Heatmap Screening','Key Results','Architecture'],
+    section: 'sec-hero'
+  },
+  {
+    keys: ['framework','dimension','4d','four','scoring','model','assessment','breadth','intensity','stability','attention','how','measure','evaluate'],
+    answer: `The <strong>4-Dimensional Scoring Model</strong> overcomes single-metric blind spots:\n\n🟢 <strong>D1 — Social Network Breadth:</strong> Unique visitors per month\n🔴 <strong>D2 — Interaction Intensity:</strong> Total visit frequency\n🟡 <strong>D3 — Relationship Stability:</strong> 3-month sliding window trend\n🔵 <strong>D4 — Immediate Attention:</strong> AI-triggered sudden drop alerts\n\n<a onclick="goTo('sec-framework')">→ View the Framework section</a>`,
+    quick: ['How does AI predict?','Family Portal','Key Results'],
+    section: 'sec-framework'
+  },
+  {
+    keys: ['family','portal','visit','booking','registration','tocc','point','card','mobile','app','phone','register','schedule','book'],
+    answer: `The <strong>Family Portal</strong> is a mobile web interface — no app install needed!\n\n📅 <strong>Visit Scheduling:</strong> Calendar-based slot booking\n📋 <strong>TOCC Screening:</strong> Health declaration for infection control\n⭐ <strong>Visit Point Card:</strong> Gamified monthly tracker\n📊 <strong>Compliance Rate:</strong> Booking vs. actual registration ratio\n\nEach interaction automatically feeds the 4D scoring model — turning routine check-ins into structured assessment data.\n\n<a onclick="goTo('sec-family')">→ View the Family Portal section</a>`,
+    quick: ['How does data feed 4D?','Heatmap Screening','AI Chatbot'],
+    section: 'sec-family'
+  },
+  {
+    keys: ['data','feed','map','how','collect','work','mapping','dimension','automatic'],
+    answer: `Every registration event automatically maps to the 4D model:\n\n📐 Unique visitors → <strong>D1 Breadth</strong>\n📐 Total visits → <strong>D2 Intensity</strong>\n📐 Monthly patterns → <strong>D3 Stability</strong>\n📐 Sudden drops → <strong>D4 Attention</strong>\n\nThis happens seamlessly — families don't see the scoring, they just use the portal naturally.\n\n<a onclick="goTo('sec-family')">→ See the Data→Dimensions callout</a>`,
+    quick: ['4D Framework','Heatmap Screening'],
+    section: 'sec-family'
+  },
+  {
+    keys: ['heatmap','screening','social','worker','risk','alert','tier','detect','predict','flag','decline','drop','warning','proactive'],
+    answer: `The <strong>Heatmap Dashboard</strong> is the core screening tool for social workers:\n\n🟢 <strong>Tier 1 — Adequate:</strong> 3+ visits, all good\n🟡 <strong>Tier 2 — Monitor:</strong> 1-2 visits, passive observation\n🟠 <strong>Tier 3 — Alert:</strong> Significant drop → outreach call\n🔴 <strong>Tier 4 — Critical:</strong> 0 visits → immediate intervention\n\nThe AI uses <strong>sliding window analysis</strong> to detect trends before they become crises. 90% of staff said it significantly improved screening efficiency.\n\n<a onclick="goTo('sec-screening')">→ View the Heatmap section</a>`,
+    quick: ['What results?','Architecture','Family Portal'],
+    section: 'sec-screening'
+  },
+  {
+    keys: ['result','results','outcome','impact','finding','save','hour','satisfaction','qualitative','interview','staff','number','statistic','key'],
+    answer: `<strong>Key Results from 17 months:</strong>\n\n📊 <strong>782</strong> visitation records analyzed\n⏱️ <strong>20 hours/month</strong> saved on manual tracking\n🚨 <strong>15%</strong> (n=117) flagged as high-risk\n😊 <strong>92%</strong> family communication satisfaction\n😊 <strong>88%</strong> resident satisfaction\n\n<strong>Staff interviews (N=10):</strong>\n• 90% — heatmaps improved efficiency\n• 80% — reduced anxiety about missing cases\n• 70% — enhanced team communication\n\n<a onclick="goTo('sec-impact')">→ View the Impact section</a>`,
+    quick: ['Why high-risk?','Architecture','4D Framework'],
+    section: 'sec-impact'
+  },
+  {
+    keys: ['why','high','risk','reason','cause','burnout','health','caregiver','drop','sudden'],
+    answer: `The AI flagged <strong>15% (n=117)</strong> of records as high-risk due to sudden visitation drops.\n\nSocial worker follow-up revealed:\n🔴 <strong>45%</strong> — Caregiver burnout or work conflicts\n🟠 <strong>30%</strong> — Family member health issues\n🟡 <strong>25%</strong> — Other situational factors\n\nThis is the key insight: the <strong>real reasons</strong> aren't neglect but solvable problems — enabling targeted support instead of generic reminders.\n\n<a onclick="goTo('sec-screening')">→ View Risk Detection</a>`,
+    quick: ['Key Results','Architecture'],
+    section: 'sec-screening'
+  },
+  {
+    keys: ['architecture','tech','technology','saas','cloud','server','cost','hardware','stack','how','built','infrastructure','deploy','serverless','replicate','replicable'],
+    answer: `The system runs on a <strong>5-layer serverless cloud architecture</strong>:\n\n🟢 <strong>User Layer:</strong> Family portal + Social worker dashboard + Nursing admin\n🔵 <strong>Application:</strong> Serverless web engine + 4D scoring + Analytics\n🔴 <strong>AI Engine:</strong> Risk prediction + NLP matching + Complaint triage\n🟡 <strong>Data Layer:</strong> Visitation records + Surveys + AI logs\n⚫ <strong>Output:</strong> Auto email + Risk alerts + Reports\n\n💰 <strong>Zero hardware cost</strong> — entirely cloud-hosted with customizable thresholds for easy replication.\n\n<a onclick="goTo('sec-arch')">→ View Architecture diagram</a>`,
+    quick: ['Key Results','Family Portal','4D Framework'],
+    section: 'sec-arch'
+  },
+  {
+    keys: ['chatbot','ai','assistant','nlp','emotion','complaint','triage','knowledge','topic','synonym'],
+    answer: `The system includes an embedded <strong>AI Smart Assistant</strong> for families:\n\n🤖 <strong>29-topic knowledge base</strong> with 400+ keywords\n📖 <strong>170+ synonym expansions</strong> for colloquial term matching\n😤 <strong>3-level emotion detection</strong> adjusts response empathy\n📮 <strong>13-scenario complaint pre-screening</strong> with resolution paths\n🚨 <strong>Emergency interception</strong> for abuse/elopement keywords\n\nAll conversations are logged and feed into the admin analytics dashboard for continuous improvement.`,
+    quick: ['Architecture','Heatmap Screening','Key Results'],
+    section: 'sec-arch'
+  },
+  {
+    keys: ['nps','satisfaction','survey','pdca','quality','improvement','nurse','nursing'],
+    answer: `The <strong>Satisfaction Analytics</strong> module measures care quality:\n\n📊 <strong>13-item survey</strong> across 5 dimensions (Environment, Nursing, Daily Life, Communication, Overall)\n🎯 <strong>NPS (0-10)</strong> classifies families as Promoters/Passives/Detractors\n📋 <strong>PDCA workflow</strong> generates improvement plans for below-threshold items\n\nThe NPS risk list helps nursing staff prioritize relationship management with Detractor families.`,
+    quick: ['Key Results','Heatmap Screening','Architecture'],
+    section: 'sec-stats'
+  },
+  {
+    keys: ['taiwan','regulation','compliance','evaluation','accreditation','visit','monthly','mandate','law','rule','policy'],
+    answer: `In Taiwan, <strong>national LTC evaluation regulations mandate</strong> that family members visit residents at least once per month.\n\nHowever, tracking compliance traditionally relied on social workers' subjective experience — inefficient and prone to missing high-risk cases.\n\nThis system provides <strong>objective, automated compliance monitoring</strong> embedded in daily workflows, directly supporting regulatory requirements.\n\n<a onclick="goTo('sec-hero')">→ Back to Introduction</a>`,
+    quick: ['4D Framework','Key Results','Architecture'],
+    section: 'sec-hero'
+  },
+  {
+    keys: ['innovative','innovation','unique','different','novel','contribution','new','paradigm'],
+    answer: `<strong>Key innovations:</strong>\n\n1️⃣ <strong>Multi-dimensional assessment</strong> — overcomes single-metric blind spots with 4 complementary dimensions\n\n2️⃣ <strong>Static + Dynamic integration</strong> — combines accumulated scoring with real-time trend analysis\n\n3️⃣ <strong>Proactive paradigm shift</strong> — from reactive responses to AI-driven early warning\n\n4️⃣ <strong>Zero-cost replicability</strong> — serverless architecture deployable by any LTC institution\n\n<a onclick="goTo('sec-conclusion')">→ View Conclusion</a>`,
+    quick: ['4D Framework','Architecture','Key Results'],
+    section: 'sec-conclusion'
+  },
+  {
+    keys: ['contact','author','who','team','researcher','institution','hospital'],
+    answer: `This project was developed at:\n\n🏥 <strong>Taipei City Hospital</strong> — Affiliated Public Long-Term Care Institution\n📍 Taiwan\n🛏️ 50-bed residential care facility\n👥 Multidisciplinary team (social workers, nurses, admin)\n\nThe study was conducted over <strong>17 months</strong> using an action research methodology.`,
+    quick: ['Key Results','Overview','Architecture'],
+    section: 'sec-hero'
+  }
+];
+
+// ═══════════ CHATBOT ENGINE ═══════════
+let aiOpen = false;
+const chat = document.getElementById('aiChat');
+const input = document.getElementById('aiInput');
+
+function toggleAI(){
+  aiOpen = !aiOpen;
+  document.getElementById('aiPanel').classList.toggle('show', aiOpen);
+  document.getElementById('aiFab').classList.toggle('open', aiOpen);
+  if(aiOpen && chat.children.length === 0){
+    setTimeout(()=>{ botReply(KB[0]); }, 300);
+  }
+  if(aiOpen) setTimeout(()=>input.focus(), 100);
+}
+
+function goTo(id){
+  const el = document.getElementById(id);
+  if(el){
+    el.scrollIntoView({behavior:'smooth',block:'start'});
+    el.classList.add('tour-highlight');
+    setTimeout(()=>el.classList.remove('tour-highlight'),3000);
+  }
+}
+
+function addMsg(html, isUser){
+  const d = document.createElement('div');
+  d.className = 'ai-msg ' + (isUser ? 'ai-user' : 'ai-bot');
+  d.innerHTML = '<div class="ai-bubble">' + html.replace(/\n/g,'<br>') + '</div>';
+  chat.appendChild(d);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function addQuick(btns){
+  const wrap = document.createElement('div');
+  wrap.className = 'ai-quick';
+  btns.forEach(b=>{
+    const btn = document.createElement('button');
+    btn.className = 'ai-quick-btn';
+    btn.textContent = b;
+    btn.onclick = ()=>{ handleQuery(b); };
+    wrap.appendChild(btn);
+  });
+  chat.appendChild(wrap);
+  chat.scrollTop = chat.scrollHeight;
+}
+
+function showTyping(){
+  const d = document.createElement('div');
+  d.className = 'ai-msg ai-bot';
+  d.id = 'typing';
+  d.innerHTML = '<div class="ai-typing"><span></span><span></span><span></span></div>';
+  chat.appendChild(d);
+  chat.scrollTop = chat.scrollHeight;
+}
+function hideTyping(){
+  const t = document.getElementById('typing');
+  if(t) t.remove();
+}
+
+function findBest(q){
+  const words = q.toLowerCase().replace(/[^a-z0-9\s]/g,'').split(/\s+/);
+  let best = null, bestScore = 0;
+  KB.forEach(entry => {
+    let score = 0;
+    words.forEach(w => {
+      entry.keys.forEach(k => {
+        if(w === k) score += 3;
+        else if(w.length > 3 && k.includes(w)) score += 1.5;
+        else if(k.length > 3 && w.includes(k)) score += 1;
+      });
+    });
+    if(score > bestScore){ bestScore = score; best = entry; }
+  });
+  return bestScore >= 2 ? best : null;
+}
+
+function botReply(entry){
+  showTyping();
+  const delay = Math.min(400 + entry.answer.length * 2, 1200);
+  setTimeout(()=>{
+    hideTyping();
+    addMsg(entry.answer, false);
+    if(entry.quick) addQuick(entry.quick);
+  }, delay);
+}
+
+function handleQuery(text){
+  addMsg(text, true);
+  // remove old quick buttons
+  document.querySelectorAll('.ai-quick').forEach(q=>q.remove());
+
+  const match = findBest(text);
+  if(match){
+    botReply(match);
+  } else {
+    showTyping();
+    setTimeout(()=>{
+      hideTyping();
+      addMsg("I'm not sure about that specific topic, but I can help with these areas:", false);
+      addQuick(['Overview','4D Framework','Family Portal','Heatmap Screening','Key Results','Architecture','AI Chatbot','NPS & PDCA','Innovation','Regulations']);
+    }, 600);
+  }
+}
+
+function sendMsg(){
+  const v = input.value.trim();
+  if(!v) return;
+  input.value = '';
+  handleQuery(v);
+}
+
+// Animation observer
 const obs=new IntersectionObserver(e=>{e.forEach(n=>{if(n.isIntersecting)n.target.style.animationPlayState='running'})},{threshold:.15});
 document.querySelectorAll('.fade-in').forEach(el=>{el.style.animationPlayState='paused';obs.observe(el)});
 </script>
