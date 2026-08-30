@@ -1,129 +1,246 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant" data-lang="zh">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Multi-Dimensional Family Support Assessment — System Overview</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>Multi-Dimensional Family Support Assessment System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --bg:#FAFAF8;--surface:#FFF;--text:#1A1D23;--text2:#5C6070;--text3:#9199A8;
-  --ink:#0F1923;--warm:#F5F3EF;
+  --ink:#0F1923;--warm:#F5F3EF;--line:#E8EAF0;
   --teal:#0D7C66;--teal-light:#E6F5F1;--teal-dark:#065A49;
   --coral:#D4553A;--coral-light:#FDF0ED;
   --gold:#C4960C;--gold-light:#FDF8E8;
   --navy:#1B2A4A;--navy-light:#EDF0F7;
+  --t1:#2E7D32;--t2:#C4960C;--t3:#E67E22;--t4:#C62828;
   --radius:14px;--radius-sm:8px;
   --shadow:0 2px 20px rgba(15,25,35,.05);
   --shadow-lg:0 12px 48px rgba(15,25,35,.08);
+  --cjk:'Noto Sans TC';
 }
-body{font-family:'Instrument Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.72;-webkit-font-smoothing:antialiased}
-h1,h2,h3,.serif{font-family:'DM Serif Display',Georgia,serif}
-.container{max-width:1100px;margin:0 auto;padding:0 28px}
+html{scroll-behavior:smooth;scroll-padding-top:74px}
+body{font-family:'Instrument Sans',var(--cjk),sans-serif;background:var(--bg);color:var(--text);line-height:1.72;-webkit-font-smoothing:antialiased}
+body[data-lang="ja"]{--cjk:'Noto Sans JP'}
+body[data-lang="ko"]{--cjk:'Noto Sans KR'}
+h1,h2,h3,.serif{font-family:'DM Serif Display',var(--cjk),Georgia,serif;font-weight:400}
+body[data-lang="zh"] h1,body[data-lang="ja"] h1,body[data-lang="ko"] h1,
+body[data-lang="zh"] .sec-title,body[data-lang="ja"] .sec-title,body[data-lang="ko"] .sec-title{letter-spacing:.5px}
+.mono{font-family:'IBM Plex Mono',monospace}
+.container{max-width:1140px;margin:0 auto;padding:0 28px}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px;border-radius:4px}
 
-.hero{padding:72px 0 56px;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:-200px;right:-200px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(13,124,102,.06) 0%,transparent 70%)}
-.hero::after{content:'';position:absolute;bottom:-100px;left:-100px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(212,85,58,.04) 0%,transparent 70%)}
-.track-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:20px;background:var(--teal-light);color:var(--teal);font-size:.72rem;font-weight:600;letter-spacing:.3px;margin-bottom:16px}
-.hero h1{font-size:2.6rem;line-height:1.18;color:var(--ink);max-width:780px;margin-bottom:16px;position:relative;z-index:1}
-.hero .lead{font-size:1.05rem;color:var(--text2);max-width:640px;line-height:1.7;position:relative;z-index:1}
-.hero .meta-row{display:flex;gap:24px;margin-top:24px;flex-wrap:wrap;position:relative;z-index:1}
-.hero .meta-item{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--text3)}
-.hero .meta-item .dot{width:6px;height:6px;border-radius:50%}
+/* ═══ NAV ═══ */
+.nav{position:sticky;top:0;z-index:900;background:rgba(250,250,248,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1140px;margin:0 auto;padding:0 28px;height:60px;display:flex;align-items:center;gap:20px}
+.nav-brand{display:flex;align-items:center;gap:9px;flex-shrink:0}
+.nav-brand .mark{width:28px;height:28px;border-radius:9px;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;letter-spacing:-.5px}
+.nav-brand .bt{font-size:.78rem;font-weight:700;color:var(--ink);line-height:1.2}
+.nav-brand .bs{font-size:.58rem;color:var(--text3);letter-spacing:.5px}
+.nav-links{display:flex;gap:2px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{padding:6px 11px;border-radius:8px;font-size:.76rem;color:var(--text2);text-decoration:none;white-space:nowrap;transition:.18s;font-weight:500}
+.nav-links a:hover{background:var(--teal-light);color:var(--teal-dark)}
+.nav-links a.on{background:var(--teal);color:#fff}
+.lang{display:flex;gap:0;background:var(--line);border-radius:9px;padding:2px;flex-shrink:0}
+.lang button{border:none;background:transparent;padding:5px 9px;border-radius:7px;font-size:.7rem;font-weight:600;color:var(--text2);cursor:pointer;transition:.18s;font-family:inherit;white-space:nowrap}
+.lang button:hover{color:var(--ink)}
+.lang button.on{background:var(--surface);color:var(--teal);box-shadow:0 1px 4px rgba(0,0,0,.08)}
+.nav-burger{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:8px;width:34px;height:30px;font-size:.9rem;cursor:pointer;color:var(--text2)}
 
-.stats-bar{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:#E8EAF0;border-radius:var(--radius);overflow:hidden;margin:40px 0 56px;box-shadow:var(--shadow)}
-.stat-item{background:var(--surface);padding:24px 16px;text-align:center}
-.stat-item .num{font-family:'DM Serif Display',serif;font-size:2rem;color:var(--teal);line-height:1}
-.stat-item .unit{font-size:.7rem;color:var(--text3);margin-top:4px;font-weight:500}
+/* ═══ HERO ═══ */
+.hero{padding:60px 0 44px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-220px;right:-180px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(13,124,102,.07) 0%,transparent 70%)}
+.hero::after{content:'';position:absolute;bottom:-140px;left:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(212,85,58,.05) 0%,transparent 70%)}
+.hero>*{position:relative;z-index:1}
+.track-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 15px;border-radius:20px;background:var(--teal-light);color:var(--teal);font-size:.7rem;font-weight:600;letter-spacing:.3px;margin-bottom:15px}
+.hero h1{font-size:2.5rem;line-height:1.2;color:var(--ink);max-width:820px;margin-bottom:14px}
+.hero .lead{font-size:1rem;color:var(--text2);max-width:660px;line-height:1.75}
+.meta-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:.74rem;color:var(--text2);background:var(--surface);border:1px solid var(--line);padding:5px 12px;border-radius:20px}
+.chip .dot{width:6px;height:6px;border-radius:50%}
+.cta-row{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:11px 20px;border-radius:10px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;text-decoration:none;transition:.2s;font-family:inherit}
+.btn-p{background:var(--teal);color:#fff;box-shadow:0 4px 16px rgba(13,124,102,.24)}
+.btn-p:hover{background:var(--teal-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(13,124,102,.3)}
+.btn-s{background:var(--surface);color:var(--text);border:1.5px solid var(--line)}
+.btn-s:hover{border-color:var(--teal);color:var(--teal)}
 
-.section{margin-bottom:64px}
-.sec-label{display:inline-flex;align-items:center;gap:6px;font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);margin-bottom:10px}
+.stats-bar{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border-radius:var(--radius);overflow:hidden;margin:36px 0 60px;box-shadow:var(--shadow)}
+.stat-item{background:var(--surface);padding:22px 12px;text-align:center}
+.stat-item .num{font-family:'DM Serif Display',serif;font-size:1.95rem;color:var(--teal);line-height:1}
+.stat-item .num small{font-size:1rem}
+.stat-item .unit{font-size:.66rem;color:var(--text3);margin-top:5px;font-weight:500;line-height:1.35}
+
+/* ═══ SECTIONS ═══ */
+.section{margin-bottom:66px;scroll-margin-top:74px}
+.sec-label{display:inline-flex;align-items:center;gap:7px;font-size:.66rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);margin-bottom:9px}
 .sec-label::before{content:'';width:20px;height:2px;background:var(--teal);border-radius:1px}
-.sec-title{font-size:1.7rem;color:var(--ink);margin-bottom:8px;line-height:1.25}
-.sec-desc{font-size:.92rem;color:var(--text2);max-width:620px;line-height:1.65}
+.sec-title{font-size:1.65rem;color:var(--ink);margin-bottom:8px;line-height:1.3}
+.sec-desc{font-size:.9rem;color:var(--text2);max-width:680px;line-height:1.7}
+.divider{height:1px;background:linear-gradient(to right,transparent,#D8DBE4,transparent);margin:44px 0}
 
-.dim-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px}
-.dim-card{background:var(--surface);border-radius:var(--radius);padding:24px 20px;box-shadow:var(--shadow);border-top:3px solid transparent;transition:.25s}
+/* ═══ ABSTRACT TABS ═══ */
+.tabs{display:flex;gap:6px;margin:24px 0 0;flex-wrap:wrap}
+.tab-btn{padding:9px 16px;border-radius:10px 10px 0 0;border:1px solid var(--line);border-bottom:none;background:var(--warm);color:var(--text2);font-size:.78rem;font-weight:600;cursor:pointer;font-family:inherit;transition:.18s}
+.tab-btn:hover{color:var(--teal)}
+.tab-btn.on{background:var(--surface);color:var(--teal-dark);box-shadow:0 -2px 0 var(--teal) inset}
+.tab-body{background:var(--surface);border:1px solid var(--line);border-radius:0 var(--radius) var(--radius) var(--radius);padding:26px 30px;box-shadow:var(--shadow);min-height:180px}
+.tab-pane{display:none;animation:fadeUp .35s ease}
+.tab-pane.on{display:block}
+.tab-pane p{font-size:.9rem;color:var(--text2);line-height:1.85;margin-bottom:12px}
+.tab-pane p:last-child{margin-bottom:0}
+.tab-pane strong,.tab-pane b{color:var(--text);font-weight:600}
+.tab-pane .hl{background:linear-gradient(transparent 62%,rgba(13,124,102,.16) 0);padding:0 2px;font-weight:600;color:var(--teal-dark)}
+.pane-tag{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+
+/* ═══ TIMELINE ═══ */
+.tl{display:flex;align-items:stretch;margin-top:20px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.tl-step{flex:1;padding:14px 16px;border-right:1px solid var(--line);position:relative}
+.tl-step:last-child{border-right:none}
+.tl-step .tl-date{font-size:.62rem;font-weight:700;color:var(--teal);letter-spacing:.5px;font-family:'IBM Plex Mono',monospace}
+.tl-step .tl-txt{font-size:.72rem;color:var(--text2);margin-top:3px;line-height:1.45}
+.tl-step::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--teal);opacity:.18}
+.tl-step:nth-child(2)::after{opacity:.4}.tl-step:nth-child(3)::after{opacity:.65}.tl-step:nth-child(4)::after{opacity:1}
+
+/* ═══ DIMENSION CARDS ═══ */
+.dim-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
+.dim-card{background:var(--surface);border-radius:var(--radius);padding:22px 19px;box-shadow:var(--shadow);border-top:3px solid transparent;transition:.25s;cursor:pointer;text-align:left;border-left:none;border-right:none;border-bottom:none;font-family:inherit;width:100%}
 .dim-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-3px)}
-.dim-card .d-num{font-size:.62rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
-.dim-card h3{font-size:1.02rem;margin-bottom:6px;font-family:'DM Serif Display',serif}
-.dim-card p{font-size:.78rem;color:var(--text2);line-height:1.55}
-.dim-card .metric{margin-top:12px;padding-top:10px;border-top:1px solid #F0F1F4;font-size:.72rem;color:var(--text3);display:flex;align-items:center;gap:4px}
-.d1{border-top-color:var(--teal)} .d1 .d-num{color:var(--teal)}
-.d2{border-top-color:var(--coral)} .d2 .d-num{color:var(--coral)}
-.d3{border-top-color:var(--gold)} .d3 .d-num{color:var(--gold)}
-.d4{border-top-color:var(--navy)} .d4 .d-num{color:var(--navy)}
+.dim-card.on{box-shadow:var(--shadow-lg)}
+.dim-card .d-num{font-size:.6rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:7px;font-family:'IBM Plex Mono',monospace}
+.dim-card h3{font-size:1rem;margin-bottom:6px}
+.dim-card p{font-size:.76rem;color:var(--text2);line-height:1.6}
+.dim-card .metric{margin-top:11px;padding-top:9px;border-top:1px solid #F0F1F4;font-size:.68rem;color:var(--text3);display:flex;align-items:center;gap:5px}
+.dim-card .d-more{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.dim-card.on .d-more{max-height:220px}
+.dim-card .d-more-in{margin-top:10px;padding:10px 12px;background:var(--warm);border-radius:8px;font-size:.7rem;line-height:1.6;color:var(--text2)}
+.dim-card .d-more-in code{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--teal-dark);background:#fff;padding:1px 5px;border-radius:4px;display:inline-block;margin-top:5px}
+.d1{border-top-color:var(--teal)} .d1 .d-num{color:var(--teal)} .d1.on{border-top-width:5px}
+.d2{border-top-color:var(--coral)} .d2 .d-num{color:var(--coral)} .d2.on{border-top-width:5px}
+.d3{border-top-color:var(--gold)} .d3 .d-num{color:var(--gold)} .d3.on{border-top-width:5px}
+.d4{border-top-color:var(--navy)} .d4 .d-num{color:var(--navy)} .d4.on{border-top-width:5px}
 
-.screen-section{display:flex;gap:36px;align-items:flex-start;margin-top:32px}
-.screen-section.rev{flex-direction:row-reverse}
-.screen-text{flex:1;min-width:0;padding-top:16px}
-.screen-text h3{font-size:1.15rem;margin-bottom:8px;font-family:'DM Serif Display',serif;color:var(--ink)}
-.screen-text p{font-size:.86rem;color:var(--text2);line-height:1.65;margin-bottom:10px}
-.feature-list{list-style:none;margin:12px 0}
-.feature-list li{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;font-size:.82rem;color:var(--text2)}
-.feature-list li .f-icon{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;margin-top:1px}
+/* ═══ SIMULATOR ═══ */
+.sim{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:26px}
+.panel{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);padding:22px}
+.panel h4{font-size:.86rem;font-weight:700;margin-bottom:4px;font-family:'Instrument Sans',var(--cjk),sans-serif}
+.panel .ph{font-size:.72rem;color:var(--text3);margin-bottom:16px;line-height:1.5}
+.preset-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.preset{padding:6px 12px;border-radius:16px;border:1.5px solid var(--line);background:transparent;font-size:.72rem;color:var(--text2);cursor:pointer;font-family:inherit;transition:.18s;font-weight:500}
+.preset:hover{border-color:var(--teal);color:var(--teal)}
+.preset.on{background:var(--teal);border-color:var(--teal);color:#fff}
+.mrow{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.mrow .ml{font-size:.68rem;color:var(--text2);width:94px;line-height:1.35;flex-shrink:0;font-family:'IBM Plex Mono',monospace;font-weight:500}
+.mrow .mv{font-size:.72rem;font-weight:700;color:var(--ink);width:20px;text-align:right;font-family:'IBM Plex Mono',monospace}
+input[type=range]{-webkit-appearance:none;appearance:none;flex:1;height:5px;border-radius:3px;background:var(--line);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--teal);cursor:pointer;box-shadow:0 1px 5px rgba(0,0,0,.2);transition:.15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.18)}
+input[type=range]::-moz-range-thumb{width:16px;height:16px;border:none;border-radius:50%;background:var(--teal);cursor:pointer}
+input[type=range].prevw::-webkit-slider-thumb{background:var(--text3)}
+input[type=range].prevw::-moz-range-thumb{background:var(--text3)}
+.win-tag{font-size:.6rem;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--text3);margin:12px 0 6px;display:flex;align-items:center;gap:6px}
+.win-tag::after{content:'';flex:1;height:1px;background:var(--line)}
+.win-tag.rec{color:var(--teal)}
+.thr-box{margin-top:16px;padding:14px;background:var(--gold-light);border-radius:10px;border-left:3px solid var(--gold)}
+.thr-box .tt{font-size:.72rem;font-weight:700;color:#8A6A00;display:flex;justify-content:space-between;align-items:center}
+.thr-box .tv{font-family:'IBM Plex Mono',monospace;font-size:.86rem}
+.thr-box .td{font-size:.66rem;color:var(--text2);margin-top:6px;line-height:1.5}
+.thr-box input[type=range]{width:100%;margin-top:8px;background:#EADFB8}
+.thr-box input[type=range]::-webkit-slider-thumb{background:var(--gold)}
+.thr-box input[type=range]::-moz-range-thumb{background:var(--gold)}
 
-.browser{width:480px;flex-shrink:0;border-radius:var(--radius);box-shadow:var(--shadow-lg);overflow:hidden;border:1px solid #E4E6EC}
-.browser-bar{height:32px;background:#F0F1F4;display:flex;align-items:center;padding:0 12px;gap:6px}
-.browser-dot{width:8px;height:8px;border-radius:50%}
-.browser-url{margin-left:12px;flex:1;height:18px;background:#FFF;border-radius:4px;padding:0 8px;font-size:.52rem;color:var(--text3);display:flex;align-items:center}
-.browser-body{background:var(--surface)}
-.sc{padding:16px 18px;font-size:.68rem;color:var(--text2);line-height:1.55}
-.sc h4{font-size:.82rem;font-weight:700;color:var(--text);margin-bottom:6px;font-family:'Instrument Sans',sans-serif}
-.sc-card{background:var(--warm);border-radius:8px;padding:10px 14px;margin-bottom:8px}
-.sc-divider{height:1px;background:#ECEEF2;margin:10px 0}
-.sc-badge{display:inline-block;padding:2px 8px;border-radius:12px;font-size:.52rem;font-weight:600}
+.gauge-wrap{display:flex;align-items:center;gap:18px;margin-bottom:14px}
+.gauge{position:relative;width:112px;height:112px;flex-shrink:0}
+.gauge svg{transform:rotate(-90deg)}
+.gauge .gc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.gauge .gv{font-family:'DM Serif Display',serif;font-size:2rem;line-height:1;color:var(--ink)}
+.gauge .gl{font-size:.56rem;color:var(--text3);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.tier-badge{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:20px;font-size:.8rem;font-weight:700;color:#fff;transition:.3s}
+.tier-act{font-size:.76rem;color:var(--text2);margin-top:8px;line-height:1.6}
+.rule-log{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--warm);font-size:.72rem;line-height:1.65;color:var(--text2);border-left:3px solid var(--text3);transition:.3s}
+.rule-log b{color:var(--ink)}
+.rule-log.fire{background:var(--coral-light);border-left-color:var(--coral);color:#8C3520}
+.rule-log.fire b{color:var(--coral)}
+.dbars{margin-top:14px;display:grid;gap:8px}
+.dbar{display:flex;align-items:center;gap:9px}
+.dbar .dn{font-size:.68rem;color:var(--text2);width:98px;flex-shrink:0;line-height:1.3}
+.dbar .dt{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.dbar .df{height:100%;border-radius:4px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.dbar .dv{font-size:.66rem;font-family:'IBM Plex Mono',monospace;color:var(--text3);width:40px;text-align:right}
+.spark{width:100%;height:96px;margin-top:6px}
 
-.phone{width:260px;flex-shrink:0;background:#1A1D23;border-radius:28px;padding:10px;box-shadow:var(--shadow-lg)}
-.phone-screen{background:var(--surface);border-radius:20px;overflow:hidden;height:460px;display:flex;flex-direction:column}
-.phone-status{height:24px;background:#F8F9FC;display:flex;align-items:center;justify-content:center;font-size:.52rem;color:var(--text3)}
-.phone-status::before{content:'9:41';font-weight:600;color:var(--text2)}
-.phone-header{padding:10px 14px;display:flex;align-items:center;gap:8px}
-.phone-header .logo{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.8rem}
-.phone-header .title{font-size:.72rem;font-weight:700;color:var(--text)}
-.phone-header .sub{font-size:.52rem;color:var(--text3)}
-.phone-body{flex:1;overflow:hidden}
-.phone-tab{display:flex;background:#F8F9FC;border-top:1px solid #ECEEF2}
-.phone-tab .tab{flex:1;text-align:center;padding:6px 0 8px;font-size:.44rem;color:var(--text3);display:flex;flex-direction:column;align-items:center;gap:1px}
-.phone-tab .tab.on{color:var(--teal);font-weight:700}
-.phone-tab .tab .ti{font-size:.72rem}
-.pc{padding:10px 14px;font-size:.58rem;color:var(--text2);line-height:1.5}
-.pc h5{font-size:.65rem;font-weight:700;color:var(--text);margin-bottom:4px}
-.pc-card{background:var(--warm);border-radius:8px;padding:8px 10px;margin-bottom:6px}
+/* ═══ HEATMAP ═══ */
+.hm-wrap{background:var(--surface);border-radius:var(--radius);border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;margin-top:24px}
+.hm-head{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.hm-head h4{font-size:.86rem;font-weight:700}
+.hm-legend{display:flex;gap:12px;font-size:.66rem;color:var(--text3);align-items:center;flex-wrap:wrap}
+.hm-legend span{display:flex;align-items:center;gap:4px}
+.hm-legend i{width:9px;height:9px;border-radius:3px;display:inline-block}
+.hm-grid{padding:16px 18px;overflow-x:auto}
+.hm-table{display:grid;grid-template-columns:96px repeat(6,minmax(40px,1fr)) 84px;gap:4px;min-width:520px}
+.hm-th{font-size:.62rem;font-weight:600;color:var(--text3);text-align:center;padding-bottom:4px;font-family:'IBM Plex Mono',monospace}
+.hm-name{font-size:.72rem;color:var(--text2);display:flex;align-items:center;font-weight:500;padding-right:6px}
+.hm-cell{height:30px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:600;color:#fff;cursor:pointer;transition:.18s;font-family:'IBM Plex Mono',monospace}
+.hm-cell:hover{transform:scale(1.09);z-index:2}
+.hm-tier{height:30px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:700;color:#fff;letter-spacing:.3px}
+.hm-row-btn{display:contents}
+.hm-row-btn:hover .hm-name{color:var(--teal);font-weight:700}
+.hm-foot{padding:12px 18px;border-top:1px solid var(--line);background:var(--warm);font-size:.7rem;color:var(--text2);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center}
+.hm-foot b{color:var(--coral);font-family:'IBM Plex Mono',monospace}
+.alert-list{display:grid;gap:8px;margin-top:16px}
+.alert{padding:11px 14px;border-radius:10px;display:flex;align-items:flex-start;gap:10px;font-size:.76rem;animation:fadeUp .4s ease;background:var(--coral-light)}
+.alert .a-ico{font-size:.9rem;line-height:1.3}
+.alert .a-t{font-weight:700;font-size:.74rem}
+.alert .a-d{font-size:.7rem;color:var(--text2);margin-top:2px;line-height:1.5}
+.alert button{margin-left:auto;background:transparent;border:1.5px solid currentColor;color:inherit;border-radius:14px;padding:3px 10px;font-size:.65rem;cursor:pointer;font-family:inherit;font-weight:600;white-space:nowrap;opacity:.8}
+.alert button:hover{opacity:1}
 
-.heatmap{display:grid;grid-template-columns:auto repeat(6,1fr);gap:2px;margin:10px 0;font-size:.48rem}
-.hm-header{font-weight:600;text-align:center;color:var(--text3);padding:2px 4px}
-.hm-label{font-size:.48rem;color:var(--text2);display:flex;align-items:center;padding-right:4px;font-weight:500}
-.hm-cell{height:18px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.42rem;font-weight:600;color:#fff}
+/* ═══ RESULTS ═══ */
+.res-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;margin-top:26px}
+.donut-wrap{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.donut{position:relative;width:150px;height:150px;flex-shrink:0}
+.donut .dc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.donut .dcv{font-family:'DM Serif Display',serif;font-size:1.7rem;line-height:1;color:var(--ink)}
+.donut .dcl{font-size:.56rem;color:var(--text3);margin-top:3px;line-height:1.3;max-width:86px}
+.leg{display:grid;gap:9px;flex:1;min-width:150px}
+.leg-item{display:flex;align-items:flex-start;gap:8px;font-size:.75rem;color:var(--text2);line-height:1.5}
+.leg-item i{width:10px;height:10px;border-radius:3px;flex-shrink:0;margin-top:4px}
+.leg-item b{color:var(--ink);font-family:'IBM Plex Mono',monospace}
+.staff-bar{margin-bottom:14px}
+.staff-bar .sl{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text2);margin-bottom:5px;gap:10px}
+.staff-bar .sl b{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--teal)}
+.staff-bar .st{height:9px;background:var(--line);border-radius:5px;overflow:hidden}
+.staff-bar .sf{height:100%;border-radius:5px;width:0;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
 
-.callout{border-radius:var(--radius-sm);padding:18px 22px;margin:20px 0;display:flex;gap:12px;align-items:flex-start}
-.callout .c-icon{font-size:1.2rem;flex-shrink:0;margin-top:2px}
-.callout .c-body h4{font-size:.88rem;font-weight:700;margin-bottom:3px}
-.callout .c-body p{font-size:.8rem;line-height:1.55}
+.callout{border-radius:var(--radius-sm);padding:16px 20px;margin:18px 0;display:flex;gap:12px;align-items:flex-start}
+.callout .c-icon{font-size:1.15rem;flex-shrink:0;margin-top:1px}
+.callout .c-body h4{font-size:.84rem;font-weight:700;margin-bottom:3px}
+.callout .c-body p{font-size:.78rem;line-height:1.6;color:var(--text2)}
 .callout-teal{background:var(--teal-light);border-left:3px solid var(--teal)}
 .callout-teal .c-body h4{color:var(--teal-dark)}
 .callout-coral{background:var(--coral-light);border-left:3px solid var(--coral)}
 .callout-coral .c-body h4{color:var(--coral)}
 .callout-gold{background:var(--gold-light);border-left:3px solid var(--gold)}
-.callout-gold .c-body h4{color:var(--gold)}
+.callout-gold .c-body h4{color:#8A6A00}
 
-/* SaaS Architecture */
-.arch-wrap{margin:32px 0}
-.arch-diagram{display:flex;flex-direction:column;gap:0}
-.a-row{display:flex;align-items:stretch;min-height:88px}
-.a-label{width:52px;flex-shrink:0;writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:700;color:#fff;letter-spacing:1px;text-transform:uppercase}
-.a-body{flex:1;padding:16px 20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.a-node{background:var(--surface);border-radius:10px;padding:10px 14px;box-shadow:0 2px 10px rgba(0,0,0,.06);display:flex;align-items:center;gap:10px;border:1.5px solid #E8EAF0;min-width:180px;flex:1;max-width:280px;transition:.2s}
+/* ═══ ARCHITECTURE ═══ */
+.arch{margin-top:26px}
+.a-row{display:flex;align-items:stretch;min-height:80px}
+.a-label{width:48px;flex-shrink:0;writing-mode:vertical-rl;text-orientation:mixed;transform:rotate(180deg);display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:700;color:#fff;letter-spacing:1.5px;text-transform:uppercase}
+.a-body{flex:1;padding:14px 16px;display:flex;flex-wrap:wrap;gap:9px;align-items:center}
+.a-node{background:var(--surface);border-radius:10px;padding:9px 13px;box-shadow:0 2px 10px rgba(0,0,0,.05);display:flex;align-items:center;gap:9px;border:1.5px solid var(--line);min-width:170px;flex:1;max-width:290px;transition:.2s}
 .a-node:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);transform:translateY(-2px)}
-.a-node .n-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
-.a-node .n-title{font-size:.76rem;font-weight:700;color:var(--text)}
-.a-node .n-desc{font-size:.58rem;color:var(--text3);line-height:1.3;margin-top:1px}
-.a-conn{display:flex;align-items:center;padding-left:52px;height:28px}
+.a-node .n-icon{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.92rem;flex-shrink:0}
+.a-node .n-title{font-size:.74rem;font-weight:700;color:var(--text);line-height:1.3}
+.a-node .n-desc{font-size:.6rem;color:var(--text3);line-height:1.4;margin-top:1px}
+.a-conn{display:flex;align-items:center;padding-left:48px;height:26px}
 .a-conn-bar{flex:1;display:flex;align-items:center;justify-content:center;position:relative}
-.a-conn-bar::before{content:'';position:absolute;left:20%;right:20%;height:0;border-top:2px dashed var(--text3);opacity:.35}
-.a-conn-label{background:var(--bg);padding:0 10px;font-size:.56rem;color:var(--text3);font-weight:500;position:relative;z-index:1}
-
+.a-conn-bar::before{content:'';position:absolute;left:18%;right:18%;height:0;border-top:2px dashed var(--text3);opacity:.32}
+.a-conn-label{background:var(--bg);padding:0 10px;font-size:.58rem;color:var(--text3);font-weight:500;position:relative;z-index:1;font-family:'IBM Plex Mono',monospace}
 .l-user .a-label{background:var(--teal);border-radius:var(--radius) 0 0 var(--radius)}
 .l-user .a-body{background:var(--teal-light);border:2px solid var(--teal);border-left:0;border-radius:0 var(--radius) var(--radius) 0}
 .l-user .n-icon{background:var(--teal-light);color:var(--teal)}
@@ -140,190 +257,267 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',Georgia,serif}
 .l-out .a-body{background:#ECEFF1;border:2px solid #546E7A;border-left:0;border-radius:0 var(--radius) var(--radius) 0}
 .l-out .n-icon{background:#ECEFF1;color:#546E7A}
 
-.divider{height:1px;background:linear-gradient(to right,transparent,#D8DBE4,transparent);margin:48px 0}
-.footer{background:var(--ink);color:rgba(255,255,255,.55);padding:40px 28px;text-align:center;font-size:.78rem;margin-top:60px}
-.footer strong{color:rgba(255,255,255,.85)}
-.footer .f-line{margin-top:6px;font-size:.7rem}
-.fade-in{opacity:0;transform:translateY(20px);animation:fadeUp .6s ease forwards}
-@keyframes fadeUp{to{opacity:1;transform:none}}
+/* ═══ AUTHORS / FOOTER ═══ */
+.auth-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:22px}
+.auth{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px}
+.auth .an{font-size:.84rem;font-weight:700;color:var(--ink)}
+.auth .ar{font-size:.7rem;color:var(--teal);margin-top:2px;font-weight:600}
+.auth .aa{font-size:.66rem;color:var(--text3);margin-top:5px;line-height:1.5}
+.auth.lead-a{border-color:var(--teal);box-shadow:0 4px 18px rgba(13,124,102,.1)}
+.footer{background:var(--ink);color:rgba(255,255,255,.55);padding:38px 28px;text-align:center;font-size:.76rem;margin-top:56px;line-height:1.8}
+.footer strong{color:rgba(255,255,255,.9)}
+.footer .f-line{margin-top:6px;font-size:.68rem}
 
-/* ═══════ AI GUIDE CHATBOT ═══════ */
-.ai-fab{position:fixed;bottom:28px;right:28px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;border:none;font-size:1.5rem;cursor:pointer;box-shadow:0 6px 24px rgba(13,124,102,.4);z-index:1000;display:flex;align-items:center;justify-content:center;transition:.3s}
-.ai-fab:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(13,124,102,.5)}
-.ai-fab.open{border-radius:16px;width:48px;height:48px;font-size:1.2rem;bottom:488px;right:28px}
-.ai-pulse{position:absolute;width:100%;height:100%;border-radius:50%;background:var(--teal);animation:fabPulse 2s infinite;opacity:0}
-@keyframes fabPulse{0%{transform:scale(1);opacity:.4}100%{transform:scale(1.8);opacity:0}}
-
-.ai-panel{position:fixed;bottom:28px;right:28px;width:380px;height:520px;background:var(--surface);border-radius:20px;box-shadow:0 16px 64px rgba(15,25,35,.18);z-index:999;display:none;flex-direction:column;overflow:hidden;border:1px solid #E4E6EC}
+/* ═══ CHATBOT ═══ */
+.ai-fab{position:fixed;bottom:24px;right:24px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;border:none;font-size:1.4rem;cursor:pointer;box-shadow:0 6px 24px rgba(13,124,102,.4);z-index:1000;display:flex;align-items:center;justify-content:center;transition:.3s}
+.ai-fab:hover{transform:scale(1.08)}
+.ai-fab.open{opacity:0;pointer-events:none;transform:scale(.6)}
+.ai-pulse{position:absolute;inset:0;border-radius:50%;background:var(--teal);animation:fabPulse 2.4s infinite;opacity:0}
+@keyframes fabPulse{0%{transform:scale(1);opacity:.35}100%{transform:scale(1.75);opacity:0}}
+.ai-panel{position:fixed;bottom:24px;right:24px;width:376px;height:512px;background:var(--surface);border-radius:18px;box-shadow:0 16px 64px rgba(15,25,35,.2);z-index:999;display:none;flex-direction:column;overflow:hidden;border:1px solid var(--line)}
 .ai-panel.show{display:flex}
-.ai-panel-head{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;padding:16px 20px;display:flex;align-items:center;gap:10px}
-.ai-panel-head .ai-avatar{width:36px;height:36px;border-radius:12px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1.1rem}
-.ai-panel-head .ai-title{font-weight:700;font-size:.9rem}
-.ai-panel-head .ai-sub{font-size:.68rem;opacity:.8}
-.ai-panel-close{margin-left:auto;background:rgba(255,255,255,.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center}
-
-.ai-chat{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.ai-panel-head{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:#fff;padding:14px 18px;display:flex;align-items:center;gap:10px}
+.ai-panel-head .ai-avatar{width:34px;height:34px;border-radius:11px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:1rem}
+.ai-panel-head .ai-title{font-weight:700;font-size:.86rem}
+.ai-panel-head .ai-sub{font-size:.66rem;opacity:.82}
+.ai-panel-close{margin-left:auto;background:rgba(255,255,255,.15);border:none;color:#fff;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:.85rem;display:flex;align-items:center;justify-content:center}
+.ai-chat{flex:1;overflow-y:auto;padding:14px 15px;display:flex;flex-direction:column;gap:9px;scroll-behavior:smooth}
 .ai-chat::-webkit-scrollbar{width:4px}
 .ai-chat::-webkit-scrollbar-thumb{background:#D0D5DE;border-radius:2px}
-
 .ai-msg{max-width:88%;animation:msgIn .3s ease}
 @keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .ai-bot{align-self:flex-start}
 .ai-user{align-self:flex-end}
-.ai-bubble{padding:10px 14px;border-radius:14px;font-size:.82rem;line-height:1.55}
+.ai-bubble{padding:10px 13px;border-radius:14px;font-size:.8rem;line-height:1.6}
 .ai-bot .ai-bubble{background:#F0F2F6;color:var(--text);border-bottom-left-radius:4px}
 .ai-user .ai-bubble{background:var(--teal);color:#fff;border-bottom-right-radius:4px}
 .ai-bot .ai-bubble a{color:var(--teal);font-weight:600;text-decoration:underline;cursor:pointer}
-
-.ai-quick{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
-.ai-quick-btn{padding:5px 11px;border-radius:16px;border:1.5px solid var(--teal);background:transparent;color:var(--teal);font-size:.72rem;font-weight:500;cursor:pointer;transition:.2s;white-space:nowrap}
+.ai-quick{display:flex;flex-wrap:wrap;gap:5px}
+.ai-quick-btn{padding:5px 11px;border-radius:16px;border:1.5px solid var(--teal);background:transparent;color:var(--teal);font-size:.7rem;font-weight:500;cursor:pointer;transition:.2s;font-family:inherit}
 .ai-quick-btn:hover{background:var(--teal);color:#fff}
-
-.ai-input-wrap{padding:10px 14px;border-top:1px solid #ECEEF2;display:flex;gap:8px;align-items:center;background:#FAFBFE}
-.ai-input{flex:1;padding:9px 14px;border:1.5px solid #DEE2EE;border-radius:20px;font-size:.82rem;font-family:'Instrument Sans',sans-serif;outline:none;color:var(--text);transition:.2s}
+.ai-input-wrap{padding:10px 13px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:center;background:#FAFBFE}
+.ai-input{flex:1;padding:9px 13px;border:1.5px solid #DEE2EE;border-radius:20px;font-size:.8rem;font-family:inherit;outline:none;color:var(--text);transition:.2s;min-width:0}
 .ai-input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(13,124,102,.1)}
-.ai-input::placeholder{color:var(--text3)}
-.ai-send{width:34px;height:34px;border-radius:50%;background:var(--teal);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:.2s;flex-shrink:0}
+.ai-send{width:33px;height:33px;border-radius:50%;background:var(--teal);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.88rem;flex-shrink:0}
 .ai-send:hover{background:var(--teal-dark)}
-
-.ai-typing{display:flex;gap:4px;padding:8px 14px}
+.ai-typing{display:flex;gap:4px;padding:9px 13px}
 .ai-typing span{width:6px;height:6px;border-radius:50%;background:var(--text3);animation:dotBounce .6s infinite alternate}
 .ai-typing span:nth-child(2){animation-delay:.2s}
 .ai-typing span:nth-child(3){animation-delay:.4s}
 @keyframes dotBounce{to{opacity:.3;transform:translateY(-4px)}}
 
-/* Guide tour highlight */
-.tour-highlight{animation:tourGlow 1.5s ease-in-out 2;position:relative}
-@keyframes tourGlow{0%,100%{box-shadow:0 0 0 0 rgba(13,124,102,0)}50%{box-shadow:0 0 0 8px rgba(13,124,102,.15)}}
+.tour-highlight{animation:tourGlow 1.5s ease-in-out 2}
+@keyframes tourGlow{0%,100%{box-shadow:0 0 0 0 rgba(13,124,102,0)}50%{box-shadow:0 0 0 8px rgba(13,124,102,.14)}}
+.fade-in{opacity:0;transform:translateY(18px);animation:fadeUp .6s ease forwards}
+@keyframes fadeUp{to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 
-@media(max-width:860px){
-  .hero h1{font-size:1.8rem}
-  .stats-bar{grid-template-columns:repeat(3,1fr)}
+@media(max-width:980px){
+  .sim{grid-template-columns:1fr}
+  .res-grid{grid-template-columns:1fr}
   .dim-grid{grid-template-columns:1fr 1fr}
-  .screen-section{flex-direction:column!important;gap:20px}
-  .browser{width:100%;max-width:480px}
-  .phone{width:100%;max-width:280px;margin:0 auto}
-  .a-node{min-width:140px}
-  .ai-panel{width:calc(100vw - 24px);right:12px;bottom:12px;height:70vh}
-  .ai-fab{bottom:16px;right:16px}
-  .ai-fab.open{bottom:calc(70vh + 20px)}
+  .stats-bar{grid-template-columns:repeat(3,1fr)}
+  .tl{flex-wrap:wrap}.tl-step{min-width:46%}
 }
-@media(max-width:560px){
+@media(max-width:760px){
+  .nav-links{position:absolute;top:60px;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--line);flex-direction:column;padding:8px;display:none;box-shadow:var(--shadow-lg)}
+  .nav-links.show{display:flex}
+  .nav-burger{display:block;order:2}
+  .lang{order:3;margin-left:0}
+  .nav-in{gap:10px}
+  .hero h1{font-size:1.8rem}
+  .ai-panel{width:calc(100vw - 20px);right:10px;bottom:10px;height:72vh}
+  .ai-fab{bottom:14px;right:14px}
+  .tab-body{padding:20px 18px}
+}
+@media(max-width:520px){
   .dim-grid{grid-template-columns:1fr}
   .stats-bar{grid-template-columns:repeat(2,1fr)}
   .a-body{flex-direction:column}.a-node{max-width:100%}
+  .gauge-wrap{flex-direction:column;align-items:flex-start}
 }
 </style>
 </head>
-<body>
+<body data-lang="zh">
+
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="nav">
+  <div class="nav-in">
+    <div class="nav-brand">
+      <div class="mark">4D</div>
+      <div><div class="bt" data-i18n="brand.t">家庭支持多維度評估</div><div class="bs" data-i18n="brand.s">TPECH · Ren-Ai Branch</div></div>
+    </div>
+    <button class="nav-burger" onclick="document.getElementById('navLinks').classList.toggle('show')" aria-label="Menu">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#sec-abstract" data-i18n="nav.abstract">摘要</a>
+      <a href="#sec-framework" data-i18n="nav.framework">四維框架</a>
+      <a href="#sec-sim" data-i18n="nav.sim">風險引擎</a>
+      <a href="#sec-screening" data-i18n="nav.screening">熱力圖篩檢</a>
+      <a href="#sec-results" data-i18n="nav.results">研究結果</a>
+      <a href="#sec-arch" data-i18n="nav.arch">系統架構</a>
+      <a href="#sec-conclusion" data-i18n="nav.conclusion">結論</a>
+    </div>
+    <div class="lang" role="group" aria-label="Language">
+      <button data-lang-btn="en">EN</button>
+      <button data-lang-btn="zh" class="on">繁中</button>
+      <button data-lang-btn="ja">日本語</button>
+      <button data-lang-btn="ko">한국어</button>
+    </div>
+  </div>
+</nav>
+
 <div class="container">
 
 <!-- ═══════════ HERO ═══════════ -->
 <section class="hero fade-in" id="sec-hero">
-  <div class="track-badge">◆ TRACK 4 — Digital Transformation &amp; AI in Care Operations</div>
-  <h1>Multi-Dimensional Family Support Assessment System</h1>
-  <p class="lead">A cloud-based SaaS platform that quantifies family support strength, predicts visitation decline risks, and enables proactive social work interventions in long-term care institutions.</p>
+  <div class="track-badge">◆ <span data-i18n="hero.track">TRACK 4 — 數位轉型與 AI 對照護及營運的影響</span></div>
+  <h1 data-i18n="hero.title">長照機構家庭支持強度預判之多維度評估模型</h1>
+  <p class="lead" data-i18n="hero.lead">以既有訪客登記資料為基礎，量化家庭支持強度、預判探視衰退風險，讓社工在住民產生被遺棄感之前就先接住他。</p>
   <div class="meta-row">
-    <div class="meta-item"><div class="dot" style="background:var(--teal)"></div>Taipei City Hospital — Affiliated LTC Institution</div>
-    <div class="meta-item"><div class="dot" style="background:var(--coral)"></div>50-Bed Public Residential Care Facility</div>
-    <div class="meta-item"><div class="dot" style="background:var(--gold)"></div>17-Month Action Research (N=782)</div>
+    <div class="chip"><span class="dot" style="background:var(--teal)"></span><span data-i18n="hero.m1">臺北市立聯合醫院仁愛院區附設長照機構</span></div>
+    <div class="chip"><span class="dot" style="background:var(--coral)"></span><span data-i18n="hero.m2">50 床公立住宿型機構</span></div>
+    <div class="chip"><span class="dot" style="background:var(--gold)"></span><span data-i18n="hero.m3">19 個月行動研究（2024.07–2026.02）</span></div>
+    <div class="chip"><span class="dot" style="background:var(--navy)"></span><span data-i18n="hero.m4">IHF 世界醫院大會 · 投稿編號 953</span></div>
+  </div>
+  <div class="cta-row">
+    <a href="#sec-sim" class="btn btn-p">▶ <span data-i18n="hero.cta1">親手操作風險預判引擎</span></a>
+    <a href="#sec-abstract" class="btn btn-s"><span data-i18n="hero.cta2">閱讀完整摘要</span></a>
   </div>
 </section>
 
-<div class="stats-bar fade-in" style="animation-delay:.1s" id="sec-stats">
-  <div class="stat-item"><div class="num">782</div><div class="unit">Visitation Records Analyzed</div></div>
-  <div class="stat-item"><div class="num">20</div><div class="unit">Hours / Month Saved</div></div>
-  <div class="stat-item"><div class="num">15%</div><div class="unit">High-Risk Cases Detected</div></div>
-  <div class="stat-item"><div class="num">92%</div><div class="unit">Family Satisfaction</div></div>
-  <div class="stat-item"><div class="num">88%</div><div class="unit">Resident Satisfaction</div></div>
+<div class="stats-bar fade-in" style="animation-delay:.08s" id="sec-stats">
+  <div class="stat-item"><div class="num" data-count="3091">0</div><div class="unit" data-i18n="stat.records">分析探視紀錄</div></div>
+  <div class="stat-item"><div class="num" data-count="19">0</div><div class="unit" data-i18n="stat.months">個月行動研究</div></div>
+  <div class="stat-item"><div class="num" data-count="20">0</div><div class="unit" data-i18n="stat.hours">每月節省人工時數</div></div>
+  <div class="stat-item"><div class="num" data-count="464">0</div><div class="unit" data-i18n="stat.highrisk">高風險個案（15%）</div></div>
+  <div class="stat-item"><div class="num" data-count="92" data-suffix="%">0</div><div class="unit" data-i18n="stat.famsat">家屬溝通滿意度</div></div>
+  <div class="stat-item"><div class="num" data-count="88" data-suffix="%">0</div><div class="unit" data-i18n="stat.ressat">住民滿意度</div></div>
 </div>
 
-<!-- ═══════════ FRAMEWORK ═══════════ -->
-<section class="section fade-in" id="sec-framework">
-  <div class="sec-label">Assessment Framework</div>
-  <div class="sec-title">Four-Dimensional Scoring Model</div>
-  <p class="sec-desc">Overcoming single-metric blind spots by integrating four complementary dimensions for a holistic view of resident-family dynamics and regulatory visitation compliance.</p>
-  <div class="dim-grid">
-    <div class="dim-card d1"><div class="d-num">Dimension 01</div><h3>Social Network Breadth</h3><p>Diversity of unique visitors per resident — family, friends, and community connections over rolling time windows.</p><div class="metric">📊 Unique visitor count / month</div></div>
-    <div class="dim-card d2"><div class="d-num">Dimension 02</div><h3>Interaction Intensity</h3><p>Total visitation frequency capturing the depth of family engagement regardless of visitor diversity.</p><div class="metric">📊 Total visits / month</div></div>
-    <div class="dim-card d3"><div class="d-num">Dimension 03</div><h3>Relationship Stability</h3><p>Month-over-month consistency via sliding-window trend analysis to detect gradual engagement decay.</p><div class="metric">📊 3-month moving average variance</div></div>
-    <div class="dim-card d4"><div class="d-num">Dimension 04</div><h3>Immediate Attention</h3><p>AI-driven alert layer flagging sudden visitation drops requiring urgent social worker intervention.</p><div class="metric">📊 AI-triggered decline alerts</div></div>
+<!-- ═══════════ ABSTRACT ═══════════ -->
+<section class="section" id="sec-abstract">
+  <div class="sec-label" data-i18n="abs.label">Abstract</div>
+  <div class="sec-title" data-i18n="abs.title">投稿摘要全文</div>
+  <p class="sec-desc" data-i18n="abs.desc">本頁所有互動元件的數據，皆直接對應下方摘要內容。切換頁籤閱讀各段落。</p>
+  <div class="tabs" id="absTabs">
+    <button class="tab-btn on" data-tab="intro" data-i18n="tab.intro">前言</button>
+    <button class="tab-btn" data-tab="aim" data-i18n="tab.aim">研究目的</button>
+    <button class="tab-btn" data-tab="methods" data-i18n="tab.methods">研究方法</button>
+    <button class="tab-btn" data-tab="results" data-i18n="tab.results">研究結果</button>
+    <button class="tab-btn" data-tab="conclusion" data-i18n="tab.conclusion">結論</button>
+  </div>
+  <div class="tab-body">
+    <div class="tab-pane on" data-pane="intro"><div class="pane-tag" data-i18n="tab.intro">前言</div><div data-i18n-html="abs.intro"></div></div>
+    <div class="tab-pane" data-pane="aim"><div class="pane-tag" data-i18n="tab.aim">研究目的</div><div data-i18n-html="abs.aim"></div></div>
+    <div class="tab-pane" data-pane="methods"><div class="pane-tag" data-i18n="tab.methods">研究方法</div><div data-i18n-html="abs.methods"></div>
+      <div class="tl">
+        <div class="tl-step"><div class="tl-date">2024.07</div><div class="tl-txt" data-i18n="tl.1">雲端登記系統上線，開始累積探視紀錄</div></div>
+        <div class="tl-step"><div class="tl-date">2025.01</div><div class="tl-txt" data-i18n="tl.2">四維評分模型導入，建立基準閾值</div></div>
+        <div class="tl-step"><div class="tl-date">2025.07</div><div class="tl-txt" data-i18n="tl.3">滑動視窗預判與四級警示自動化</div></div>
+        <div class="tl-step"><div class="tl-date">2026.02</div><div class="tl-txt" data-i18n="tl.4">收案結束：N=3091 筆紀錄、員工訪談 N=10</div></div>
+      </div>
+    </div>
+    <div class="tab-pane" data-pane="results"><div class="pane-tag" data-i18n="tab.results">研究結果</div><div data-i18n-html="abs.results"></div></div>
+    <div class="tab-pane" data-pane="conclusion"><div class="pane-tag" data-i18n="tab.conclusion">結論</div><div data-i18n-html="abs.conclusion"></div></div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ═══════════ ARCHITECTURE ═══════════ -->
-<section class="section" id="sec-arch">
-  <div class="sec-label">System Architecture</div>
-  <div class="sec-title">Cloud SaaS Architecture</div>
-  <p class="sec-desc">Zero hardware cost — entirely serverless cloud-hosted. Highly replicable for resource-limited LTC institutions worldwide.</p>
-  <div class="arch-wrap"><div class="arch-diagram">
-    <div class="a-row l-user"><div class="a-label">USERS</div><div class="a-body">
-      <div class="a-node"><div class="n-icon">👨‍👩‍👧</div><div><div class="n-title">Family Portal</div><div class="n-desc">Mobile — Visit booking, TOCC, survey, AI chatbot</div></div></div>
-      <div class="a-node"><div class="n-icon">👩‍⚕️</div><div><div class="n-title">Social Worker Dashboard</div><div class="n-desc">Heatmap screening, 4-tier risk alerts</div></div></div>
-      <div class="a-node"><div class="n-icon">💉</div><div><div class="n-title">Nursing Admin</div><div class="n-desc">NPS analysis, PDCA improvement</div></div></div>
-    </div></div>
-    <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ HTTPS · REST API ▲</div></div></div>
-    <div class="a-row l-app"><div class="a-label">APP</div><div class="a-body">
-      <div class="a-node"><div class="n-icon">⚙️</div><div><div class="n-title">Serverless Web Engine</div><div class="n-desc">SPA routing, session, RBAC</div></div></div>
-      <div class="a-node"><div class="n-icon">🧮</div><div><div class="n-title">4D Scoring Engine</div><div class="n-desc">Weighted calculation, threshold eval</div></div></div>
-      <div class="a-node"><div class="n-icon">📊</div><div><div class="n-title">Analytics Pipeline</div><div class="n-desc">NPS, satisfaction, trend analysis</div></div></div>
-    </div></div>
-    <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ Internal Processing ▲</div></div></div>
-    <div class="a-row l-ai"><div class="a-label">AI</div><div class="a-body">
-      <div class="a-node"><div class="n-icon">🤖</div><div><div class="n-title">Risk Prediction</div><div class="n-desc">Sliding window, 4-tier classification</div></div></div>
-      <div class="a-node"><div class="n-icon">📖</div><div><div class="n-title">NLP Matching</div><div class="n-desc">170+ synonyms, emotion detection</div></div></div>
-      <div class="a-node"><div class="n-icon">📮</div><div><div class="n-title">Complaint Triage</div><div class="n-desc">13-scenario pre-screening</div></div></div>
-    </div></div>
-    <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ Read / Write ▲</div></div></div>
-    <div class="a-row l-data"><div class="a-label">DATA</div><div class="a-body">
-      <div class="a-node"><div class="n-icon">📅</div><div><div class="n-title">Visitation Records</div><div class="n-desc">Booking, TOCC, check-in logs</div></div></div>
-      <div class="a-node"><div class="n-icon">📊</div><div><div class="n-title">Survey &amp; Feedback</div><div class="n-desc">Satisfaction, NPS, opinion box</div></div></div>
-      <div class="a-node"><div class="n-icon">🤖</div><div><div class="n-title">AI Interaction Logs</div><div class="n-desc">Chat history, hit rate, emotions</div></div></div>
-    </div></div>
-    <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ Event Triggers</div></div></div>
-    <div class="a-row l-out"><div class="a-label">OUTPUT</div><div class="a-body">
-      <div class="a-node"><div class="n-icon">📧</div><div><div class="n-title">Auto Email Service</div><div class="n-desc">Replies, overdue alerts, notifications</div></div></div>
-      <div class="a-node"><div class="n-icon">🚨</div><div><div class="n-title">Risk Alert Dispatch</div><div class="n-desc">Tier 3–4 → Social worker push</div></div></div>
-      <div class="a-node"><div class="n-icon">📋</div><div><div class="n-title">Reports &amp; Export</div><div class="n-desc">Compliance reports, PDCA docs</div></div></div>
-    </div></div>
-  </div></div>
-  <div class="callout callout-teal"><div class="c-icon">🌏</div><div class="c-body"><h4>Replicability</h4><p>Serverless cloud, zero hardware cost, customizable thresholds — <strong>highly replicable</strong> for LTC institutions worldwide.</p></div></div>
+<!-- ═══════════ FRAMEWORK ═══════════ -->
+<section class="section" id="sec-framework">
+  <div class="sec-label" data-i18n="fw.label">Assessment Framework</div>
+  <div class="sec-title" data-i18n="fw.title">四維度評分模型</div>
+  <p class="sec-desc" data-i18n="fw.desc">單一指標（例如「本月有沒有來」）看不見正在鬆動的關係。四個互補維度合起來才是完整的住民—家屬動態。點擊卡片看計算方式。</p>
+  <div class="dim-grid">
+    <button class="dim-card d1" data-dim="1">
+      <div class="d-num">D1</div><h3 data-i18n="d1.n">社會網絡廣度</h3>
+      <p data-i18n="d1.d">近 3 個月不重複探視者人數——家人、朋友與社區連結的多樣性。</p>
+      <div class="metric">📊 <span data-i18n="d1.m">不重複訪客數 / 3 個月</span></div>
+      <div class="d-more"><div class="d-more-in"><span data-i18n="d1.f">只有一位家屬獨力承擔時，一旦他倒下，住民的支持就歸零。廣度是韌性。</span><br><code>D1 = min(25, [0,9,16,21,25][訪客數])</code></div></div>
+    </button>
+    <button class="dim-card d2" data-dim="2">
+      <div class="d-num">D2</div><h3 data-i18n="d2.n">互動強度</h3>
+      <p data-i18n="d2.d">近 3 個月總探視次數，反映家屬投入的深度。</p>
+      <div class="metric">📊 <span data-i18n="d2.m">總探視次數 / 3 個月</span></div>
+      <div class="d-more"><div class="d-more-in"><span data-i18n="d2.f">評鑑法規要求每月至少一次；3 次為法定門檻，6 次為滿分。</span><br><code>D2 = min(25, 近3月次數 ÷ 6 × 25)</code></div></div>
+    </button>
+    <button class="dim-card d3" data-dim="3">
+      <div class="d-num">D3</div><h3 data-i18n="d3.n">關係穩定度</h3>
+      <p data-i18n="d3.d">月與月之間的一致性，用來抓出緩慢流失的關係。</p>
+      <div class="metric">📊 <span data-i18n="d3.m">近 3 個月變異係數</span></div>
+      <div class="d-more"><div class="d-more-in"><span data-i18n="d3.f">總次數相同，「2-2-2」與「6-0-0」代表完全不同的家庭狀態。</span><br><code>D3 = 25 × (1 − 標準差 ÷ 平均)</code></div></div>
+    </button>
+    <button class="dim-card d4" data-dim="4">
+      <div class="d-num">D4</div><h3 data-i18n="d4.n">即時關注度</h3>
+      <p data-i18n="d4.d">滑動視窗比對前後期，驟降即觸發社工介入。</p>
+      <div class="metric">📊 <span data-i18n="d4.m">近 3 月 vs. 前 3 月 降幅</span></div>
+      <div class="d-more"><div class="d-more-in"><span data-i18n="d4.f">降幅超過閾值（預設 60%）即預判社會隔離風險，觸發四級行動警示。</span><br><code>D4 = 25 × (1 − 降幅 ÷ 閾值)</code></div></div>
+    </button>
+  </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ═══════════ FAMILY VISITATION ═══════════ -->
-<section class="section" id="sec-family">
-  <div class="sec-label">Family Visitation</div>
-  <div class="sec-title">Cloud-Based Visitor Registration &amp; Engagement</div>
-  <p class="sec-desc">Transforming routine check-ins into structured multi-dimensional assessment data.</p>
-  <div class="screen-section">
-    <div class="screen-text">
-      <h3>Self-Service Family Portal</h3>
-      <p>Families access via personalized URL — no account creation, <strong>zero-friction adoption</strong>.</p>
-      <ul class="feature-list">
-        <li><div class="f-icon" style="background:var(--teal-light);color:var(--teal)">📅</div><span><strong>Visit Scheduling</strong> — Calendar-based slot booking with capacity management</span></li>
-        <li><div class="f-icon" style="background:var(--coral-light);color:var(--coral)">📋</div><span><strong>TOCC Health Screening</strong> — Infection control compliance</span></li>
-        <li><div class="f-icon" style="background:var(--gold-light);color:var(--gold)">⭐</div><span><strong>Visit Point Card</strong> — Gamified tracker → feeds Dimension 2</span></li>
-        <li><div class="f-icon" style="background:var(--navy-light);color:var(--navy)">📊</div><span><strong>Compliance Rate</strong> — Data integrity metric</span></li>
-      </ul>
-      <div class="callout callout-gold" style="margin-top:12px"><div class="c-icon">📐</div><div class="c-body"><h4>Data → Dimensions</h4><p>Unique visitors → <strong>D1</strong>, total visits → <strong>D2</strong>, patterns → <strong>D3</strong>, drops → <strong>D4</strong>.</p></div></div>
+
+<!-- ═══════════ SIMULATOR ═══════════ -->
+<section class="section" id="sec-sim">
+  <div class="sec-label" data-i18n="sim.label">Interactive Engine</div>
+  <div class="sec-title" data-i18n="sim.title">滑動視窗風險預判引擎（可操作）</div>
+  <p class="sec-desc" data-i18n="sim.desc">摘要方法段所描述的規則引擎，就是這個。拖動任一個月的探視次數，模型會即時比對前後兩個 3 個月視窗、重算四維分數，並產生四級行動建議。</p>
+  <div class="sim">
+    <!-- CONTROLS -->
+    <div class="panel">
+      <h4 data-i18n="sim.in.t">輸入：某位住民的 6 個月探視紀錄</h4>
+      <div class="ph" data-i18n="sim.in.d">先選一個情境，或自行拖動下方滑桿。</div>
+      <div class="preset-row" id="presetRow">
+        <button class="preset on" data-preset="stable" data-i18n="sim.p1">穩定支持</button>
+        <button class="preset" data-preset="fade" data-i18n="sim.p2">漸進疏離</button>
+        <button class="preset" data-preset="crash" data-i18n="sim.p3">驟然中斷</button>
+        <button class="preset" data-preset="solo" data-i18n="sim.p4">單一照顧者</button>
+      </div>
+      <div class="win-tag"><span data-i18n="sim.wprev">前期視窗（比較基準）</span></div>
+      <div id="prevRows"></div>
+      <div class="win-tag rec"><span data-i18n="sim.wrec">近期視窗（評估區間）</span></div>
+      <div id="recRows"></div>
+      <div class="mrow" style="margin-top:14px">
+        <div class="ml" data-i18n="sim.uniq">不重複訪客</div>
+        <input type="range" min="0" max="5" step="1" id="uniqR" value="3" aria-label="unique visitors">
+        <div class="mv" id="uniqV">3</div>
+      </div>
+      <div class="thr-box">
+        <div class="tt"><span data-i18n="sim.thr">互動強度驟降閾值</span><span class="tv" id="thrV">60%</span></div>
+        <input type="range" min="20" max="90" step="5" id="thrR" value="60" aria-label="threshold">
+        <div class="td" data-i18n="sim.thrd">閾值可依機構屬性自訂——這正是本模型可被其他長照機構複製的關鍵。調整後，右側與下方熱力圖會同步重算。</div>
+      </div>
     </div>
-    <div class="phone"><div class="phone-screen">
-      <div class="phone-status"></div>
-      <div class="phone-header"><div class="logo" style="background:var(--teal-light);color:var(--teal)">🏥</div><div><div class="title">LTC Family Portal</div><div class="sub">Self-Service System</div></div></div>
-      <div class="phone-body"><div class="pc">
-        <div style="text-align:center;padding:8px 0"><div style="font-size:1.4rem">👋</div><h5 style="font-size:.7rem">Welcome, Mrs. Wang</h5><div style="font-size:.48rem;color:var(--text3)">Resident: Wang Y. ｜ Bed 220-1</div></div>
-        <div class="pc-card" style="border-left:3px solid var(--teal);text-align:center"><div style="font-size:.52rem;font-weight:600;color:var(--teal-dark)">🌟 Monthly Visit Points</div><div style="font-size:1rem;margin:4px 0">⭐⭐⭐<span style="opacity:.25">☆☆</span></div><div style="font-size:.44rem;color:var(--text3)">3 of 5 visits this month</div></div>
-        <div class="pc-card"><div style="font-size:.52rem;font-weight:600">📊 Registration Compliance</div><div style="height:5px;background:#EEE;border-radius:3px;margin:4px 0;overflow:hidden"><div style="width:85%;height:100%;background:var(--teal);border-radius:3px"></div></div><div style="font-size:.44rem;color:var(--text3)">85% — 7 booked / 6 registered</div></div>
-        <div style="height:1px;background:#EEE;margin:6px 0"></div>
-        <h5>📅 Upcoming Visit</h5>
-        <div class="pc-card" style="border-left:2px solid var(--navy)"><div style="font-size:.5rem;font-weight:600;color:var(--navy)">Mar 3 — 09:30</div><div style="font-size:.44rem;color:var(--text3)">2 visitors ｜ TOCC required</div></div>
-      </div></div>
-      <div class="phone-tab"><div class="tab on"><span class="ti">🏠</span>Home</div><div class="tab"><span class="ti">📅</span>Visit</div><div class="tab"><span class="ti">📋</span>TOCC</div><div class="tab"><span class="ti">📊</span>Survey</div><div class="tab"><span class="ti">📮</span>Feedback</div><div class="tab"><span class="ti">🤖</span>AI</div></div>
-    </div></div>
+    <!-- OUTPUT -->
+    <div class="panel">
+      <h4 data-i18n="sim.out.t">輸出：四維分數與行動建議</h4>
+      <div class="ph" data-i18n="sim.out.d">分數 0–100，由四個維度各 25 分加總；規則命中時會覆寫級別。</div>
+      <div class="gauge-wrap">
+        <div class="gauge">
+          <svg width="112" height="112" viewBox="0 0 112 112">
+            <circle cx="56" cy="56" r="48" fill="none" stroke="#E8EAF0" stroke-width="11"></circle>
+            <circle cx="56" cy="56" r="48" fill="none" stroke="var(--teal)" stroke-width="11" stroke-linecap="round"
+              stroke-dasharray="301.6" stroke-dashoffset="301.6" id="gArc" style="transition:stroke-dashoffset .6s cubic-bezier(.4,0,.2,1),stroke .4s"></circle>
+          </svg>
+          <div class="gc"><div class="gv" id="gVal">0</div><div class="gl" data-i18n="sim.score">Score</div></div>
+        </div>
+        <div style="min-width:0">
+          <div class="tier-badge" id="tierBadge" style="background:var(--t1)">Tier 1</div>
+          <div class="tier-act" id="tierAct">—</div>
+        </div>
+      </div>
+      <svg class="spark" id="spark" viewBox="0 0 320 96" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <div class="rule-log" id="ruleLog">—</div>
+      <div class="dbars">
+        <div class="dbar"><div class="dn" data-i18n="d1.n">社會網絡廣度</div><div class="dt"><div class="df" id="b1" style="background:var(--teal)"></div></div><div class="dv" id="v1">0/25</div></div>
+        <div class="dbar"><div class="dn" data-i18n="d2.n">互動強度</div><div class="dt"><div class="df" id="b2" style="background:var(--coral)"></div></div><div class="dv" id="v2">0/25</div></div>
+        <div class="dbar"><div class="dn" data-i18n="d3.n">關係穩定度</div><div class="dt"><div class="df" id="b3" style="background:var(--gold)"></div></div><div class="dv" id="v3">0/25</div></div>
+        <div class="dbar"><div class="dn" data-i18n="d4.n">即時關注度</div><div class="dt"><div class="df" id="b4" style="background:var(--navy)"></div></div><div class="dv" id="v4">0/25</div></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -331,283 +525,839 @@ h1,h2,h3,.serif{font-family:'DM Serif Display',Georgia,serif}
 
 <!-- ═══════════ SCREENING ═══════════ -->
 <section class="section" id="sec-screening">
-  <div class="sec-label">Social Worker Screening</div>
-  <div class="sec-title">AI-Driven Risk Detection &amp; Heatmap</div>
-  <p class="sec-desc">90% of staff reported heatmaps "significantly improved screening efficiency."</p>
-  <div class="screen-section rev">
-    <div class="screen-text">
-      <h3>4-Tier Risk Classification</h3>
-      <ul class="feature-list">
-        <li><div class="f-icon" style="background:var(--teal-light);color:var(--teal)">🟢</div><span><strong>Tier 1 — Adequate</strong>: Consistent engagement</span></li>
-        <li><div class="f-icon" style="background:var(--gold-light);color:var(--gold)">🟡</div><span><strong>Tier 2 — Monitor</strong>: Mild decline</span></li>
-        <li><div class="f-icon" style="background:var(--coral-light);color:var(--coral)">🟠</div><span><strong>Tier 3 — Alert</strong>: Social worker outreach</span></li>
-        <li><div class="f-icon" style="background:var(--coral-light);color:#9B1B1B">🔴</div><span><strong>Tier 4 — Critical</strong>: Immediate intervention</span></li>
-      </ul>
-      <div class="callout callout-coral" style="margin-top:14px"><div class="c-icon">📞</div><div class="c-body"><h4>Results (N=117)</h4><p><strong>45%</strong> caregiver burnout, <strong>30%</strong> family health issues.</p></div></div>
+  <div class="sec-label" data-i18n="hm.label">Social Worker Screening</div>
+  <div class="sec-title" data-i18n="hm.title">熱力圖篩檢與四級警示</div>
+  <p class="sec-desc" data-i18n="hm.desc">同一套引擎套用到整個機構。點任一列可把該住民載入上方引擎；拖動閾值可以看見警示名單如何隨之縮放。90% 的員工表示熱力圖大幅提升了個案篩檢效率。</p>
+  <div class="hm-wrap">
+    <div class="hm-head">
+      <h4 data-i18n="hm.h">📊 家庭支持熱力圖 · 近 6 個月</h4>
+      <div class="hm-legend">
+        <span><i style="background:var(--t1)"></i><span data-i18n="tier.1">充足</span></span>
+        <span><i style="background:var(--t2)"></i><span data-i18n="tier.2">觀察</span></span>
+        <span><i style="background:var(--t3)"></i><span data-i18n="tier.3">警示</span></span>
+        <span><i style="background:var(--t4)"></i><span data-i18n="tier.4">危急</span></span>
+      </div>
     </div>
-    <div class="browser"><div class="browser-bar"><div class="browser-dot" style="background:#E74C3C"></div><div class="browser-dot" style="background:#F1C40F"></div><div class="browser-dot" style="background:#2ECC71"></div><div class="browser-url">ltc-platform.cloud/admin/screening</div></div>
-      <div class="browser-body"><div class="sc">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><h4 style="margin:0">📊 Family Support Heatmap</h4><span class="sc-badge" style="background:var(--teal-light);color:var(--teal)">Live</span></div>
-        <div class="heatmap">
-          <div class="hm-header"></div><div class="hm-header">Oct</div><div class="hm-header">Nov</div><div class="hm-header">Dec</div><div class="hm-header">Jan</div><div class="hm-header">Feb</div><div class="hm-header">Mar</div>
-          <div class="hm-label">Wang Y.</div><div class="hm-cell" style="background:#2E7D32">4</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#2E7D32">5</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#2E7D32">4</div><div class="hm-cell" style="background:#66BB6A">3</div>
-          <div class="hm-label">Chen Z.</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#FFA726">1</div><div class="hm-cell" style="background:#EF5350">0</div><div class="hm-cell" style="background:#EF5350">0</div><div class="hm-cell" style="background:#C62828">0</div>
-          <div class="hm-label">Lin Y.</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#FFA726">1</div><div class="hm-cell" style="background:#FFA726">1</div><div class="hm-cell" style="background:#EF5350">0</div>
-          <div class="hm-label">Huang M.</div><div class="hm-cell" style="background:#2E7D32">5</div><div class="hm-cell" style="background:#2E7D32">4</div><div class="hm-cell" style="background:#2E7D32">4</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#2E7D32">4</div><div class="hm-cell" style="background:#2E7D32">5</div>
-          <div class="hm-label">Zhang W.</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#2E7D32">3</div><div class="hm-cell" style="background:#66BB6A">2</div><div class="hm-cell" style="background:#FFA726">1</div><div class="hm-cell" style="background:#EF5350">0</div><div class="hm-cell" style="background:#EF5350">0</div>
-        </div>
-        <div style="display:flex;gap:12px;font-size:.48rem;color:var(--text3);margin-top:4px"><span>🟢 3+</span><span>🟡 1-2</span><span>🔴 0</span></div>
-        <div class="sc-divider"></div>
-        <h4>🚨 AI Risk Alerts</h4>
-        <div class="sc-card" style="border-left:3px solid #C62828;background:var(--coral-light)"><div style="font-size:.6rem;font-weight:700;color:#C62828">🔴 TIER 4 — Chen Z.</div><div style="font-size:.55rem;margin-top:2px">0 visits × 3 months → <strong>Immediate contact</strong></div></div>
-        <div class="sc-card" style="border-left:3px solid #EF5350;background:var(--coral-light)"><div style="font-size:.6rem;font-weight:700;color:var(--coral)">🟠 TIER 3 — Zhang W.</div><div style="font-size:.55rem;margin-top:2px">3→1→0 decline → <strong>Outreach call</strong></div></div>
-      </div></div>
+    <div class="hm-grid"><div class="hm-table" id="hmTable"></div></div>
+    <div class="hm-foot">
+      <span><span data-i18n="hm.hint">💡 點擊住民列 → 載入風險引擎</span> <span style="color:var(--text3)" data-i18n="hm.demo">（示範資料，非真實住民）</span></span>
+      <span><span data-i18n="hm.flag">目前閾值下被標記的個案：</span><b id="hmFlag">0</b></span>
     </div>
   </div>
-  <div style="margin-top:36px" id="sec-impact">
-    <div class="sec-label">Qualitative Impact</div>
-    <div class="sec-title" style="font-size:1.3rem">Staff Findings (N=10)</div>
-    <div class="dim-grid" style="grid-template-columns:repeat(3,1fr);margin-top:20px">
-      <div class="dim-card d1"><div style="font-size:2rem;font-weight:900;color:var(--teal);font-family:'DM Serif Display',serif">90%</div><p>Heatmaps <strong>improved screening efficiency</strong></p></div>
-      <div class="dim-card d2"><div style="font-size:2rem;font-weight:900;color:var(--coral);font-family:'DM Serif Display',serif">80%</div><p><strong>Reduced professional anxiety</strong> about missing cases</p></div>
-      <div class="dim-card d3"><div style="font-size:2rem;font-weight:900;color:var(--gold);font-family:'DM Serif Display',serif">70%</div><p><strong>Enhanced interdisciplinary communication</strong></p></div>
+  <div class="alert-list" id="alertList"></div>
+</section>
+
+<div class="divider"></div>
+
+
+<!-- ═══════════ RESULTS ═══════════ -->
+<section class="section" id="sec-results">
+  <div class="sec-label" data-i18n="res.label">Results</div>
+  <div class="sec-title" data-i18n="res.title">19 個月的實證結果</div>
+  <p class="sec-desc" data-i18n="res.desc">AI 篩出的高風險個案，經社工追蹤後發現真正的原因並非疏於照顧，而是可被協助解決的問題——這是本研究最關鍵的洞察。</p>
+  <div class="res-grid">
+    <div class="panel">
+      <h4 data-i18n="res.reason.t">探視驟降的真實原因（n=464）</h4>
+      <div class="ph" data-i18n="res.reason.d">社工逐案追蹤後歸納。</div>
+      <div class="donut-wrap">
+        <div class="donut" id="donutHost">
+          <svg width="150" height="150" viewBox="0 0 150 150" style="transform:rotate(-90deg)">
+            <circle cx="75" cy="75" r="58" fill="none" stroke="#EEF0F4" stroke-width="20"></circle>
+            <circle cx="75" cy="75" r="58" fill="none" stroke="var(--coral)" stroke-width="20" stroke-dasharray="364.4" stroke-dashoffset="364.4" id="dn1" style="transition:stroke-dashoffset 1.1s ease .1s"></circle>
+            <circle cx="75" cy="75" r="58" fill="none" stroke="var(--gold)" stroke-width="20" stroke-dasharray="364.4" stroke-dashoffset="364.4" id="dn2" style="transition:stroke-dashoffset 1.1s ease .25s"></circle>
+            <circle cx="75" cy="75" r="58" fill="none" stroke="#8FA0B8" stroke-width="20" stroke-dasharray="364.4" stroke-dashoffset="364.4" id="dn3" style="transition:stroke-dashoffset 1.1s ease .4s"></circle>
+          </svg>
+          <div class="dc"><div class="dcv">464</div><div class="dcl" data-i18n="res.cases">高風險個案</div></div>
+        </div>
+        <div class="leg">
+          <div class="leg-item"><i style="background:var(--coral)"></i><div><b>45%</b> — <span data-i18n="res.r1">家屬照顧倦怠與工作衝突</span></div></div>
+          <div class="leg-item"><i style="background:var(--gold)"></i><div><b>30%</b> — <span data-i18n="res.r2">家屬自身健康問題</span></div></div>
+          <div class="leg-item"><i style="background:#8FA0B8"></i><div><b>25%</b> — <span data-i18n="res.r3">其他情境因素</span></div></div>
+        </div>
+      </div>
+      <div class="callout callout-coral" style="margin-bottom:0"><div class="c-icon">💡</div><div class="c-body"><h4 data-i18n="res.ins.t">關鍵洞察</h4><p data-i18n="res.ins.d">驟降的原因不是遺棄，而是家屬自己也需要被支持。早期發現讓介入從「催促探視」變成「精準協助」。</p></div></div>
+    </div>
+    <div class="panel">
+      <h4 data-i18n="res.staff.t">員工訪談主題分析（N=10）</h4>
+      <div class="ph" data-i18n="res.staff.d">質性回饋顯示，改變的不只是效率，還有專業焦慮。</div>
+      <div class="staff-bar"><div class="sl"><span data-i18n="res.s1">視覺化工具大幅提升個案篩檢效率</span><b>90%</b></div><div class="st"><div class="sf" data-w="90" style="background:var(--teal)"></div></div></div>
+      <div class="staff-bar"><div class="sl"><span data-i18n="res.s2">顯著降低擔心遺漏弱勢個案的專業焦慮</span><b>80%</b></div><div class="st"><div class="sf" data-w="80" style="background:var(--coral)"></div></div></div>
+      <div class="staff-bar"><div class="sl"><span data-i18n="res.s3">跨專業團隊溝通變得更順暢</span><b>70%</b></div><div class="st"><div class="sf" data-w="70" style="background:var(--gold)"></div></div></div>
+      <div class="callout callout-gold" style="margin-bottom:0"><div class="c-icon">📋</div><div class="c-body"><h4 data-i18n="res.miss.t">資料可靠性</h4><p data-i18n="res.miss.d">5% 因忘記登記造成的遺漏值，已透過行政機制有效控管，不影響趨勢判讀。</p></div></div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<section class="section" style="text-align:center;max-width:700px;margin-left:auto;margin-right:auto;margin-bottom:0" id="sec-conclusion">
-  <div class="sec-label" style="justify-content:center">Conclusion</div>
-  <div class="sec-title" style="font-size:1.5rem">Proactive Care Through Digital Innovation</div>
-  <p style="font-size:.92rem;color:var(--text2);line-height:1.7;margin-top:12px">By embedding AI-driven multi-dimensional assessment into existing workflows, we shift from reactive responses to <strong>proactive risk management</strong> — ensuring no vulnerable resident is left without timely intervention.</p>
-  <div class="callout callout-teal" style="text-align:left;margin-top:20px"><div class="c-icon">🌏</div><div class="c-body"><h4>Global Applicability</h4><p>Zero hardware cost and customizable thresholds make this <strong>highly replicable</strong> for LTC institutions worldwide.</p></div></div>
+<!-- ═══════════ ARCHITECTURE ═══════════ -->
+<section class="section" id="sec-arch">
+  <div class="sec-label" data-i18n="arch.label">System Architecture</div>
+  <div class="sec-title" data-i18n="arch.title">零硬體成本的雲端架構</div>
+  <p class="sec-desc" data-i18n="arch.desc">全部建構於既有行政訪客登記流程之上，無需採購硬體，閾值可自訂——這是本模型能被其他長照機構複製的前提。</p>
+  <div class="arch">
+    <div class="a-row l-user"><div class="a-label">USERS</div><div class="a-body">
+      <div class="a-node"><div class="n-icon">👨‍👩‍👧</div><div><div class="n-title" data-i18n="ar.u1">家屬入口</div><div class="n-desc" data-i18n="ar.u1d">行動網頁：預約、TOCC、問卷、AI 客服</div></div></div>
+      <div class="a-node"><div class="n-icon">👩‍⚕️</div><div><div class="n-title" data-i18n="ar.u2">社工儀表板</div><div class="n-desc" data-i18n="ar.u2d">熱力圖篩檢、四級風險警示</div></div></div>
+      <div class="a-node"><div class="n-icon">💉</div><div><div class="n-title" data-i18n="ar.u3">護理管理端</div><div class="n-desc" data-i18n="ar.u3d">NPS 分析、PDCA 改善</div></div></div>
+    </div></div>
+    <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ HTTPS · REST API ▲</div></div></div>
+    <div class="a-row l-app"><div class="a-label">APP</div><div class="a-body">
+      <div class="a-node"><div class="n-icon">⚙️</div><div><div class="n-title" data-i18n="ar.a1">無伺服器網頁引擎</div><div class="n-desc" data-i18n="ar.a1d">路由、session、權限控管</div></div></div>
+      <div class="a-node"><div class="n-icon">🧮</div><div><div class="n-title" data-i18n="ar.a2">四維計分引擎</div><div class="n-desc" data-i18n="ar.a2d">加權計算、閾值判定</div></div></div>
+      <div class="a-node"><div class="n-icon">📊</div><div><div class="n-title" data-i18n="ar.a3">分析管線</div><div class="n-desc" data-i18n="ar.a3d">NPS、滿意度、趨勢分析</div></div></div>
+    </div></div>
+    <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ Internal Processing ▲</div></div></div>
+    <div class="a-row l-ai"><div class="a-label">AI</div><div class="a-body">
+      <div class="a-node"><div class="n-icon">🤖</div><div><div class="n-title" data-i18n="ar.i1">風險預判</div><div class="n-desc" data-i18n="ar.i1d">規則引擎、滑動視窗、四級分類</div></div></div>
+      <div class="a-node"><div class="n-icon">📖</div><div><div class="n-title" data-i18n="ar.i2">語意比對</div><div class="n-desc" data-i18n="ar.i2d">同義詞擴展、情緒偵測</div></div></div>
+      <div class="a-node"><div class="n-icon">📮</div><div><div class="n-title" data-i18n="ar.i3">申訴前置分流</div><div class="n-desc" data-i18n="ar.i3d">情境辨識與處理路徑建議</div></div></div>
+    </div></div>
+    <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ Read / Write ▲</div></div></div>
+    <div class="a-row l-data"><div class="a-label">DATA</div><div class="a-body">
+      <div class="a-node"><div class="n-icon">📅</div><div><div class="n-title" data-i18n="ar.d1">探視紀錄</div><div class="n-desc" data-i18n="ar.d1d">預約、TOCC、報到紀錄</div></div></div>
+      <div class="a-node"><div class="n-icon">📊</div><div><div class="n-title" data-i18n="ar.d2">問卷與回饋</div><div class="n-desc" data-i18n="ar.d2d">滿意度、NPS、意見信箱</div></div></div>
+      <div class="a-node"><div class="n-icon">🤖</div><div><div class="n-title" data-i18n="ar.d3">AI 互動日誌</div><div class="n-desc" data-i18n="ar.d3d">對話紀錄、命中率、情緒標記</div></div></div>
+    </div></div>
+    <div class="a-conn"><div class="a-conn-bar"><div class="a-conn-label">▼ Event Triggers</div></div></div>
+    <div class="a-row l-out"><div class="a-label">OUTPUT</div><div class="a-body">
+      <div class="a-node"><div class="n-icon">📧</div><div><div class="n-title" data-i18n="ar.o1">自動信件服務</div><div class="n-desc" data-i18n="ar.o1d">回覆、逾期提醒、通知</div></div></div>
+      <div class="a-node"><div class="n-icon">🚨</div><div><div class="n-title" data-i18n="ar.o2">風險警示派送</div><div class="n-desc" data-i18n="ar.o2d">第 3–4 級 → 推播社工</div></div></div>
+      <div class="a-node"><div class="n-icon">📋</div><div><div class="n-title" data-i18n="ar.o3">報表與匯出</div><div class="n-desc" data-i18n="ar.o3d">評鑑佐證、PDCA 文件</div></div></div>
+    </div></div>
+  </div>
+  <div class="callout callout-teal"><div class="c-icon">🌏</div><div class="c-body"><h4 data-i18n="arch.rep.t">可複製性</h4><p data-i18n="arch.rep.d">利用既有行政訪客紀錄、無硬體成本、閾值可自訂，其他長照機構可直接沿用。</p></div></div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════ CONCLUSION ═══════════ -->
+<section class="section" id="sec-conclusion">
+  <div class="sec-label" data-i18n="cn.label">Conclusion</div>
+  <div class="sec-title" data-i18n="cn.title">從被動回應，到主動守護</div>
+  <p class="sec-desc" style="max-width:760px" data-i18n="cn.desc">將 AI 風險預判與動態趨勢分析嵌入日常工作流程，機構得以在住民產生被遺棄感之前介入，確保弱勢族群獲得及時支持——這正是數位轉型在照護現場最實際的意義。</p>
+  <div class="auth-grid">
+    <div class="auth lead-a"><div class="an">鄭瑞賢 JUI-HSIEN CHENG</div><div class="ar" data-i18n="au.r1">副護理長 · 發表者</div><div class="aa">Taipei City Hospital, Ren-Ai Branch</div></div>
+    <div class="auth"><div class="an">許涵芸 HAN-YUN HSU</div><div class="ar" data-i18n="au.r2">社工師</div><div class="aa">Taipei City Hospital, Ren-Ai Branch</div></div>
+    <div class="auth"><div class="an">蔡衣帆 YI-FAN TSAI</div><div class="ar" data-i18n="au.r3">護理科主任</div><div class="aa">Taipei City Hospital, Ren-Ai Branch</div></div>
+    <div class="auth"><div class="an">林蕙美 HUI-MEI LIN</div><div class="ar" data-i18n="au.r4">護理科督導</div><div class="aa">Taipei City Hospital, Ren-Ai Branch</div></div>
+  </div>
 </section>
 
 </div>
 
 <div class="footer">
-  <strong>Multi-Dimensional Family Support Assessment System</strong><br>
-  Taipei City Hospital — Affiliated Public LTC Institution, Taiwan<br>
-  <div class="f-line">TRACK 4: Digital Transformation &amp; AI in Care Operations ｜ 2026</div>
+  <strong data-i18n="ft.t">長照機構家庭支持強度預判之多維度評估模型</strong><br>
+  <span data-i18n="ft.o">臺北市立聯合醫院仁愛院區附設長照機構 · 臺灣</span>
+  <div class="f-line" data-i18n="ft.l">TRACK 4：數位轉型與 AI 對照護及營運的影響 ｜ 投稿編號 953 ｜ Poster</div>
 </div>
 
-<!-- ═══════════ AI GUIDE CHATBOT ═══════════ -->
-<button class="ai-fab" id="aiFab" onclick="toggleAI()">
-  <span class="ai-pulse"></span>
-  🤖
-</button>
-
+<!-- ═══════════ CHATBOT ═══════════ -->
+<button class="ai-fab" id="aiFab" onclick="toggleAI()" aria-label="AI guide"><span class="ai-pulse"></span>🤖</button>
 <div class="ai-panel" id="aiPanel">
   <div class="ai-panel-head">
     <div class="ai-avatar">🤖</div>
-    <div><div class="ai-title">AI System Guide</div><div class="ai-sub">Ask me anything about this project</div></div>
-    <button class="ai-panel-close" onclick="toggleAI()">✕</button>
+    <div><div class="ai-title" data-i18n="chat.t">AI 導覽助理</div><div class="ai-sub" data-i18n="chat.s">關於這項研究，什麼都可以問</div></div>
+    <button class="ai-panel-close" onclick="toggleAI()" aria-label="close">✕</button>
   </div>
   <div class="ai-chat" id="aiChat"></div>
   <div class="ai-input-wrap">
-    <input class="ai-input" id="aiInput" placeholder="Ask a question..." onkeydown="if(event.key==='Enter')sendMsg()">
-    <button class="ai-send" onclick="sendMsg()">↑</button>
+    <input class="ai-input" id="aiInput" data-i18n-ph="chat.ph" placeholder="輸入問題…" onkeydown="if(event.key==='Enter')sendMsg()">
+    <button class="ai-send" onclick="sendMsg()" aria-label="send">↑</button>
   </div>
 </div>
 
+
 <script>
-// ═══════════ AI KNOWLEDGE BASE ═══════════
-const KB = [
-  {
-    keys: ['hello','hi','hey','start','guide','tour','help','what','overview','about','introduction','intro'],
-    answer: `Welcome! 👋 I'm your AI guide for the <strong>Multi-Dimensional Family Support Assessment System</strong>.\n\nThis system was developed at a 50-bed public LTC institution in Taiwan over a 17-month action research study (N=782 records).\n\nWhat would you like to explore?`,
-    quick: ['4D Framework','Family Portal','Heatmap Screening','Key Results','Architecture'],
-    section: 'sec-hero'
-  },
-  {
-    keys: ['framework','dimension','4d','four','scoring','model','assessment','breadth','intensity','stability','attention','how','measure','evaluate'],
-    answer: `The <strong>4-Dimensional Scoring Model</strong> overcomes single-metric blind spots:\n\n🟢 <strong>D1 — Social Network Breadth:</strong> Unique visitors per month\n🔴 <strong>D2 — Interaction Intensity:</strong> Total visit frequency\n🟡 <strong>D3 — Relationship Stability:</strong> 3-month sliding window trend\n🔵 <strong>D4 — Immediate Attention:</strong> AI-triggered sudden drop alerts\n\n<a onclick="goTo('sec-framework')">→ View the Framework section</a>`,
-    quick: ['How does AI predict?','Family Portal','Key Results'],
-    section: 'sec-framework'
-  },
-  {
-    keys: ['family','portal','visit','booking','registration','tocc','point','card','mobile','app','phone','register','schedule','book'],
-    answer: `The <strong>Family Portal</strong> is a mobile web interface — no app install needed!\n\n📅 <strong>Visit Scheduling:</strong> Calendar-based slot booking\n📋 <strong>TOCC Screening:</strong> Health declaration for infection control\n⭐ <strong>Visit Point Card:</strong> Gamified monthly tracker\n📊 <strong>Compliance Rate:</strong> Booking vs. actual registration ratio\n\nEach interaction automatically feeds the 4D scoring model — turning routine check-ins into structured assessment data.\n\n<a onclick="goTo('sec-family')">→ View the Family Portal section</a>`,
-    quick: ['How does data feed 4D?','Heatmap Screening','AI Chatbot'],
-    section: 'sec-family'
-  },
-  {
-    keys: ['data','feed','map','how','collect','work','mapping','dimension','automatic'],
-    answer: `Every registration event automatically maps to the 4D model:\n\n📐 Unique visitors → <strong>D1 Breadth</strong>\n📐 Total visits → <strong>D2 Intensity</strong>\n📐 Monthly patterns → <strong>D3 Stability</strong>\n📐 Sudden drops → <strong>D4 Attention</strong>\n\nThis happens seamlessly — families don't see the scoring, they just use the portal naturally.\n\n<a onclick="goTo('sec-family')">→ See the Data→Dimensions callout</a>`,
-    quick: ['4D Framework','Heatmap Screening'],
-    section: 'sec-family'
-  },
-  {
-    keys: ['heatmap','screening','social','worker','risk','alert','tier','detect','predict','flag','decline','drop','warning','proactive'],
-    answer: `The <strong>Heatmap Dashboard</strong> is the core screening tool for social workers:\n\n🟢 <strong>Tier 1 — Adequate:</strong> 3+ visits, all good\n🟡 <strong>Tier 2 — Monitor:</strong> 1-2 visits, passive observation\n🟠 <strong>Tier 3 — Alert:</strong> Significant drop → outreach call\n🔴 <strong>Tier 4 — Critical:</strong> 0 visits → immediate intervention\n\nThe AI uses <strong>sliding window analysis</strong> to detect trends before they become crises. 90% of staff said it significantly improved screening efficiency.\n\n<a onclick="goTo('sec-screening')">→ View the Heatmap section</a>`,
-    quick: ['What results?','Architecture','Family Portal'],
-    section: 'sec-screening'
-  },
-  {
-    keys: ['result','results','outcome','impact','finding','save','hour','satisfaction','qualitative','interview','staff','number','statistic','key'],
-    answer: `<strong>Key Results from 17 months:</strong>\n\n📊 <strong>782</strong> visitation records analyzed\n⏱️ <strong>20 hours/month</strong> saved on manual tracking\n🚨 <strong>15%</strong> (n=117) flagged as high-risk\n😊 <strong>92%</strong> family communication satisfaction\n😊 <strong>88%</strong> resident satisfaction\n\n<strong>Staff interviews (N=10):</strong>\n• 90% — heatmaps improved efficiency\n• 80% — reduced anxiety about missing cases\n• 70% — enhanced team communication\n\n<a onclick="goTo('sec-impact')">→ View the Impact section</a>`,
-    quick: ['Why high-risk?','Architecture','4D Framework'],
-    section: 'sec-impact'
-  },
-  {
-    keys: ['why','high','risk','reason','cause','burnout','health','caregiver','drop','sudden'],
-    answer: `The AI flagged <strong>15% (n=117)</strong> of records as high-risk due to sudden visitation drops.\n\nSocial worker follow-up revealed:\n🔴 <strong>45%</strong> — Caregiver burnout or work conflicts\n🟠 <strong>30%</strong> — Family member health issues\n🟡 <strong>25%</strong> — Other situational factors\n\nThis is the key insight: the <strong>real reasons</strong> aren't neglect but solvable problems — enabling targeted support instead of generic reminders.\n\n<a onclick="goTo('sec-screening')">→ View Risk Detection</a>`,
-    quick: ['Key Results','Architecture'],
-    section: 'sec-screening'
-  },
-  {
-    keys: ['architecture','tech','technology','saas','cloud','server','cost','hardware','stack','how','built','infrastructure','deploy','serverless','replicate','replicable'],
-    answer: `The system runs on a <strong>5-layer serverless cloud architecture</strong>:\n\n🟢 <strong>User Layer:</strong> Family portal + Social worker dashboard + Nursing admin\n🔵 <strong>Application:</strong> Serverless web engine + 4D scoring + Analytics\n🔴 <strong>AI Engine:</strong> Risk prediction + NLP matching + Complaint triage\n🟡 <strong>Data Layer:</strong> Visitation records + Surveys + AI logs\n⚫ <strong>Output:</strong> Auto email + Risk alerts + Reports\n\n💰 <strong>Zero hardware cost</strong> — entirely cloud-hosted with customizable thresholds for easy replication.\n\n<a onclick="goTo('sec-arch')">→ View Architecture diagram</a>`,
-    quick: ['Key Results','Family Portal','4D Framework'],
-    section: 'sec-arch'
-  },
-  {
-    keys: ['chatbot','ai','assistant','nlp','emotion','complaint','triage','knowledge','topic','synonym'],
-    answer: `The system includes an embedded <strong>AI Smart Assistant</strong> for families:\n\n🤖 <strong>29-topic knowledge base</strong> with 400+ keywords\n📖 <strong>170+ synonym expansions</strong> for colloquial term matching\n😤 <strong>3-level emotion detection</strong> adjusts response empathy\n📮 <strong>13-scenario complaint pre-screening</strong> with resolution paths\n🚨 <strong>Emergency interception</strong> for abuse/elopement keywords\n\nAll conversations are logged and feed into the admin analytics dashboard for continuous improvement.`,
-    quick: ['Architecture','Heatmap Screening','Key Results'],
-    section: 'sec-arch'
-  },
-  {
-    keys: ['nps','satisfaction','survey','pdca','quality','improvement','nurse','nursing'],
-    answer: `The <strong>Satisfaction Analytics</strong> module measures care quality:\n\n📊 <strong>13-item survey</strong> across 5 dimensions (Environment, Nursing, Daily Life, Communication, Overall)\n🎯 <strong>NPS (0-10)</strong> classifies families as Promoters/Passives/Detractors\n📋 <strong>PDCA workflow</strong> generates improvement plans for below-threshold items\n\nThe NPS risk list helps nursing staff prioritize relationship management with Detractor families.`,
-    quick: ['Key Results','Heatmap Screening','Architecture'],
-    section: 'sec-stats'
-  },
-  {
-    keys: ['taiwan','regulation','compliance','evaluation','accreditation','visit','monthly','mandate','law','rule','policy'],
-    answer: `In Taiwan, <strong>national LTC evaluation regulations mandate</strong> that family members visit residents at least once per month.\n\nHowever, tracking compliance traditionally relied on social workers' subjective experience — inefficient and prone to missing high-risk cases.\n\nThis system provides <strong>objective, automated compliance monitoring</strong> embedded in daily workflows, directly supporting regulatory requirements.\n\n<a onclick="goTo('sec-hero')">→ Back to Introduction</a>`,
-    quick: ['4D Framework','Key Results','Architecture'],
-    section: 'sec-hero'
-  },
-  {
-    keys: ['innovative','innovation','unique','different','novel','contribution','new','paradigm'],
-    answer: `<strong>Key innovations:</strong>\n\n1️⃣ <strong>Multi-dimensional assessment</strong> — overcomes single-metric blind spots with 4 complementary dimensions\n\n2️⃣ <strong>Static + Dynamic integration</strong> — combines accumulated scoring with real-time trend analysis\n\n3️⃣ <strong>Proactive paradigm shift</strong> — from reactive responses to AI-driven early warning\n\n4️⃣ <strong>Zero-cost replicability</strong> — serverless architecture deployable by any LTC institution\n\n<a onclick="goTo('sec-conclusion')">→ View Conclusion</a>`,
-    quick: ['4D Framework','Architecture','Key Results'],
-    section: 'sec-conclusion'
-  },
-  {
-    keys: ['contact','author','who','team','researcher','institution','hospital'],
-    answer: `This project was developed at:\n\n🏥 <strong>Taipei City Hospital</strong> — Affiliated Public Long-Term Care Institution\n📍 Taiwan\n🛏️ 50-bed residential care facility\n👥 Multidisciplinary team (social workers, nurses, admin)\n\nThe study was conducted over <strong>17 months</strong> using an action research methodology.`,
-    quick: ['Key Results','Overview','Architecture'],
-    section: 'sec-hero'
-  }
-];
-
-// ═══════════ CHATBOT ENGINE ═══════════
-let aiOpen = false;
-const chat = document.getElementById('aiChat');
-const input = document.getElementById('aiInput');
-
-function toggleAI(){
-  aiOpen = !aiOpen;
-  document.getElementById('aiPanel').classList.toggle('show', aiOpen);
-  document.getElementById('aiFab').classList.toggle('open', aiOpen);
-  if(aiOpen && chat.children.length === 0){
-    setTimeout(()=>{ botReply(KB[0]); }, 300);
-  }
-  if(aiOpen) setTimeout(()=>input.focus(), 100);
+/* ═══════════════════ i18n DICTIONARY ═══════════════════ */
+const I18N = {
+en:{
+"brand.t":"Multi-Dimensional Family Support","brand.s":"TPECH · Ren-Ai Branch",
+"nav.abstract":"Abstract","nav.framework":"Framework","nav.sim":"Risk Engine","nav.screening":"Screening","nav.results":"Results","nav.arch":"Architecture","nav.conclusion":"Conclusion",
+"hero.track":"TRACK 4 — Digital Transformation & the Impact of AI on Care and Operations",
+"hero.title":"Measuring a Multi-Dimensional Assessment Model for Predicting Family Support in Long-Term Care",
+"hero.lead":"Built on visitor logs the institution already keeps, the model quantifies family support strength and predicts visitation decline — so a social worker reaches the resident before the feeling of abandonment sets in.",
+"hero.m1":"Taipei City Hospital, Ren-Ai Branch — affiliated LTC institution","hero.m2":"50-bed public residential facility","hero.m3":"19-month action research (Jul 2024 – Feb 2026)","hero.m4":"IHF World Hospital Congress · Submission 953",
+"hero.cta1":"Run the prediction engine","hero.cta2":"Read the full abstract",
+"stat.records":"Visitation records analyzed","stat.months":"Months of action research","stat.hours":"Staff hours saved monthly","stat.highrisk":"High-risk cases found (15%)","stat.famsat":"Family communication satisfaction","stat.ressat":"Resident satisfaction",
+"abs.label":"Abstract","abs.title":"The submitted abstract, in full","abs.desc":"Every interactive element on this page is driven by the numbers below. Switch tabs to read each section.",
+"tab.intro":"Introduction","tab.aim":"Aim","tab.methods":"Methods","tab.results":"Results","tab.conclusion":"Conclusion",
+"abs.intro":"<p>As Taiwan transitions into a super-aged society, family support has become a critical factor influencing the psychological well-being of residents in long-term care (LTC) institutions. Crucially, <span class='hl'>consistent support prevents seniors from feeling abandoned</span>. To ensure this, national evaluation regulations mandate that family members visit residents at least once a month.</p><p>However, tracking compliance relies heavily on the subjective experiences of social workers. Most LTC institutions face staffing bottlenecks, making manual tracking of resident-family dynamics inefficient, leaving high-risk residents without timely systematic early-warning interventions. To address this, our affiliated public LTC facility required an objective, multi-dimensional assessment framework integrated into daily workflows to shift from reactive responses to proactive management.</p>",
+"abs.aim":"<p>This project aims to develop a multi-dimensional assessment framework to quantitatively evaluate family support strength in LTC institutions. To overcome the inherent blind spots of single-metric evaluations, this framework integrates four dimensions: <span class='hl'>social network breadth, interaction intensity, relationship stability, and immediate attention</span>.</p><p>These were specifically chosen to provide a holistic view of resident-family dynamics and ensure regulatory compliance. The secondary objective is to establish an AI-driven prediction mechanism utilizing a rule-based engine and sliding window trend analysis to automatically detect risks and generate four-tier action recommendations.</p>",
+"abs.methods":"<p>We conducted a 19-month action research study (July 2024 to February 2026) in a 50-bed LTC institution, analyzing <span class='hl'>N=3091 visitation records</span> collected via a cloud-based system.</p><p>To enable predictive capabilities, the framework integrates a rule-based AI engine with sliding window trend analysis. It dynamically tracks the four dimensions — comparing a resident's current 3-month visitation metrics against previous periods. When specific thresholds are crossed (e.g. a sudden <span class='hl'>&gt;60% drop in interaction intensity</span>), the model predicts imminent social isolation risks, triggering automated four-tier action alerts.</p><p>Quantitative analysis included predictive validity and satisfaction surveys, factoring in missing value risks (unregistered visits). Qualitative thematic analysis evaluated staff feedback.</p>",
+"abs.results":"<p>Analyzing N=3091 visitation records, the framework successfully categorized family support levels and saved social workers approximately <span class='hl'>20 hours monthly</span> on manual tracking. The AI mechanism identified 15% (n=464) as high-risk due to sudden visitation drops. Social worker follow-ups revealed the primary reasons were caregiver burnout / work conflicts (45%) and family health issues (30%). This proactive detection allowed for immediate, targeted interventions.</p><p>Regarding data reliability, a 5% missing value rate (forgotten registrations) was managed with administrative protocols. Quantitatively, proactive care boosted family communication satisfaction to 92% and resident satisfaction to 88%.</p><p>Qualitatively, thematic analysis of staff interviews (N=10) provided deeper insights: 90% reported visual tools such as heatmaps significantly improved screening efficiency, 80% felt a notable reduction in professional anxiety regarding missing vulnerable cases, and 70% stated it enhanced interdisciplinary communication.</p>",
+"abs.conclusion":"<p>This study addresses a critical gap in family support assessment by introducing a robust multi-dimensional framework. By applying AI risk prediction and dynamic trend analysis, we offer an innovative paradigm for LTC management that directly supports regulatory visitation compliance and <span class='hl'>mitigates residents' feelings of abandonment</span>.</p><p>For healthcare operations, this digital transformation utilizes existing administrative visitor logs, significantly reducing manual tracking time without hardware costs. While the risk of unregistered visits exists, it is easily manageable. The customizable thresholds make it highly replicable for other LTC institutions.</p>",
+"tl.1":"Cloud registration system goes live; visitation records begin accumulating","tl.2":"Four-dimensional scoring model deployed; baseline thresholds set","tl.3":"Sliding-window prediction and four-tier alerts automated","tl.4":"Study closes: N=3091 records, staff interviews N=10",
+"fw.label":"Assessment Framework","fw.title":"The four-dimensional scoring model",
+"fw.desc":"A single metric — \"did anyone come this month?\" — cannot see a relationship that is quietly loosening. Four complementary dimensions can. Tap a card for the calculation.",
+"d1.n":"Social Network Breadth","d1.d":"Unique visitors over the last 3 months — the diversity of family, friends and community ties.","d1.m":"Unique visitors / 3 months","d1.f":"When one relative carries everything alone, their own collapse takes the resident's support to zero. Breadth is resilience.",
+"d2.n":"Interaction Intensity","d2.d":"Total visit count over the last 3 months — the depth of engagement.","d2.m":"Total visits / 3 months","d2.f":"Regulation requires at least one visit a month; 3 visits is the legal floor, 6 earns full marks.",
+"d3.n":"Relationship Stability","d3.d":"Month-to-month consistency, used to catch gradual disengagement.","d3.m":"Coefficient of variation, 3 months","d3.f":"Same total, different family: \"2-2-2\" and \"6-0-0\" describe opposite situations.",
+"d4.n":"Immediate Attention","d4.d":"Sliding-window comparison of the current period against the previous one.","d4.m":"Recent 3 mo vs. previous 3 mo","d4.f":"A drop beyond the threshold (60% by default) predicts social isolation risk and fires a four-tier alert.",
+"sim.label":"Interactive Engine","sim.title":"Sliding-window prediction engine — try it",
+"sim.desc":"This is the rule-based engine described in the Methods section. Drag any month's visit count: the model re-compares the two 3-month windows, recalculates all four dimensions, and issues a tiered action recommendation in real time.",
+"sim.in.t":"Input: one resident's last 6 months","sim.in.d":"Pick a scenario, or drag the sliders yourself.",
+"sim.p1":"Stable support","sim.p2":"Gradual fade","sim.p3":"Sudden stop","sim.p4":"Sole caregiver",
+"sim.wprev":"Previous window (baseline)","sim.wrec":"Recent window (assessed)","sim.uniq":"Unique visitors",
+"sim.thr":"Interaction drop threshold","sim.thrd":"Thresholds are configurable per institution — this is exactly what makes the model replicable elsewhere. Changing it recalculates the panel on the right and the heatmap below.",
+"sim.out.t":"Output: four-dimensional score and action","sim.out.d":"0–100, four dimensions worth 25 each. A fired rule overrides the tier.","sim.score":"Score",
+"visits":"visits","hm.load":"Load","of":"of",
+"tier.1":"Adequate","tier.2":"Monitor","tier.3":"Alert","tier.4":"Critical",
+"act.1":"Maintain current contact; no additional intervention needed.","act.2":"Add to the watch list; check in warmly at the next visit.","act.3":"Social worker calls the family to understand caregiving load and obstacles.","act.4":"Contact the primary family member immediately; open a case review and arrange alternative support.",
+"rule.stable":"Recent 3 months are in line with the previous period ({d}% change). No rule fired.","rule.mild":"Drop of {d}% stays under the {t}% threshold — tier follows the score.",
+"rule.drop":"Interaction intensity fell {d}%, crossing the {t}% threshold → social isolation risk predicted; the alert rule fires (tier 3 or above).","rule.zero":"Zero visits across the recent 3 months → immediate Critical classification.",
+"rule.legal":" Only {n} visits in 3 months, below the regulatory minimum of one per month.",
+"hm.label":"Social Worker Screening","hm.title":"Heatmap screening and four-tier alerts",
+"hm.desc":"The same engine, applied to the whole facility. Tap any row to load that resident into the engine above; move the threshold to watch the alert list expand or contract. 90% of staff said the heatmap significantly improved screening efficiency.",
+"hm.h":"📊 Family support heatmap · last 6 months","hm.hint":"💡 Tap a resident row to load it into the engine","hm.demo":"(illustrative data, not real residents)","hm.flag":"Cases flagged at this threshold: ","hm.tier":"Tier",
+"res.label":"Results","res.title":"What 19 months showed",
+"res.desc":"Following up the cases the AI flagged revealed that the cause was rarely neglect — it was a problem someone could help with. That is the study's most important finding.",
+"res.reason.t":"Why visits actually stopped (n=464)","res.reason.d":"Compiled from social worker follow-up on every flagged case.","res.cases":"high-risk cases",
+"res.r1":"Caregiver burnout / work conflicts","res.r2":"Family member's own health problems","res.r3":"Other situational factors",
+"res.ins.t":"The key insight","res.ins.d":"Families who stop visiting are usually families who need support themselves. Early detection turned the intervention from \"please visit more\" into targeted help.",
+"res.staff.t":"Thematic analysis of staff interviews (N=10)","res.staff.d":"What changed was not only efficiency, but professional anxiety.",
+"res.s1":"Visual tools significantly improved screening efficiency","res.s2":"Noticeably less anxiety about missing a vulnerable case","res.s3":"Interdisciplinary communication improved",
+"res.miss.t":"Data reliability","res.miss.d":"A 5% missing value rate from forgotten registrations was managed with administrative protocols and does not distort trend readings.",
+"arch.label":"System Architecture","arch.title":"Cloud architecture, zero hardware cost",
+"arch.desc":"Everything is built on the visitor registration process the institution already runs. No hardware purchase, configurable thresholds — the precondition for other institutions to reuse it.",
+"ar.u1":"Family Portal","ar.u1d":"Mobile web: booking, TOCC, survey, AI assistant","ar.u2":"Social Worker Dashboard","ar.u2d":"Heatmap screening, four-tier alerts","ar.u3":"Nursing Admin","ar.u3d":"NPS analysis, PDCA improvement",
+"ar.a1":"Serverless Web Engine","ar.a1d":"Routing, session, role-based access","ar.a2":"4D Scoring Engine","ar.a2d":"Weighted calculation, threshold evaluation","ar.a3":"Analytics Pipeline","ar.a3d":"NPS, satisfaction, trend analysis",
+"ar.i1":"Risk Prediction","ar.i1d":"Rule engine, sliding window, four-tier classification","ar.i2":"Semantic Matching","ar.i2d":"Synonym expansion, emotion detection","ar.i3":"Complaint Triage","ar.i3d":"Scenario recognition and resolution paths",
+"ar.d1":"Visitation Records","ar.d1d":"Booking, TOCC, check-in logs","ar.d2":"Survey & Feedback","ar.d2d":"Satisfaction, NPS, suggestion box","ar.d3":"AI Interaction Logs","ar.d3d":"Chat history, hit rate, emotion tags",
+"ar.o1":"Automated Email","ar.o1d":"Replies, overdue reminders, notifications","ar.o2":"Alert Dispatch","ar.o2d":"Tier 3–4 → pushed to social worker","ar.o3":"Reports & Export","ar.o3d":"Accreditation evidence, PDCA documents",
+"arch.rep.t":"Replicability","arch.rep.d":"Existing visitor logs, no hardware cost, configurable thresholds — directly reusable by other LTC institutions.",
+"cn.label":"Conclusion","cn.title":"From reactive response to proactive protection",
+"cn.desc":"Embedding AI risk prediction and dynamic trend analysis into daily workflows lets a facility intervene before a resident begins to feel abandoned, ensuring timely support for the most vulnerable — which is what digital transformation actually means on the care floor.",
+"au.r1":"Deputy Head Nurse · Presenting author","au.r2":"Social Worker","au.r3":"Director of Nursing Department","au.r4":"Supervisor, Department of Nursing",
+"ft.t":"Multi-Dimensional Assessment Model for Predicting Family Support in LTC Institutions","ft.o":"Taipei City Hospital, Ren-Ai Branch — affiliated LTC institution, Taiwan","ft.l":"TRACK 4: Digital Transformation and the Impact of AI on Care and Operations ｜ Submission 953 ｜ Poster",
+"chat.t":"AI Guide","chat.s":"Ask me anything about this study","chat.ph":"Ask a question…","chat.nomatch":"I don't have that one yet — but I can walk you through any of these:",
+"mon":["Sep","Oct","Nov","Dec","Jan","Feb"]
+},
+zh:{
+"brand.t":"家庭支持多維度評估","brand.s":"臺北市立聯合醫院仁愛院區",
+"nav.abstract":"摘要","nav.framework":"四維框架","nav.sim":"風險引擎","nav.screening":"熱力圖篩檢","nav.results":"研究結果","nav.arch":"系統架構","nav.conclusion":"結論",
+"hero.track":"TRACK 4 — 數位轉型與 AI 對照護及營運的影響",
+"hero.title":"應用多維度評估模型於長照機構家庭支持強度預判之研究",
+"hero.lead":"以機構既有的訪客登記資料為基礎，量化家庭支持強度、預判探視衰退風險，讓社工在住民產生被遺棄感之前就先接住他。",
+"hero.m1":"臺北市立聯合醫院仁愛院區附設長照機構","hero.m2":"50 床公立住宿型機構","hero.m3":"19 個月行動研究（2024.07–2026.02）","hero.m4":"IHF 世界醫院大會 · 投稿編號 953",
+"hero.cta1":"親手操作風險預判引擎","hero.cta2":"閱讀完整摘要",
+"stat.records":"分析探視紀錄","stat.months":"個月行動研究","stat.hours":"每月節省人工時數","stat.highrisk":"高風險個案（15%）","stat.famsat":"家屬溝通滿意度","stat.ressat":"住民滿意度",
+"abs.label":"Abstract","abs.title":"投稿摘要全文","abs.desc":"本頁所有互動元件的數據，皆直接對應下方摘要內容。切換頁籤閱讀各段落。",
+"tab.intro":"前言","tab.aim":"研究目的","tab.methods":"研究方法","tab.results":"研究結果","tab.conclusion":"結論",
+"abs.intro":"<p>隨著臺灣邁入超高齡社會，家庭支持已成為影響長照機構住民心理健康的關鍵要素。重要的是，<span class='hl'>持續的支持能避免長者產生被遺棄的感覺</span>。為此，機構評鑑法規明文規範家屬每月必須探視住民至少一次。</p><p>然而，現行追蹤與評估多仰賴社工的主觀經驗。長照機構普遍面臨人力瓶頸，逐一追蹤家屬動態耗時費力，導致高風險住民往往缺乏系統化的早期預警。為解決此問題，我們迫切需要一套能嵌入日常流程的客觀多維度評估框架，以實現從被動回應到主動預防的管理轉移。</p>",
+"abs.aim":"<p>本專案旨在開發一個多維度評估框架，以量化長照機構住民的家庭支持強度。為克服單一指標評估的固有盲點，該框架整合了四個維度：<span class='hl'>社會網絡廣度、互動強度、關係穩定度以及即時關注度</span>。</p><p>選擇這些維度是為了全面掌握住民與家屬的動態，並確保符合評鑑規範。次要目標是運用規則引擎與滑動視窗趨勢分析建立 AI 預判機制，自動偵測風險因子並產生四級行動建議。</p>",
+"abs.methods":"<p>本研究於 50 床長照機構進行 19 個月（2024.07–2026.02）的行動研究，分析雲端系統蒐集的 <span class='hl'>N=3091 筆探視紀錄</span>。</p><p>為具備預測能力，多維度框架整合了規則引擎與滑動視窗趨勢分析。系統會動態追蹤四大維度，將住民近 3 個月的探視指標與前期進行比對。當數據跨越特定閾值（如<span class='hl'>互動強度驟降大於 60%</span>）時，模型即預判潛在的社會隔離風險，並觸發自動化的四級行動警示。</p><p>量化分析包含預測效度與滿意度調查，並將遺漏值（忘記登記）風險納入考量。質性部分則以主題分析法評估員工回饋。</p>",
+"abs.results":"<p>分析 N=3091 筆探視紀錄，該框架成功將家庭支持分級，每月為社工節省約 <span class='hl'>20 小時</span>的人工追蹤時間。AI 機制精準篩出 15%（n=464）探視驟降的高危險個案。經社工介入追蹤，發現主因為家屬照顧倦怠與工作衝突（45%）以及家屬自身健康問題（30%），系統的早期發現成功促成了精準且及時的支持介入。</p><p>在數據可靠性上，5% 因忘記登記造成的遺漏值得以透過行政機制有效控管。量化指標顯示，主動關懷使家屬溝通滿意度達到 92%，住民滿意度亦提升至 88%。</p><p>質性研究方面，員工訪談（N=10）的主題分析提供了更深入的視角：90% 認為視覺化工具（如熱力圖）大幅提升了個案篩檢效率；80% 表示系統顯著降低了擔心遺漏弱勢個案的專業焦慮感；70% 回饋跨專業團隊間的溝通變得更加順暢。</p>",
+"abs.conclusion":"<p>本研究提出穩健的多維度評估框架，填補了家庭支持評估的關鍵缺口。透過應用 AI 風險預判與動態趨勢分析，我們為長照管理提供了創新的範式，不僅直接支持了評鑑法規的探視要求，更<span class='hl'>有效減輕住民的被遺棄感</span>。</p><p>在醫療營運方面，此數位轉型利用既有之行政訪客紀錄，在無硬體成本下大幅減少人工追蹤時間。儘管存在忘記登記的遺漏風險，但仍在可控範圍內。可自訂的閾值使其在其他長照機構中具備高度可複製性。</p>",
+"tl.1":"雲端登記系統上線，開始累積探視紀錄","tl.2":"四維評分模型導入，建立基準閾值","tl.3":"滑動視窗預判與四級警示自動化","tl.4":"收案結束：N=3091 筆紀錄、員工訪談 N=10",
+"fw.label":"評估框架","fw.title":"四維度評分模型",
+"fw.desc":"單一指標（例如「這個月有沒有人來」）看不見正在鬆動的關係。四個互補維度合起來，才是完整的住民—家屬動態。點擊卡片看計算方式。",
+"d1.n":"社會網絡廣度","d1.d":"近 3 個月不重複探視者人數——家人、朋友與社區連結的多樣性。","d1.m":"不重複訪客數 / 3 個月","d1.f":"當只有一位家屬獨力承擔，一旦他倒下，住民的支持就歸零。廣度就是韌性。",
+"d2.n":"互動強度","d2.d":"近 3 個月總探視次數，反映家屬投入的深度。","d2.m":"總探視次數 / 3 個月","d2.f":"評鑑法規要求每月至少一次；3 次為法定門檻，6 次為滿分。",
+"d3.n":"關係穩定度","d3.d":"月與月之間的一致性，用來抓出緩慢流失的關係。","d3.m":"近 3 個月變異係數","d3.f":"總次數相同，「2-2-2」與「6-0-0」代表完全不同的家庭狀態。",
+"d4.n":"即時關注度","d4.d":"滑動視窗比對前後期，驟降即觸發社工介入。","d4.m":"近 3 月 vs. 前 3 月 降幅","d4.f":"降幅超過閾值（預設 60%）即預判社會隔離風險，觸發四級行動警示。",
+"sim.label":"互動引擎","sim.title":"滑動視窗風險預判引擎（可操作）",
+"sim.desc":"摘要方法段所描述的規則引擎，就是這個。拖動任一個月的探視次數，模型會即時比對前後兩個 3 個月視窗、重算四維分數，並產生四級行動建議。",
+"sim.in.t":"輸入：某位住民的 6 個月探視紀錄","sim.in.d":"先選一個情境，或自行拖動下方滑桿。",
+"sim.p1":"穩定支持","sim.p2":"漸進疏離","sim.p3":"驟然中斷","sim.p4":"單一照顧者",
+"sim.wprev":"前期視窗（比較基準）","sim.wrec":"近期視窗（評估區間）","sim.uniq":"不重複訪客",
+"sim.thr":"互動強度驟降閾值","sim.thrd":"閾值可依機構屬性自訂——這正是本模型可被其他長照機構複製的關鍵。調整後，右側與下方熱力圖會同步重算。",
+"sim.out.t":"輸出：四維分數與行動建議","sim.out.d":"分數 0–100，由四個維度各 25 分加總；規則命中時會覆寫級別。","sim.score":"總分",
+"visits":"次","hm.load":"載入","of":"／",
+"tier.1":"充足","tier.2":"觀察","tier.3":"警示","tier.4":"危急",
+"act.1":"維持既有互動，無須額外介入。","act.2":"列入觀察名單，下次家屬來訪時主動關懷。","act.3":"社工主動致電，了解家屬照顧負荷與困難。","act.4":"立即聯繫主要家屬，啟動個案討論並安排替代支持方案。",
+"rule.stable":"近 3 個月與前期相當（變動 {d}%），未觸發任何規則。","rule.mild":"降幅 {d}% 未達 {t}% 閾值，維持依分數判級。",
+"rule.drop":"互動強度較前期下降 {d}%，跨越 {t}% 閾值 → 預判社會隔離風險，觸發警示規則（級別至少第 3 級）。","rule.zero":"近 3 個月零探視 → 直接判定為危急級，需立即聯繫。",
+"rule.legal":" 近 3 個月僅 {n} 次探視，低於法規每月至少 1 次之要求。",
+"hm.label":"社工端篩檢","hm.title":"熱力圖篩檢與四級警示",
+"hm.desc":"同一套引擎套用到整個機構。點任一列可把該住民載入上方引擎；拖動閾值可以看見警示名單如何隨之縮放。90% 的員工表示熱力圖大幅提升了個案篩檢效率。",
+"hm.h":"📊 家庭支持熱力圖 · 近 6 個月","hm.hint":"💡 點擊住民列 → 載入風險引擎","hm.demo":"（示範資料，非真實住民）","hm.flag":"目前閾值下被標記的個案：","hm.tier":"級別",
+"res.label":"研究結果","res.title":"19 個月的實證結果",
+"res.desc":"AI 篩出的高風險個案，經社工追蹤後發現真正的原因並非疏於照顧，而是可被協助解決的問題——這是本研究最關鍵的洞察。",
+"res.reason.t":"探視驟降的真實原因（n=464）","res.reason.d":"由社工逐案追蹤後歸納。","res.cases":"高風險個案",
+"res.r1":"家屬照顧倦怠與工作衝突","res.r2":"家屬自身健康問題","res.r3":"其他情境因素",
+"res.ins.t":"關鍵洞察","res.ins.d":"停止探視的家屬，往往自己也需要被支持。早期發現讓介入從「催促探視」變成「精準協助」。",
+"res.staff.t":"員工訪談主題分析（N=10）","res.staff.d":"質性回饋顯示，改變的不只是效率，還有專業焦慮。",
+"res.s1":"視覺化工具大幅提升個案篩檢效率","res.s2":"顯著降低擔心遺漏弱勢個案的專業焦慮","res.s3":"跨專業團隊溝通變得更順暢",
+"res.miss.t":"資料可靠性","res.miss.d":"5% 因忘記登記造成的遺漏值，已透過行政機制有效控管，不影響趨勢判讀。",
+"arch.label":"系統架構","arch.title":"零硬體成本的雲端架構",
+"arch.desc":"全部建構於既有行政訪客登記流程之上，無需採購硬體，閾值可自訂——這是本模型能被其他長照機構複製的前提。",
+"ar.u1":"家屬入口","ar.u1d":"行動網頁：預約、TOCC、問卷、AI 客服","ar.u2":"社工儀表板","ar.u2d":"熱力圖篩檢、四級風險警示","ar.u3":"護理管理端","ar.u3d":"NPS 分析、PDCA 改善",
+"ar.a1":"無伺服器網頁引擎","ar.a1d":"路由、session、權限控管","ar.a2":"四維計分引擎","ar.a2d":"加權計算、閾值判定","ar.a3":"分析管線","ar.a3d":"NPS、滿意度、趨勢分析",
+"ar.i1":"風險預判","ar.i1d":"規則引擎、滑動視窗、四級分類","ar.i2":"語意比對","ar.i2d":"同義詞擴展、情緒偵測","ar.i3":"申訴前置分流","ar.i3d":"情境辨識與處理路徑建議",
+"ar.d1":"探視紀錄","ar.d1d":"預約、TOCC、報到紀錄","ar.d2":"問卷與回饋","ar.d2d":"滿意度、NPS、意見信箱","ar.d3":"AI 互動日誌","ar.d3d":"對話紀錄、命中率、情緒標記",
+"ar.o1":"自動信件服務","ar.o1d":"回覆、逾期提醒、通知","ar.o2":"風險警示派送","ar.o2d":"第 3–4 級 → 推播社工","ar.o3":"報表與匯出","ar.o3d":"評鑑佐證、PDCA 文件",
+"arch.rep.t":"可複製性","arch.rep.d":"利用既有行政訪客紀錄、無硬體成本、閾值可自訂，其他長照機構可直接沿用。",
+"cn.label":"結論","cn.title":"從被動回應，到主動守護",
+"cn.desc":"將 AI 風險預判與動態趨勢分析嵌入日常工作流程，機構得以在住民產生被遺棄感之前介入，確保弱勢族群獲得及時支持——這正是數位轉型在照護現場最實際的意義。",
+"au.r1":"副護理長 · 發表者","au.r2":"社工師","au.r3":"護理科主任","au.r4":"護理科督導",
+"ft.t":"應用多維度評估模型於長照機構家庭支持強度預判之研究","ft.o":"臺北市立聯合醫院仁愛院區附設長照機構 · 臺灣","ft.l":"TRACK 4：數位轉型與 AI 對照護及營運的影響 ｜ 投稿編號 953 ｜ Poster",
+"chat.t":"AI 導覽助理","chat.s":"關於這項研究，什麼都可以問","chat.ph":"輸入問題…","chat.nomatch":"這題我還沒收錄，不過以下這些我都可以說明：",
+"mon":["9月","10月","11月","12月","1月","2月"]
+},
+ja:{
+"brand.t":"家族支援 多次元評価","brand.s":"台北市立聯合病院 仁愛院区",
+"nav.abstract":"抄録","nav.framework":"4次元モデル","nav.sim":"予測エンジン","nav.screening":"ヒートマップ","nav.results":"結果","nav.arch":"システム構成","nav.conclusion":"結論",
+"hero.track":"TRACK 4 — デジタル変革とAIがケア・運営に与える影響",
+"hero.title":"長期ケア施設における家族支援強度を予測する多次元評価モデルの検証",
+"hero.lead":"施設が既に保有する面会記録をもとに、家族支援の強さを数値化し、面会の減少を予測します。入居者が「見捨てられた」と感じる前に、ソーシャルワーカーが手を差し伸べるために。",
+"hero.m1":"台北市立聯合病院 仁愛院区 附設長期ケア施設","hero.m2":"50床の公立入所型施設","hero.m3":"19か月のアクションリサーチ（2024.07–2026.02）","hero.m4":"IHF 世界病院会議 · 投稿番号 953",
+"hero.cta1":"予測エンジンを操作する","hero.cta2":"抄録全文を読む",
+"stat.records":"分析した面会記録","stat.months":"か月のアクションリサーチ","stat.hours":"月あたり削減時間","stat.highrisk":"高リスク事例（15%）","stat.famsat":"家族とのコミュニケーション満足度","stat.ressat":"入居者満足度",
+"abs.label":"抄録","abs.title":"投稿抄録 全文","abs.desc":"本ページの対話要素はすべて以下の抄録の数値に基づいています。タブを切り替えてご覧ください。",
+"tab.intro":"背景","tab.aim":"目的","tab.methods":"方法","tab.results":"結果","tab.conclusion":"結論",
+"abs.intro":"<p>台湾が超高齢社会へ移行するなか、家族支援は長期ケア施設入居者の心理的well-beingを左右する重要な要因となっています。とりわけ、<span class='hl'>継続的な支援は高齢者が見捨てられたと感じることを防ぎます</span>。そのため国の評価基準では、家族が月に最低1回は面会することが定められています。</p><p>しかし遵守状況の把握はソーシャルワーカーの主観的経験に大きく依存しています。多くの施設は人員のボトルネックを抱え、入居者と家族の関係を一人ひとり手作業で追跡することは非効率で、高リスクの入居者が体系的な早期警告を受けられないまま取り残されていました。この課題に対し、当施設は日常業務に組み込める客観的な多次元評価フレームワークを必要としていました。</p>",
+"abs.aim":"<p>本プロジェクトの目的は、長期ケア施設における家族支援の強度を定量評価する多次元フレームワークを開発することです。単一指標評価に内在する死角を克服するため、<span class='hl'>社会的ネットワークの広がり、交流の強度、関係の安定性、即時的な注意度</span>という4つの次元を統合しました。</p><p>これらは入居者と家族の動態を包括的に把握し、評価基準への適合を確保するために選定されています。副次的目的は、ルールベースエンジンとスライディングウィンドウによる傾向分析を用いたAI予測機構を確立し、リスクを自動検出して4段階の行動提案を生成することです。</p>",
+"abs.methods":"<p>50床の長期ケア施設において19か月間（2024年7月〜2026年2月）のアクションリサーチを実施し、クラウドシステムで収集した<span class='hl'>N=3091件の面会記録</span>を分析しました。</p><p>予測機能を実現するため、本フレームワークはルールベースAIエンジンとスライディングウィンドウ傾向分析を統合しています。4次元を動的に追跡し、入居者の直近3か月の面会指標を前期と比較します。特定の閾値を超えた場合（例：<span class='hl'>交流強度の60%超の急減</span>）、モデルは社会的孤立リスクを予測し、4段階の行動アラートを自動的に発火させます。</p><p>量的分析では予測妥当性と満足度調査を行い、欠測値（登録忘れ）のリスクも考慮しました。質的分析では職員のフィードバックを主題分析しました。</p>",
+"abs.results":"<p>N=3091件の面会記録の分析により、家族支援レベルの分類に成功し、手作業の追跡にかかる時間を月あたり約<span class='hl'>20時間</span>削減しました。AI機構は面会の急減により15%（n=464）を高リスクとして特定。ソーシャルワーカーの追跡調査では、主な理由は介護者の燃え尽き・仕事との葛藤（45%）と家族自身の健康問題（30%）でした。早期発見により、的確で迅速な介入が可能になりました。</p><p>データの信頼性については、登録忘れによる5%の欠測は運用ルールで管理されました。量的には、能動的なケアにより家族とのコミュニケーション満足度は92%、入居者満足度は88%に向上しました。</p><p>質的には、職員インタビュー（N=10）の主題分析から、90%がヒートマップ等の可視化ツールがスクリーニング効率を大幅に高めたと回答、80%が見落としへの専門的不安が明らかに軽減したと感じ、70%が多職種連携のコミュニケーションが改善したと述べました。</p>",
+"abs.conclusion":"<p>本研究は、堅牢な多次元フレームワークを導入することで家族支援評価における重要な空白を埋めました。AIリスク予測と動的傾向分析の応用により、面会に関する規制遵守を直接支援し、<span class='hl'>入居者の見捨てられ感を軽減する</span>新たな運営パラダイムを提示します。</p><p>運営面では、既存の訪問者記録を活用するため、ハードウェア費用なしに手作業の追跡時間を大幅に削減できます。登録漏れのリスクは存在しますが管理可能な範囲です。閾値を自由に設定できるため、他施設への高い再現性を持ちます。</p>",
+"tl.1":"クラウド受付システム稼働、面会記録の蓄積を開始","tl.2":"4次元スコアモデルを導入、基準閾値を設定","tl.3":"スライディングウィンドウ予測と4段階アラートを自動化","tl.4":"調査終了：記録 N=3091、職員インタビュー N=10",
+"fw.label":"評価フレームワーク","fw.title":"4次元スコアリングモデル",
+"fw.desc":"「今月来たかどうか」という単一指標では、静かにほどけていく関係は見えません。4つの補完的な次元を重ねて初めて全体が見えます。カードをタップすると計算式が開きます。",
+"d1.n":"社会的ネットワークの広がり","d1.d":"直近3か月の重複しない面会者数——家族・友人・地域とのつながりの多様性。","d1.m":"重複なし面会者数 / 3か月","d1.f":"一人の家族だけが支えている場合、その人が倒れれば支援はゼロになります。広がりは回復力です。",
+"d2.n":"交流の強度","d2.d":"直近3か月の総面会回数。家族の関与の深さを表します。","d2.m":"総面会回数 / 3か月","d2.f":"規定は月1回以上。3回が法定水準、6回で満点となります。",
+"d3.n":"関係の安定性","d3.d":"月ごとの一貫性。ゆるやかに離れていく関係を捉えます。","d3.m":"直近3か月の変動係数","d3.f":"合計が同じでも「2-2-2」と「6-0-0」は全く異なる家族の状態を示します。",
+"d4.n":"即時的な注意度","d4.d":"スライディングウィンドウで前期と比較し、急減があれば介入を促します。","d4.m":"直近3か月 vs 前3か月の減少率","d4.f":"閾値（既定60%）を超える減少は社会的孤立リスクと判定し、4段階アラートを発火します。",
+"sim.label":"インタラクティブ・エンジン","sim.title":"スライディングウィンドウ予測エンジン（操作可能）",
+"sim.desc":"抄録の方法で述べたルールベースエンジンそのものです。いずれかの月の面会回数を動かすと、2つの3か月ウィンドウを再比較し、4次元スコアを再計算して、段階別の行動提案をリアルタイムで返します。",
+"sim.in.t":"入力：ある入居者の直近6か月","sim.in.d":"シナリオを選ぶか、スライダーを動かしてください。",
+"sim.p1":"安定した支援","sim.p2":"緩やかな疎遠","sim.p3":"突然の途絶","sim.p4":"介護者が一人",
+"sim.wprev":"前期ウィンドウ（比較基準）","sim.wrec":"直近ウィンドウ（評価対象）","sim.uniq":"重複なし面会者",
+"sim.thr":"交流強度の急減 閾値","sim.thrd":"閾値は施設ごとに設定できます。これこそが他施設で再現できる鍵です。変更すると右側と下のヒートマップが同時に再計算されます。",
+"sim.out.t":"出力：4次元スコアと行動提案","sim.out.d":"0〜100点。各次元25点の合計で、ルール発火時は段階が上書きされます。","sim.score":"スコア",
+"visits":"回","hm.load":"読込","of":"／",
+"tier.1":"十分","tier.2":"観察","tier.3":"警戒","tier.4":"危機",
+"act.1":"現状の交流を維持。追加の介入は不要です。","act.2":"観察リストに追加し、次回来訪時に声をかけます。","act.3":"ソーシャルワーカーが電話し、介護負担と困りごとを確認します。","act.4":"主たる家族へ直ちに連絡し、ケース会議と代替支援を開始します。",
+"rule.stable":"直近3か月は前期と同水準（変動 {d}%）。ルールの発火はありません。","rule.mild":"減少 {d}% は閾値 {t}% 未満のため、スコアに基づく段階を維持します。",
+"rule.drop":"交流強度が前期比 {d}% 減少し、閾値 {t}% を超過 → 社会的孤立リスクと予測し、警戒ルールが発火（第3段階以上）。","rule.zero":"直近3か月の面会がゼロ → 直ちに「危機」と判定します。",
+"rule.legal":" 直近3か月の面会は {n} 回のみで、月1回以上という規定を下回っています。",
+"hm.label":"ソーシャルワーカー向けスクリーニング","hm.title":"ヒートマップと4段階アラート",
+"hm.desc":"同じエンジンを施設全体に適用します。行をタップすると上のエンジンに読み込まれ、閾値を動かすとアラート一覧が増減します。職員の90%がヒートマップによりスクリーニング効率が大きく向上したと回答しました。",
+"hm.h":"📊 家族支援ヒートマップ · 直近6か月","hm.hint":"💡 入居者の行をタップ → エンジンに読み込み","hm.demo":"（デモデータであり実在の入居者ではありません）","hm.flag":"現在の閾値で該当する事例：","hm.tier":"段階",
+"res.label":"結果","res.title":"19か月が示したこと",
+"res.desc":"AIが検出した高リスク事例を追跡すると、原因はネグレクトではなく、支援すれば解決できる問題でした。これが本研究で最も重要な発見です。",
+"res.reason.t":"面会が途絶えた本当の理由（n=464）","res.reason.d":"該当事例をソーシャルワーカーが個別に追跡した結果です。","res.cases":"高リスク事例",
+"res.r1":"介護者の燃え尽き・仕事との葛藤","res.r2":"家族自身の健康問題","res.r3":"その他の状況要因",
+"res.ins.t":"重要な洞察","res.ins.d":"面会が止まる家族は、多くの場合その家族自身が支援を必要としています。早期発見により、介入は「もっと面会を」から「的確な支援」へ変わりました。",
+"res.staff.t":"職員インタビューの主題分析（N=10）","res.staff.d":"変わったのは効率だけでなく、専門職としての不安でした。",
+"res.s1":"可視化ツールがスクリーニング効率を大幅に向上","res.s2":"見落としへの専門的不安が明らかに軽減","res.s3":"多職種間のコミュニケーションが改善",
+"res.miss.t":"データの信頼性","res.miss.d":"登録忘れによる5%の欠測は運用ルールで管理され、傾向の読み取りに影響しません。",
+"arch.label":"システム構成","arch.title":"ハードウェア費ゼロのクラウド構成",
+"arch.desc":"すべて既存の来訪受付業務の上に構築されています。機器購入は不要、閾値は設定可能——他施設が再利用できる前提条件です。",
+"ar.u1":"家族ポータル","ar.u1d":"モバイル：予約・TOCC・アンケート・AI応対","ar.u2":"ソーシャルワーカー画面","ar.u2d":"ヒートマップ、4段階アラート","ar.u3":"看護管理画面","ar.u3d":"NPS分析、PDCA改善",
+"ar.a1":"サーバーレス Web エンジン","ar.a1d":"ルーティング、セッション、権限管理","ar.a2":"4次元スコアエンジン","ar.a2d":"重み付け計算、閾値判定","ar.a3":"分析パイプライン","ar.a3d":"NPS、満足度、傾向分析",
+"ar.i1":"リスク予測","ar.i1d":"ルールエンジン、スライディングウィンドウ、4段階分類","ar.i2":"意味マッチング","ar.i2d":"同義語拡張、感情検出","ar.i3":"苦情トリアージ","ar.i3d":"状況判別と対応経路の提案",
+"ar.d1":"面会記録","ar.d1d":"予約、TOCC、受付ログ","ar.d2":"アンケートと意見","ar.d2d":"満足度、NPS、意見箱","ar.d3":"AI対話ログ","ar.d3d":"対話履歴、ヒット率、感情タグ",
+"ar.o1":"自動メール配信","ar.o1d":"返信、期限超過通知、お知らせ","ar.o2":"アラート配信","ar.o2d":"第3〜4段階 → ソーシャルワーカーへ通知","ar.o3":"レポートと出力","ar.o3d":"評価用エビデンス、PDCA文書",
+"arch.rep.t":"再現性","arch.rep.d":"既存の来訪記録を活用、ハードウェア費ゼロ、閾値設定可能——他の長期ケア施設がそのまま利用できます。",
+"cn.label":"結論","cn.title":"受動的な対応から、能動的な見守りへ",
+"cn.desc":"AIリスク予測と動的傾向分析を日常業務に組み込むことで、入居者が見捨てられたと感じる前に介入でき、最も支援を要する人へ適時の支援が届きます。それが現場におけるデジタル変革の実際の意味です。",
+"au.r1":"副看護師長 · 発表者","au.r2":"ソーシャルワーカー","au.r3":"看護部長","au.r4":"看護部 スーパーバイザー",
+"ft.t":"長期ケア施設における家族支援強度を予測する多次元評価モデル","ft.o":"台北市立聯合病院 仁愛院区 附設長期ケア施設 · 台湾","ft.l":"TRACK 4：デジタル変革とAIがケア・運営に与える影響 ｜ 投稿番号 953 ｜ ポスター",
+"chat.t":"AIガイド","chat.s":"この研究について何でもどうぞ","chat.ph":"質問を入力…","chat.nomatch":"その質問はまだ登録されていません。以下ならご案内できます：",
+"mon":["9月","10月","11月","12月","1月","2月"]
+},
+ko:{
+"brand.t":"가족지원 다차원 평가","brand.s":"타이베이시립연합병원 런아이원구",
+"nav.abstract":"초록","nav.framework":"4차원 모델","nav.sim":"위험 예측 엔진","nav.screening":"히트맵 선별","nav.results":"연구 결과","nav.arch":"시스템 구조","nav.conclusion":"결론",
+"hero.track":"TRACK 4 — 디지털 전환과 AI가 돌봄·운영에 미치는 영향",
+"hero.title":"장기요양시설 가족지원 강도 예측을 위한 다차원 평가모델의 효과 검증",
+"hero.lead":"시설이 이미 보유한 면회 기록을 기반으로 가족지원 강도를 수치화하고 면회 감소를 예측합니다. 입소자가 버려졌다고 느끼기 전에 사회복지사가 먼저 다가가기 위해서입니다.",
+"hero.m1":"타이베이시립연합병원 런아이원구 부설 장기요양시설","hero.m2":"50병상 공립 입소형 시설","hero.m3":"19개월 실행연구 (2024.07–2026.02)","hero.m4":"IHF 세계병원총회 · 투고번호 953",
+"hero.cta1":"예측 엔진 직접 실행","hero.cta2":"초록 전문 읽기",
+"stat.records":"분석한 면회 기록","stat.months":"개월 실행연구","stat.hours":"월간 절감 업무시간","stat.highrisk":"고위험 사례 (15%)","stat.famsat":"가족 소통 만족도","stat.ressat":"입소자 만족도",
+"abs.label":"초록","abs.title":"투고 초록 전문","abs.desc":"이 페이지의 모든 상호작용 요소는 아래 초록의 수치를 그대로 사용합니다. 탭을 눌러 각 절을 읽어보세요.",
+"tab.intro":"서론","tab.aim":"연구 목적","tab.methods":"연구 방법","tab.results":"연구 결과","tab.conclusion":"결론",
+"abs.intro":"<p>대만이 초고령사회로 진입하면서 가족지원은 장기요양시설 입소자의 심리적 안녕을 좌우하는 핵심 요인이 되었습니다. 특히 <span class='hl'>지속적인 지원은 어르신이 버려졌다고 느끼는 것을 막아줍니다</span>. 이를 위해 국가 평가규정은 가족이 최소 월 1회 면회하도록 명시하고 있습니다.</p><p>그러나 준수 여부의 추적은 사회복지사의 주관적 경험에 크게 의존합니다. 대부분의 시설이 인력 병목을 겪고 있어 입소자–가족 관계를 일일이 수작업으로 추적하는 것은 비효율적이며, 고위험 입소자는 체계적인 조기경보 없이 방치되기 쉽습니다. 이에 본 시설은 일상 업무에 통합 가능한 객관적 다차원 평가 프레임워크가 필요했습니다.</p>",
+"abs.aim":"<p>본 프로젝트의 목적은 장기요양시설 입소자의 가족지원 강도를 정량 평가하는 다차원 프레임워크를 개발하는 것입니다. 단일 지표 평가의 사각지대를 극복하기 위해 <span class='hl'>사회연결망 폭, 상호작용 강도, 관계 안정성, 즉시 주의도</span>의 네 가지 차원을 통합했습니다.</p><p>이 차원들은 입소자–가족 관계를 전체적으로 파악하고 평가규정 준수를 보장하기 위해 선정되었습니다. 부차적 목적은 규칙기반 엔진과 슬라이딩 윈도우 추세분석을 활용한 AI 예측 기제를 구축하여 위험을 자동 탐지하고 4단계 조치 권고를 생성하는 것입니다.</p>",
+"abs.methods":"<p>50병상 장기요양시설에서 19개월(2024년 7월~2026년 2월) 동안 실행연구를 수행하고, 클라우드 시스템으로 수집한 <span class='hl'>N=3091건의 면회 기록</span>을 분석했습니다.</p><p>예측 기능을 위해 프레임워크는 규칙기반 AI 엔진과 슬라이딩 윈도우 추세분석을 통합했습니다. 네 차원을 동적으로 추적하며 입소자의 최근 3개월 면회 지표를 이전 기간과 비교합니다. 특정 임계값을 넘으면(예: <span class='hl'>상호작용 강도 60% 초과 급감</span>) 모델은 임박한 사회적 고립 위험을 예측하고 4단계 조치 경보를 자동 발생시킵니다.</p><p>양적 분석은 예측 타당도와 만족도 조사를 포함했으며 결측치(등록 누락) 위험을 함께 고려했습니다. 질적으로는 주제분석으로 직원 피드백을 평가했습니다.</p>",
+"abs.results":"<p>N=3091건의 면회 기록 분석을 통해 가족지원 수준을 성공적으로 분류했고, 수작업 추적에 드는 시간을 월 약 <span class='hl'>20시간</span> 절감했습니다. AI는 면회 급감을 근거로 15%(n=464)를 고위험으로 식별했습니다. 사회복지사 추적 결과 주된 이유는 돌봄 소진·업무 충돌(45%)과 가족 자신의 건강 문제(30%)였습니다. 조기 발견 덕분에 즉각적이고 표적화된 개입이 가능했습니다.</p><p>자료 신뢰성 측면에서 등록 누락으로 인한 5%의 결측은 행정 절차로 관리되었습니다. 양적으로는 선제적 돌봄을 통해 가족 소통 만족도가 92%, 입소자 만족도가 88%로 향상되었습니다.</p><p>질적으로는 직원 인터뷰(N=10) 주제분석 결과 90%가 히트맵 등 시각화 도구가 선별 효율을 크게 높였다고 응답했고, 80%는 취약 사례를 놓칠까 하는 전문적 불안이 뚜렷이 줄었다고 느꼈으며, 70%는 다직종 간 소통이 개선되었다고 답했습니다.</p>",
+"abs.conclusion":"<p>본 연구는 견고한 다차원 프레임워크를 제시하여 가족지원 평가의 결정적 공백을 메웠습니다. AI 위험예측과 동적 추세분석을 적용함으로써 면회 관련 규정 준수를 직접 지원하고 <span class='hl'>입소자의 유기감을 완화하는</span> 새로운 운영 패러다임을 제안합니다.</p><p>운영 측면에서 이 디지털 전환은 기존 행정 방문기록을 활용하므로 하드웨어 비용 없이 수작업 추적 시간을 크게 줄입니다. 등록 누락 위험은 존재하나 관리 가능한 수준입니다. 임계값을 사용자화할 수 있어 다른 시설로의 재현성이 매우 높습니다.</p>",
+"tl.1":"클라우드 등록 시스템 가동, 면회 기록 축적 시작","tl.2":"4차원 점수 모델 도입, 기준 임계값 설정","tl.3":"슬라이딩 윈도우 예측 및 4단계 경보 자동화","tl.4":"연구 종료: 기록 N=3091, 직원 인터뷰 N=10",
+"fw.label":"평가 프레임워크","fw.title":"4차원 점수 모델",
+"fw.desc":"\"이번 달에 누가 왔는가\"라는 단일 지표로는 조용히 느슨해지는 관계가 보이지 않습니다. 네 개의 보완적 차원이 함께 있어야 전체가 보입니다. 카드를 누르면 계산식이 열립니다.",
+"d1.n":"사회연결망 폭","d1.d":"최근 3개월 중복 없는 면회자 수 — 가족·친구·지역사회 연결의 다양성.","d1.m":"중복 없는 면회자 수 / 3개월","d1.f":"한 사람이 홀로 감당하면, 그가 무너질 때 지원은 0이 됩니다. 폭은 곧 회복탄력성입니다.",
+"d2.n":"상호작용 강도","d2.d":"최근 3개월 총 면회 횟수 — 가족 참여의 깊이.","d2.m":"총 면회 횟수 / 3개월","d2.f":"규정은 월 1회 이상. 3회가 법정 하한, 6회면 만점입니다.",
+"d3.n":"관계 안정성","d3.d":"월별 일관성. 서서히 멀어지는 관계를 포착합니다.","d3.m":"최근 3개월 변동계수","d3.f":"총합이 같아도 \"2-2-2\"와 \"6-0-0\"은 전혀 다른 가족 상황입니다.",
+"d4.n":"즉시 주의도","d4.d":"슬라이딩 윈도우로 이전 기간과 비교해 급감 시 개입을 촉발합니다.","d4.m":"최근 3개월 vs 이전 3개월 감소율","d4.f":"임계값(기본 60%)을 넘는 감소는 사회적 고립 위험으로 예측되어 4단계 경보를 발생시킵니다.",
+"sim.label":"인터랙티브 엔진","sim.title":"슬라이딩 윈도우 예측 엔진 (직접 조작)",
+"sim.desc":"초록 방법절에 기술된 규칙기반 엔진이 바로 이것입니다. 어느 달의 면회 횟수든 움직이면 두 개의 3개월 윈도우를 다시 비교하고 4차원 점수를 재계산하여 단계별 조치를 실시간으로 제시합니다.",
+"sim.in.t":"입력: 한 입소자의 최근 6개월","sim.in.d":"시나리오를 고르거나 슬라이더를 직접 움직여 보세요.",
+"sim.p1":"안정적 지원","sim.p2":"점진적 소원","sim.p3":"갑작스러운 단절","sim.p4":"단독 돌봄자",
+"sim.wprev":"이전 윈도우 (비교 기준)","sim.wrec":"최근 윈도우 (평가 구간)","sim.uniq":"중복 없는 면회자",
+"sim.thr":"상호작용 급감 임계값","sim.thrd":"임계값은 시설별로 조정할 수 있습니다. 이것이 다른 시설에서 재현 가능한 핵심입니다. 조정하면 우측 패널과 아래 히트맵이 함께 재계산됩니다.",
+"sim.out.t":"출력: 4차원 점수와 조치 권고","sim.out.d":"0–100점, 각 차원 25점 합산. 규칙이 발동하면 단계가 덮어쓰기됩니다.","sim.score":"점수",
+"visits":"회","hm.load":"불러오기","of":"／",
+"tier.1":"충분","tier.2":"관찰","tier.3":"경보","tier.4":"위급",
+"act.1":"현재 교류를 유지하며 추가 개입은 필요하지 않습니다.","act.2":"관찰 명단에 추가하고 다음 방문 때 안부를 확인합니다.","act.3":"사회복지사가 전화하여 돌봄 부담과 어려움을 확인합니다.","act.4":"주 보호자에게 즉시 연락하고 사례회의와 대체 지원을 시작합니다.",
+"rule.stable":"최근 3개월이 이전 기간과 비슷합니다(변동 {d}%). 발동된 규칙이 없습니다.","rule.mild":"감소 {d}%는 임계값 {t}% 미만이므로 점수에 따른 단계를 유지합니다.",
+"rule.drop":"상호작용 강도가 이전 대비 {d}% 감소하여 임계값 {t}%를 초과 → 사회적 고립 위험으로 예측, 경보 규칙이 발동됩니다(3단계 이상).","rule.zero":"최근 3개월 면회 0회 → 즉시 위급 단계로 판정합니다.",
+"rule.legal":" 최근 3개월 면회가 {n}회에 불과해 월 1회 이상 규정에 미달합니다.",
+"hm.label":"사회복지사 선별","hm.title":"히트맵 선별과 4단계 경보",
+"hm.desc":"같은 엔진을 시설 전체에 적용합니다. 행을 누르면 위 엔진으로 불러오고, 임계값을 움직이면 경보 목록이 늘거나 줄어듭니다. 직원의 90%가 히트맵이 선별 효율을 크게 높였다고 답했습니다.",
+"hm.h":"📊 가족지원 히트맵 · 최근 6개월","hm.hint":"💡 입소자 행을 누르면 엔진으로 불러옵니다","hm.demo":"(예시 데이터이며 실제 입소자가 아닙니다)","hm.flag":"현재 임계값에서 표시된 사례: ","hm.tier":"단계",
+"res.label":"연구 결과","res.title":"19개월이 보여준 것",
+"res.desc":"AI가 표시한 고위험 사례를 추적했더니 원인은 방임이 아니라 도우면 해결되는 문제였습니다. 이것이 본 연구의 가장 중요한 통찰입니다.",
+"res.reason.t":"면회가 끊긴 진짜 이유 (n=464)","res.reason.d":"표시된 사례를 사회복지사가 개별 추적한 결과입니다.","res.cases":"고위험 사례",
+"res.r1":"돌봄 소진 및 업무 충돌","res.r2":"가족 자신의 건강 문제","res.r3":"기타 상황 요인",
+"res.ins.t":"핵심 통찰","res.ins.d":"면회를 멈춘 가족은 대개 그 가족 자신이 지원을 필요로 합니다. 조기 발견은 개입을 \"더 자주 오세요\"에서 \"정확한 도움\"으로 바꿨습니다.",
+"res.staff.t":"직원 인터뷰 주제분석 (N=10)","res.staff.d":"달라진 것은 효율만이 아니라 전문가로서의 불안이었습니다.",
+"res.s1":"시각화 도구가 선별 효율을 크게 향상","res.s2":"취약 사례를 놓칠까 하는 전문적 불안이 뚜렷이 감소","res.s3":"다직종 간 소통이 개선",
+"res.miss.t":"자료 신뢰성","res.miss.d":"등록 누락에 따른 5% 결측은 행정 절차로 관리되어 추세 판독에 영향을 주지 않습니다.",
+"arch.label":"시스템 구조","arch.title":"하드웨어 비용 0의 클라우드 구조",
+"arch.desc":"모두 기존 방문 등록 절차 위에 구축되었습니다. 장비 구매 불필요, 임계값 조정 가능 — 다른 시설이 재사용할 수 있는 전제 조건입니다.",
+"ar.u1":"가족 포털","ar.u1d":"모바일: 예약, TOCC, 설문, AI 상담","ar.u2":"사회복지사 대시보드","ar.u2d":"히트맵 선별, 4단계 위험 경보","ar.u3":"간호 관리자","ar.u3d":"NPS 분석, PDCA 개선",
+"ar.a1":"서버리스 웹 엔진","ar.a1d":"라우팅, 세션, 권한 관리","ar.a2":"4차원 점수 엔진","ar.a2d":"가중 계산, 임계값 판정","ar.a3":"분석 파이프라인","ar.a3d":"NPS, 만족도, 추세 분석",
+"ar.i1":"위험 예측","ar.i1d":"규칙 엔진, 슬라이딩 윈도우, 4단계 분류","ar.i2":"의미 매칭","ar.i2d":"유의어 확장, 감정 탐지","ar.i3":"민원 분류","ar.i3d":"상황 인식과 처리 경로 제안",
+"ar.d1":"면회 기록","ar.d1d":"예약, TOCC, 체크인 로그","ar.d2":"설문과 피드백","ar.d2d":"만족도, NPS, 의견함","ar.d3":"AI 상호작용 로그","ar.d3d":"대화 이력, 적중률, 감정 태그",
+"ar.o1":"자동 메일 발송","ar.o1d":"회신, 기한 초과 알림, 공지","ar.o2":"경보 발송","ar.o2d":"3–4단계 → 사회복지사에게 전송","ar.o3":"보고서와 내보내기","ar.o3d":"평가 근거자료, PDCA 문서",
+"arch.rep.t":"재현 가능성","arch.rep.d":"기존 방문기록 활용, 하드웨어 비용 없음, 임계값 조정 가능 — 다른 장기요양시설이 그대로 사용할 수 있습니다.",
+"cn.label":"결론","cn.title":"수동적 대응에서 능동적 보호로",
+"cn.desc":"AI 위험예측과 동적 추세분석을 일상 업무에 내장하면, 입소자가 버려졌다고 느끼기 전에 개입할 수 있고 가장 취약한 이들에게 적시의 지원이 닿습니다. 그것이 현장에서 디지털 전환이 갖는 실제 의미입니다.",
+"au.r1":"부수간호사장 · 발표자","au.r2":"사회복지사","au.r3":"간호부장","au.r4":"간호부 수퍼바이저",
+"ft.t":"장기요양시설 가족지원 강도 예측을 위한 다차원 평가모델","ft.o":"타이베이시립연합병원 런아이원구 부설 장기요양시설 · 대만","ft.l":"TRACK 4: 디지털 전환과 AI가 돌봄·운영에 미치는 영향 ｜ 투고번호 953 ｜ 포스터",
+"chat.t":"AI 가이드","chat.s":"이 연구에 대해 무엇이든 물어보세요","chat.ph":"질문을 입력하세요…","chat.nomatch":"그 질문은 아직 준비되지 않았습니다. 다음은 안내할 수 있어요:",
+"mon":["9월","10월","11월","12월","1월","2월"]
 }
-
-function goTo(id){
-  const el = document.getElementById(id);
-  if(el){
-    el.scrollIntoView({behavior:'smooth',block:'start'});
-    el.classList.add('tour-highlight');
-    setTimeout(()=>el.classList.remove('tour-highlight'),3000);
-  }
-}
-
-function addMsg(html, isUser){
-  const d = document.createElement('div');
-  d.className = 'ai-msg ' + (isUser ? 'ai-user' : 'ai-bot');
-  d.innerHTML = '<div class="ai-bubble">' + html.replace(/\n/g,'<br>') + '</div>';
-  chat.appendChild(d);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function addQuick(btns){
-  const wrap = document.createElement('div');
-  wrap.className = 'ai-quick';
-  btns.forEach(b=>{
-    const btn = document.createElement('button');
-    btn.className = 'ai-quick-btn';
-    btn.textContent = b;
-    btn.onclick = ()=>{ handleQuery(b); };
-    wrap.appendChild(btn);
-  });
-  chat.appendChild(wrap);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function showTyping(){
-  const d = document.createElement('div');
-  d.className = 'ai-msg ai-bot';
-  d.id = 'typing';
-  d.innerHTML = '<div class="ai-typing"><span></span><span></span><span></span></div>';
-  chat.appendChild(d);
-  chat.scrollTop = chat.scrollHeight;
-}
-function hideTyping(){
-  const t = document.getElementById('typing');
-  if(t) t.remove();
-}
-
-function findBest(q){
-  const words = q.toLowerCase().replace(/[^a-z0-9\s]/g,'').split(/\s+/);
-  let best = null, bestScore = 0;
-  KB.forEach(entry => {
-    let score = 0;
-    words.forEach(w => {
-      entry.keys.forEach(k => {
-        if(w === k) score += 3;
-        else if(w.length > 3 && k.includes(w)) score += 1.5;
-        else if(k.length > 3 && w.includes(k)) score += 1;
-      });
-    });
-    if(score > bestScore){ bestScore = score; best = entry; }
-  });
-  return bestScore >= 2 ? best : null;
-}
-
-function botReply(entry){
-  showTyping();
-  const delay = Math.min(400 + entry.answer.length * 2, 1200);
-  setTimeout(()=>{
-    hideTyping();
-    addMsg(entry.answer, false);
-    if(entry.quick) addQuick(entry.quick);
-  }, delay);
-}
-
-function handleQuery(text){
-  addMsg(text, true);
-  // remove old quick buttons
-  document.querySelectorAll('.ai-quick').forEach(q=>q.remove());
-
-  const match = findBest(text);
-  if(match){
-    botReply(match);
-  } else {
-    showTyping();
-    setTimeout(()=>{
-      hideTyping();
-      addMsg("I'm not sure about that specific topic, but I can help with these areas:", false);
-      addQuick(['Overview','4D Framework','Family Portal','Heatmap Screening','Key Results','Architecture','AI Chatbot','NPS & PDCA','Innovation','Regulations']);
-    }, 600);
-  }
-}
-
-function sendMsg(){
-  const v = input.value.trim();
-  if(!v) return;
-  input.value = '';
-  handleQuery(v);
-}
-
-// Animation observer
-const obs=new IntersectionObserver(e=>{e.forEach(n=>{if(n.isIntersecting)n.target.style.animationPlayState='running'})},{threshold:.15});
-document.querySelectorAll('.fade-in').forEach(el=>{el.style.animationPlayState='paused';obs.observe(el)});
+};
 </script>
+
+
+<script>
+/* ═══════════════════ CHATBOT KNOWLEDGE BASE ═══════════════════ */
+const KB = {
+en:[
+ {keys:['hello','hi','hey','start','overview','about','intro','guide','help','what is'],
+  a:"Hi. I'm the guide for this study — a <b>multi-dimensional model that predicts family support</b> in a 50-bed public LTC institution in Taipei, built over 19 months on N=3091 visitation records.<br><br>Where would you like to start?",
+  q:[1,2,3,4],s:'sec-hero'},
+ {keys:['framework','dimension','4d','four','scoring','model','breadth','intensity','stability','attention','how measure'],
+  a:"Four dimensions, 25 points each:<br><br>🟢 <b>D1 Breadth</b> — unique visitors in 3 months<br>🔴 <b>D2 Intensity</b> — total visits in 3 months<br>🟡 <b>D3 Stability</b> — month-to-month consistency<br>🔵 <b>D4 Attention</b> — drop vs. the previous window<br><br>Any one of them alone has a blind spot; together they describe the relationship.<br><a onclick=\"goTo('sec-framework')\">→ Open the framework</a>",
+  q:[2,3,6],s:'sec-framework'},
+ {keys:['engine','predict','prediction','sliding','window','threshold','rule','60','trigger','alert','tier','how does ai'],
+  a:"The engine compares a resident's <b>most recent 3 months against the previous 3</b>. If interaction intensity falls past the threshold (60% by default), it predicts social isolation risk and overrides the tier to Alert. Zero visits in the recent window goes straight to Critical.<br><br>The threshold is adjustable — that's what makes the model portable to other institutions.<br><a onclick=\"goTo('sec-sim')\">→ Try the engine yourself</a>",
+  q:[3,4,6],s:'sec-sim'},
+ {keys:['heatmap','screening','social worker','risk','flag','tiers','dashboard','how used'],
+  a:"Social workers screen the whole facility on one heatmap, with four tiers: <b>Adequate · Monitor · Alert · Critical</b>. Tier 3 and 4 are pushed to the social worker's queue.<br><br>90% of staff said the heatmap significantly improved screening efficiency, and 80% reported less anxiety about missing a vulnerable case.<br><a onclick=\"goTo('sec-screening')\">→ Open the heatmap</a>",
+  q:[4,5,2],s:'sec-screening'},
+ {keys:['result','results','outcome','finding','hours','satisfaction','number','statistic','data','evidence'],
+  a:"From N=3091 records over 19 months:<br><br>⏱ <b>20 hours/month</b> of manual tracking saved<br>🚨 <b>15% (n=464)</b> flagged as high-risk<br>😊 <b>92%</b> family communication satisfaction<br>😊 <b>88%</b> resident satisfaction<br>📋 5% missing values, handled administratively<br><br>Staff interviews (N=10): 90% / 80% / 70% on efficiency, anxiety and teamwork.<br><a onclick=\"goTo('sec-results')\">→ See the results</a>",
+  q:[5,3,6],s:'sec-results'},
+ {keys:['why','reason','cause','burnout','neglect','stop visiting','abandon','464'],
+  a:"This is the finding that mattered most. Of the 464 flagged cases:<br><br>🔴 <b>45%</b> caregiver burnout or work conflicts<br>🟠 <b>30%</b> the family member's own health problems<br>⚪ <b>25%</b> other situational factors<br><br>Families who stop visiting usually need support themselves. Early detection changed the intervention from \"please visit more\" to targeted help.<br><a onclick=\"goTo('sec-results')\">→ See the breakdown</a>",
+  q:[4,6,1],s:'sec-results'},
+ {keys:['architecture','tech','cloud','cost','hardware','replicate','replicable','deploy','copy','other institution','serverless'],
+  a:"Five layers, all serverless: users → application → AI engine → data → output. It runs on the visitor registration the institution already does, so there is <b>no hardware cost</b>, and every threshold is configurable.<br><br>That combination is why another LTC institution can adopt it without a new budget line.<br><a onclick=\"goTo('sec-arch')\">→ Open the architecture</a>",
+  q:[6,2,5],s:'sec-arch'},
+ {keys:['regulation','law','compliance','accreditation','monthly','once a month','taiwan','policy'],
+  a:"Taiwan's national LTC evaluation regulations require family members to visit at least <b>once per month</b>. Compliance used to be tracked from a social worker's memory and paper logs.<br><br>This model turns the same registration data into objective, continuous monitoring — and produces the accreditation evidence as a by-product.<br><a onclick=\"goTo('sec-abstract')\">→ Read the introduction</a>",
+  q:[1,3,5],s:'sec-abstract'}
+],
+zh:[
+ {keys:['你好','哈囉','嗨','開始','導覽','介紹','總覽','這是什麼','幫助'],
+  a:"您好，我是這份研究的導覽助理。這是一項在臺北 50 床公立長照機構進行、為期 19 個月、分析 3091 筆探視紀錄的<b>家庭支持強度預判模型</b>。<br><br>想從哪裡開始？",
+  q:[1,2,3,4],s:'sec-hero'},
+ {keys:['四維','維度','框架','模型','計分','評分','廣度','強度','穩定','關注','怎麼算'],
+  a:"四個維度，各 25 分：<br><br>🟢 <b>D1 社會網絡廣度</b>——近 3 個月不重複訪客<br>🔴 <b>D2 互動強度</b>——近 3 個月總探視次數<br>🟡 <b>D3 關係穩定度</b>——月與月之間的一致性<br>🔵 <b>D4 即時關注度</b>——與前期視窗的降幅<br><br>單看任一項都有盲點，合起來才描述得出一段關係。<br><a onclick=\"goTo('sec-framework')\">→ 打開四維框架</a>",
+  q:[2,3,6],s:'sec-framework'},
+ {keys:['引擎','預判','預測','滑動','視窗','閾值','規則','60','觸發','警示','分級','ai怎麼'],
+  a:"引擎會把住民<b>近 3 個月與前 3 個月比對</b>。當互動強度降幅跨過閾值（預設 60%），即預判社會隔離風險，並將級別覆寫為警示；近期視窗零探視則直接判為危急。<br><br>閾值可自行調整——這正是模型能被別的機構沿用的關鍵。<br><a onclick=\"goTo('sec-sim')\">→ 親手操作引擎</a>",
+  q:[3,4,6],s:'sec-sim'},
+ {keys:['熱力圖','篩檢','社工','風險','標記','儀表板','怎麼用','四級'],
+  a:"社工用一張熱力圖掃過全機構，分成四級：<b>充足 · 觀察 · 警示 · 危急</b>，第 3、4 級會直接推播到社工待辦。<br><br>90% 的員工認為熱力圖大幅提升篩檢效率，80% 表示擔心遺漏弱勢個案的焦慮明顯下降。<br><a onclick=\"goTo('sec-screening')\">→ 打開熱力圖</a>",
+  q:[4,5,2],s:'sec-screening'},
+ {keys:['結果','成效','數據','幾小時','滿意度','統計','證據','成果'],
+  a:"19 個月、3091 筆紀錄的結果：<br><br>⏱ 每月節省 <b>20 小時</b>人工追蹤<br>🚨 篩出 <b>15%（n=464）</b>高風險個案<br>😊 家屬溝通滿意度 <b>92%</b><br>😊 住民滿意度 <b>88%</b><br>📋 5% 遺漏值以行政機制控管<br><br>員工訪談（N=10）：效率 90%、焦慮下降 80%、跨團隊溝通 70%。<br><a onclick=\"goTo('sec-results')\">→ 看研究結果</a>",
+  q:[5,3,6],s:'sec-results'},
+ {keys:['為什麼','原因','倦怠','不來','遺棄','464','驟降'],
+  a:"這是最關鍵的發現。464 個高風險個案中：<br><br>🔴 <b>45%</b> 家屬照顧倦怠與工作衝突<br>🟠 <b>30%</b> 家屬自身健康問題<br>⚪ <b>25%</b> 其他情境因素<br><br>停止探視的家屬，往往自己也需要被支持。早期發現讓介入從「催促探視」變成「精準協助」。<br><a onclick=\"goTo('sec-results')\">→ 看原因分布</a>",
+  q:[4,6,1],s:'sec-results'},
+ {keys:['架構','技術','雲端','成本','硬體','複製','沿用','部署','其他機構'],
+  a:"五層無伺服器架構：使用者 → 應用 → AI 引擎 → 資料 → 輸出。全部長在機構既有的訪客登記流程上，因此<b>零硬體成本</b>，所有閾值都可調。<br><br>這個組合，讓其他長照機構不必編列新預算就能導入。<br><a onclick=\"goTo('sec-arch')\">→ 打開系統架構</a>",
+  q:[6,2,5],s:'sec-arch'},
+ {keys:['法規','評鑑','規定','每月','一次','合規','政策'],
+  a:"我國長照機構評鑑規範家屬<b>每月至少探視一次</b>。過去這件事靠社工的記憶與紙本紀錄追蹤。<br><br>本模型把同一批登記資料轉成客觀、持續的監測，評鑑佐證則是順帶產出的副產品。<br><a onclick=\"goTo('sec-abstract')\">→ 閱讀前言</a>",
+  q:[1,3,5],s:'sec-abstract'}
+],
+ja:[
+ {keys:['こんにちは','はじめ','案内','概要','これは','ヘルプ','紹介'],
+  a:"こんにちは。この研究のガイドです。台北の50床公立長期ケア施設で19か月、3091件の面会記録をもとに構築した<b>家族支援強度の予測モデル</b>です。<br><br>どこから見ますか？",
+  q:[1,2,3,4],s:'sec-hero'},
+ {keys:['次元','4次元','フレーム','モデル','スコア','評価','広がり','強度','安定','注意','計算'],
+  a:"4つの次元、各25点：<br><br>🟢 <b>D1 広がり</b>——直近3か月の重複なし面会者<br>🔴 <b>D2 強度</b>——直近3か月の総面会回数<br>🟡 <b>D3 安定性</b>——月ごとの一貫性<br>🔵 <b>D4 注意度</b>——前期ウィンドウ比の減少率<br><br>単独では死角がありますが、重ねると関係が見えます。<br><a onclick=\"goTo('sec-framework')\">→ フレームワークを開く</a>",
+  q:[2,3,6],s:'sec-framework'},
+ {keys:['エンジン','予測','スライディング','ウィンドウ','閾値','ルール','60','発火','アラート','段階'],
+  a:"エンジンは入居者の<b>直近3か月と前3か月を比較</b>します。交流強度の減少が閾値（既定60%）を超えると社会的孤立リスクと予測し、段階を「警戒」に上書きします。直近ウィンドウが0回なら即「危機」です。<br><br>閾値は変更可能——他施設へ持ち出せる理由がここにあります。<br><a onclick=\"goTo('sec-sim')\">→ エンジンを操作する</a>",
+  q:[3,4,6],s:'sec-sim'},
+ {keys:['ヒートマップ','スクリーニング','ソーシャル','リスク','ダッシュボード','使い方','段階'],
+  a:"ソーシャルワーカーは1枚のヒートマップで施設全体を見渡します。段階は<b>十分・観察・警戒・危機</b>の4つ。第3〜4段階は担当者へ自動的に通知されます。<br><br>職員の90%が効率の大幅向上、80%が見落としへの不安の軽減を挙げました。<br><a onclick=\"goTo('sec-screening')\">→ ヒートマップを開く</a>",
+  q:[4,5,2],s:'sec-screening'},
+ {keys:['結果','成果','データ','時間','満足','統計','エビデンス'],
+  a:"19か月・3091件の結果：<br><br>⏱ 手作業の追跡を月<b>20時間</b>削減<br>🚨 <b>15%（n=464）</b>を高リスクとして検出<br>😊 家族の満足度 <b>92%</b><br>😊 入居者満足度 <b>88%</b><br>📋 欠測5%は運用ルールで管理<br><br>職員インタビュー（N=10）：効率90%、不安軽減80%、連携改善70%。<br><a onclick=\"goTo('sec-results')\">→ 結果を見る</a>",
+  q:[5,3,6],s:'sec-results'},
+ {keys:['なぜ','理由','燃え尽き','来ない','見捨て','464','急減'],
+  a:"最も重要な発見です。464件の内訳：<br><br>🔴 <b>45%</b> 介護者の燃え尽き・仕事との葛藤<br>🟠 <b>30%</b> 家族自身の健康問題<br>⚪ <b>25%</b> その他の状況要因<br><br>面会が止まる家族は、その家族自身が支援を必要としています。早期発見により介入は「もっと面会を」から「的確な支援」へ変わりました。<br><a onclick=\"goTo('sec-results')\">→ 内訳を見る</a>",
+  q:[4,6,1],s:'sec-results'},
+ {keys:['構成','アーキ','技術','クラウド','費用','ハード','再現','導入','他施設'],
+  a:"5層のサーバーレス構成：利用者 → アプリ → AIエンジン → データ → 出力。既存の来訪受付の上に載るため<b>ハードウェア費はゼロ</b>、閾値もすべて設定可能です。<br><br>だからこそ、新たな予算なしで他施設が導入できます。<br><a onclick=\"goTo('sec-arch')\">→ 構成図を開く</a>",
+  q:[6,2,5],s:'sec-arch'},
+ {keys:['規制','法','評価','毎月','1回','コンプライアンス','台湾'],
+  a:"台湾の長期ケア評価基準では、家族の面会は<b>月1回以上</b>と定められています。従来その把握は担当者の記憶と紙の記録に頼っていました。<br><br>本モデルは同じ受付データを客観的で継続的な監視に変え、評価用の根拠資料は副産物として生成されます。<br><a onclick=\"goTo('sec-abstract')\">→ 背景を読む</a>",
+  q:[1,3,5],s:'sec-abstract'}
+],
+ko:[
+ {keys:['안녕','시작','안내','개요','이건','도움','소개'],
+  a:"안녕하세요. 이 연구의 가이드입니다. 타이베이의 50병상 공립 장기요양시설에서 19개월 동안 3091건의 면회 기록으로 구축한 <b>가족지원 강도 예측 모델</b>입니다.<br><br>어디부터 보시겠어요?",
+  q:[1,2,3,4],s:'sec-hero'},
+ {keys:['차원','4차원','프레임','모델','점수','평가','폭','강도','안정','주의','계산'],
+  a:"네 개 차원, 각 25점:<br><br>🟢 <b>D1 폭</b> — 최근 3개월 중복 없는 면회자<br>🔴 <b>D2 강도</b> — 최근 3개월 총 면회 횟수<br>🟡 <b>D3 안정성</b> — 월별 일관성<br>🔵 <b>D4 주의도</b> — 이전 윈도우 대비 감소율<br><br>하나만 보면 사각지대가 생기지만, 함께 보면 관계가 보입니다.<br><a onclick=\"goTo('sec-framework')\">→ 프레임워크 열기</a>",
+  q:[2,3,6],s:'sec-framework'},
+ {keys:['엔진','예측','슬라이딩','윈도우','임계','규칙','60','경보','단계','작동'],
+  a:"엔진은 입소자의 <b>최근 3개월과 이전 3개월을 비교</b>합니다. 상호작용 강도 감소가 임계값(기본 60%)을 넘으면 사회적 고립 위험으로 예측하고 단계를 경보로 덮어씁니다. 최근 윈도우 면회가 0회면 즉시 위급입니다.<br><br>임계값은 조정 가능합니다 — 다른 시설로 옮길 수 있는 이유입니다.<br><a onclick=\"goTo('sec-sim')\">→ 엔진 직접 조작</a>",
+  q:[3,4,6],s:'sec-sim'},
+ {keys:['히트맵','선별','사회복지','위험','대시보드','사용','단계'],
+  a:"사회복지사는 히트맵 한 장으로 시설 전체를 훑습니다. 단계는 <b>충분 · 관찰 · 경보 · 위급</b> 네 가지이며 3–4단계는 담당자 목록으로 자동 전송됩니다.<br><br>직원 90%가 선별 효율 향상을, 80%가 취약 사례 누락 불안 감소를 보고했습니다.<br><a onclick=\"goTo('sec-screening')\">→ 히트맵 열기</a>",
+  q:[4,5,2],s:'sec-screening'},
+ {keys:['결과','성과','데이터','시간','만족','통계','근거'],
+  a:"19개월, 3091건의 결과:<br><br>⏱ 수작업 추적 월 <b>20시간</b> 절감<br>🚨 <b>15%(n=464)</b> 고위험 식별<br>😊 가족 소통 만족도 <b>92%</b><br>😊 입소자 만족도 <b>88%</b><br>📋 결측 5%는 행정 절차로 관리<br><br>직원 인터뷰(N=10): 효율 90%, 불안 감소 80%, 협업 70%.<br><a onclick=\"goTo('sec-results')\">→ 결과 보기</a>",
+  q:[5,3,6],s:'sec-results'},
+ {keys:['왜','이유','소진','안 와','유기','464','급감'],
+  a:"가장 중요한 발견입니다. 464건의 내역:<br><br>🔴 <b>45%</b> 돌봄 소진·업무 충돌<br>🟠 <b>30%</b> 가족 자신의 건강 문제<br>⚪ <b>25%</b> 기타 상황 요인<br><br>면회를 멈춘 가족은 대개 그 가족이 지원을 필요로 합니다. 조기 발견은 개입을 \"더 오세요\"에서 \"정확한 도움\"으로 바꿨습니다.<br><a onclick=\"goTo('sec-results')\">→ 분포 보기</a>",
+  q:[4,6,1],s:'sec-results'},
+ {keys:['구조','아키','기술','클라우드','비용','하드웨어','재현','도입','다른 시설'],
+  a:"5계층 서버리스 구조: 사용자 → 애플리케이션 → AI 엔진 → 데이터 → 출력. 기존 방문 등록 위에 올라가므로 <b>하드웨어 비용이 없고</b> 모든 임계값을 조정할 수 있습니다.<br><br>그래서 다른 시설도 새 예산 없이 도입할 수 있습니다.<br><a onclick=\"goTo('sec-arch')\">→ 구조도 열기</a>",
+  q:[6,2,5],s:'sec-arch'},
+ {keys:['규정','법','평가','매월','1회','준수','대만'],
+  a:"대만 장기요양 평가규정은 가족이 <b>월 1회 이상</b> 면회하도록 정하고 있습니다. 과거에는 사회복지사의 기억과 종이 기록으로 확인했습니다.<br><br>이 모델은 같은 등록 자료를 객관적이고 지속적인 모니터링으로 바꾸고, 평가 근거자료는 부산물로 생성됩니다.<br><a onclick=\"goTo('sec-abstract')\">→ 서론 읽기</a>",
+  q:[1,3,5],s:'sec-abstract'}
+]};
+
+/* ═══════════════════ STATE ═══════════════════ */
+let LANG='zh';
+let VIS=[4,3,5,3,4,3], UNIQ=3, THR=60;
+const T=(k)=>{const v=I18N[LANG][k];return v===undefined?(I18N.en[k]||k):v;};
+const RES=[
+ {n:'Wang Y.',  v:[4,3,5,3,4,3], u:3},
+ {n:'Chen Z.',  v:[3,2,1,0,0,0], u:1},
+ {n:'Lin Y.',   v:[2,2,2,1,1,0], u:2},
+ {n:'Huang M.', v:[5,4,4,3,4,5], u:4},
+ {n:'Zhang W.', v:[3,3,2,1,0,0], u:2},
+ {n:'Liu C.',   v:[2,3,2,2,2,1], u:2},
+ {n:'Hsu P.',   v:[1,1,1,1,0,1], u:1},
+ {n:'Kuo T.',   v:[4,4,3,4,3,3], u:3},
+ {n:'Yeh S.',   v:[3,3,3,2,1,1], u:2},
+ {n:'Tsai H.',  v:[4,3,4,2,2,2], u:3},
+ {n:'Ho L.',    v:[2,2,3,1,2,1], u:2}
+];
+const PRESETS={stable:{v:[4,3,5,3,4,3],u:3},fade:{v:[3,3,2,1,1,0],u:2},crash:{v:[4,4,5,1,0,0],u:2},solo:{v:[2,2,2,2,1,1],u:1}};
+const TCOL=['','var(--t1)','var(--t2)','var(--t3)','var(--t4)'];
+
+/* ═══════════════════ SCORING ENGINE ═══════════════════ */
+function calc(v,u,thr){
+  const prev=v[0]+v[1]+v[2], rec=v[3]+v[4]+v[5];
+  const rawDrop = prev>0 ? (prev-rec)/prev : (rec>0?-1:0);
+  const drop=Math.max(0,rawDrop);
+  const dropPct=Math.round(rawDrop*100);
+  const D1=[0,9,16,21,25,25][Math.min(u,5)];
+  const D2=Math.min(25, rec/6*25);
+  let D3=0;
+  if(rec>0){
+    const m=rec/3, w=v.slice(3);
+    const sd=Math.sqrt(w.reduce((a,x)=>a+(x-m)*(x-m),0)/3);
+    D3=25*Math.max(0,1-sd/m);
+  }
+  const D4=25*Math.max(0,1-drop/(thr/100));
+  const total=Math.round(D1+D2+D3+D4);
+  let tier = total>=75?1 : total>=55?2 : total>=35?3 : 4;
+  let rule={k:'rule.stable',p:{d:Math.abs(dropPct)}};
+  if(drop>0 && drop*100>=thr){ tier=Math.max(tier,3); rule={k:'rule.drop',p:{d:dropPct,t:thr}}; }
+  else if(drop>0){ rule={k:'rule.mild',p:{d:dropPct,t:thr}}; }
+  if(rec===0){ tier=4; rule={k:'rule.zero',p:{}}; }
+  return {D1,D2,D3,D4,total,tier,prev,rec,dropPct,rule,fired:(rule.k==='rule.drop'||rule.k==='rule.zero')};
+}
+function ruleText(r){
+  let s=T(r.rule.k);
+  Object.keys(r.rule.p).forEach(k=>{s=s.split('{'+k+'}').join(r.rule.p[k]);});
+  if(r.rec>0 && r.rec<3) s+=T('rule.legal').split('{n}').join(r.rec);
+  return s;
+}
+
+/* ═══════════════════ SIMULATOR ═══════════════════ */
+function buildSliders(){
+  const mon=T('mon');
+  const mk=(i)=>'<div class="mrow"><div class="ml">'+mon[i]+'</div>'
+    +'<input type="range" class="'+(i<3?'prevw':'')+'" min="0" max="6" step="1" data-m="'+i+'" value="'+VIS[i]+'" aria-label="'+mon[i]+'">'
+    +'<div class="mv" id="mv'+i+'">'+VIS[i]+'</div></div>';
+  document.getElementById('prevRows').innerHTML=mk(0)+mk(1)+mk(2);
+  document.getElementById('recRows').innerHTML=mk(3)+mk(4)+mk(5);
+  document.querySelectorAll('[data-m]').forEach(el=>{
+    el.addEventListener('input',e=>{
+      const i=+e.target.dataset.m; VIS[i]=+e.target.value;
+      document.getElementById('mv'+i).textContent=VIS[i];
+      document.querySelectorAll('.preset').forEach(p=>p.classList.remove('on'));
+      render();
+    });
+  });
+}
+function drawSpark(r){
+  const W=320,H=96,pad=6,bw=W/6, max=Math.max(6,...VIS);
+  let s='';
+  s+='<rect x="'+(3*bw)+'" y="0" width="'+(3*bw)+'" height="'+H+'" fill="rgba(13,124,102,.05)" rx="6"/>';
+  VIS.forEach((v,i)=>{
+    const h=Math.max(3,(v/max)*(H-26));
+    const x=i*bw+pad, y=H-h-16, w=bw-pad*2;
+    const col= i<3 ? '#C3C9D4' : (TCOL[r.tier]||'var(--teal)');
+    s+='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="4" fill="'+col+'"><title>'+v+'</title></rect>';
+    s+='<text x="'+(x+w/2)+'" y="'+(H-4)+'" text-anchor="middle" font-size="9" fill="#9199A8" font-family="IBM Plex Mono,monospace">'+v+'</text>';
+  });
+  const ap=r.prev/3, ar=r.rec/3;
+  const yv=(a)=>H-16-Math.max(3,(a/max)*(H-26));
+  s+='<line x1="0" y1="'+yv(ap)+'" x2="'+(3*bw)+'" y2="'+yv(ap)+'" stroke="#8A93A3" stroke-width="1.4" stroke-dasharray="4 3"/>';
+  s+='<line x1="'+(3*bw)+'" y1="'+yv(ar)+'" x2="'+W+'" y2="'+yv(ar)+'" stroke="'+(TCOL[r.tier])+'" stroke-width="1.6" stroke-dasharray="4 3"/>';
+  document.getElementById('spark').innerHTML=s;
+}
+function render(){
+  const r=calc(VIS,UNIQ,THR);
+  const C=301.6;
+  const arc=document.getElementById('gArc');
+  arc.style.strokeDashoffset=C*(1-r.total/100);
+  arc.setAttribute('stroke',TCOL[r.tier]);
+  document.getElementById('gVal').textContent=r.total;
+  const tb=document.getElementById('tierBadge');
+  tb.style.background=TCOL[r.tier];
+  tb.textContent='Tier '+r.tier+' · '+T('tier.'+r.tier);
+  document.getElementById('tierAct').textContent=T('act.'+r.tier);
+  const log=document.getElementById('ruleLog');
+  log.innerHTML='<b>'+r.prev+' → '+r.rec+' '+T('visits')+'</b> ｜ '+ruleText(r);
+  log.classList.toggle('fire',r.fired);
+  [['b1','v1',r.D1],['b2','v2',r.D2],['b3','v3',r.D3],['b4','v4',r.D4]].forEach(([b,v,val])=>{
+    document.getElementById(b).style.width=(val/25*100)+'%';
+    document.getElementById(v).textContent=val.toFixed(1)+'/25';
+  });
+  drawSpark(r);
+  renderHeatmap();
+}
+
+/* ═══════════════════ HEATMAP ═══════════════════ */
+function renderHeatmap(){
+  const mon=T('mon');
+  let h='<div class="hm-th"></div>';
+  mon.forEach(m=>h+='<div class="hm-th">'+m+'</div>');
+  h+='<div class="hm-th">'+T('hm.tier')+'</div>';
+  let flagged=0;
+  const alerts=[];
+  RES.forEach((p,idx)=>{
+    const r=calc(p.v,p.u,THR);
+    if(r.tier>=3){flagged++;alerts.push({p,r});}
+    h+='<div class="hm-row-btn" role="button" tabindex="0" data-res="'+idx+'" title="'+T('hm.load')+'">';
+    h+='<div class="hm-name">'+p.n+'</div>';
+    p.v.forEach(v=>{
+      const c = v>=3?'#2E7D32' : v===2?'#66BB6A' : v===1?'#FFA726' : '#EF5350';
+      h+='<div class="hm-cell" style="background:'+c+'">'+v+'</div>';
+    });
+    h+='<div class="hm-tier" style="background:'+TCOL[r.tier]+'">'+r.tier+' · '+T('tier.'+r.tier)+'</div>';
+    h+='</div>';
+  });
+  document.getElementById('hmTable').innerHTML=h;
+  document.getElementById('hmFlag').textContent=flagged;
+  document.querySelectorAll('[data-res]').forEach(el=>{
+    const load=()=>loadResident(+el.dataset.res);
+    el.addEventListener('click',load);
+    el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();load();}});
+  });
+  alerts.sort((a,b)=>b.r.tier-a.r.tier);
+  document.getElementById('alertList').innerHTML=alerts.map(({p,r})=>
+    '<div class="alert" style="border-left:3px solid '+TCOL[r.tier]+';color:'+(r.tier===4?'#8C2018':'#8C4A20')+'">'
+    +'<div class="a-ico">'+(r.tier===4?'🔴':'🟠')+'</div>'
+    +'<div style="min-width:0"><div class="a-t">Tier '+r.tier+' · '+T('tier.'+r.tier)+' — '+p.n+'</div>'
+    +'<div class="a-d">'+ruleText(r)+' → '+T('act.'+r.tier)+'</div></div>'
+    +'<button data-load="'+RES.indexOf(p)+'">'+T('hm.load')+'</button></div>').join('');
+  document.querySelectorAll('[data-load]').forEach(b=>b.addEventListener('click',e=>{
+    e.stopPropagation();loadResident(+b.dataset.load);
+  }));
+}
+function loadResident(i){
+  VIS=RES[i].v.slice(); UNIQ=RES[i].u;
+  document.querySelectorAll('.preset').forEach(p=>p.classList.remove('on'));
+  document.getElementById('uniqR').value=UNIQ;
+  document.getElementById('uniqV').textContent=UNIQ;
+  buildSliders(); render();
+  document.getElementById('sec-sim').scrollIntoView({behavior:'smooth',block:'start'});
+  const panel=document.querySelectorAll('#sec-sim .panel')[1];
+  panel.classList.add('tour-highlight');
+  setTimeout(()=>panel.classList.remove('tour-highlight'),3000);
+}
+
+/* ═══════════════════ i18n APPLY ═══════════════════ */
+function setLang(l){
+  LANG=l;
+  document.body.dataset.lang=l;
+  document.documentElement.lang={en:'en',zh:'zh-Hant',ja:'ja',ko:'ko'}[l];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const v=I18N[l][el.dataset.i18n];if(v)el.textContent=v;});
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{const v=I18N[l][el.dataset.i18nHtml];if(v)el.innerHTML=v;});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const v=I18N[l][el.dataset.i18nPh];if(v)el.placeholder=v;});
+  document.querySelectorAll('[data-lang-btn]').forEach(b=>b.classList.toggle('on',b.dataset.langBtn===l));
+  document.title=I18N[l]['ft.t'];
+  buildSliders(); render();
+  document.getElementById('aiChat').innerHTML='';
+  if(document.getElementById('aiPanel').classList.contains('show')) botReply(KB[LANG][0]);
+}
+
+/* ═══════════════════ COUNTERS & REVEALS ═══════════════════ */
+function animateCount(el){
+  const target=+el.dataset.count, suf=el.dataset.suffix||'';
+  const dur=1100, t0=performance.now();
+  const step=(t)=>{
+    const k=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-k,3);
+    el.textContent=Math.round(target*e).toLocaleString()+suf;
+    if(k<1)requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+function initReveals(){
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(!e.isIntersecting)return;
+      const el=e.target;
+      if(el.dataset.count) animateCount(el);
+      if(el.classList.contains('sf')) el.style.width=el.dataset.w+'%';
+      if(el.id==='donutHost'){
+        const C=364.4;
+        const set=(id,frac,rot)=>{
+          const c=document.getElementById(id);
+          c.style.transformOrigin='75px 75px';
+          c.style.transform='rotate('+rot+'deg)';
+          c.style.strokeDashoffset=C*(1-frac);
+        };
+        set('dn1',.45,0); set('dn2',.30,162); set('dn3',.25,270);
+      }
+      io.unobserve(el);
+    });
+  },{threshold:.4});
+  document.querySelectorAll('[data-count],.sf,#donutHost').forEach(el=>io.observe(el));
+  const secs=[...document.querySelectorAll('section[id]')];
+  const spy=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        document.querySelectorAll('.nav-links a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id));
+      }
+    });
+  },{rootMargin:'-40% 0px -55% 0px'});
+  secs.forEach(s=>spy.observe(s));
+}
+
+/* ═══════════════════ CHATBOT ═══════════════════ */
+let aiOpen=false;
+const chat=()=>document.getElementById('aiChat');
+function toggleAI(){
+  aiOpen=!aiOpen;
+  document.getElementById('aiPanel').classList.toggle('show',aiOpen);
+  document.getElementById('aiFab').classList.toggle('open',aiOpen);
+  if(aiOpen&&chat().children.length===0) setTimeout(()=>botReply(KB[LANG][0]),260);
+  if(aiOpen) setTimeout(()=>document.getElementById('aiInput').focus(),120);
+}
+function goTo(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.scrollIntoView({behavior:'smooth',block:'start'});
+  el.classList.add('tour-highlight');
+  setTimeout(()=>el.classList.remove('tour-highlight'),3000);
+}
+function addMsg(html,isUser){
+  const d=document.createElement('div');
+  d.className='ai-msg '+(isUser?'ai-user':'ai-bot');
+  d.innerHTML='<div class="ai-bubble">'+html+'</div>';
+  chat().appendChild(d); chat().scrollTop=chat().scrollHeight;
+}
+function addQuick(idxs){
+  const wrap=document.createElement('div');
+  wrap.className='ai-quick ai-msg ai-bot';
+  idxs.forEach(i=>{
+    const e=KB[LANG][i]; if(!e)return;
+    const b=document.createElement('button');
+    b.className='ai-quick-btn';
+    b.textContent=quickLabel(i);
+    b.onclick=()=>{addMsg(quickLabel(i),true);document.querySelectorAll('.ai-quick').forEach(q=>q.remove());botReply(e);};
+    wrap.appendChild(b);
+  });
+  chat().appendChild(wrap); chat().scrollTop=chat().scrollHeight;
+}
+function quickLabel(i){
+  const map={1:'fw.title',2:'sim.title',3:'hm.title',4:'res.title',5:'res.reason.t',6:'arch.title',7:'abs.label'};
+  const short={1:'nav.framework',2:'nav.sim',3:'nav.screening',4:'nav.results',5:'res.ins.t',6:'nav.arch',7:'nav.abstract'};
+  return T(short[i]||'nav.abstract');
+}
+function botReply(entry){
+  const d=document.createElement('div');
+  d.className='ai-msg ai-bot'; d.id='typing';
+  d.innerHTML='<div class="ai-typing"><span></span><span></span><span></span></div>';
+  chat().appendChild(d); chat().scrollTop=chat().scrollHeight;
+  setTimeout(()=>{
+    const t=document.getElementById('typing'); if(t)t.remove();
+    addMsg(entry.a,false);
+    if(entry.q)addQuick(entry.q);
+  },Math.min(300+entry.a.length,1000));
+}
+function findBest(q){
+  const s=q.toLowerCase();
+  let best=null,bs=0;
+  KB[LANG].forEach(e=>{
+    let sc=0;
+    e.keys.forEach(k=>{ if(s.includes(k.toLowerCase())) sc+=k.length>3?2:1; });
+    if(sc>bs){bs=sc;best=e;}
+  });
+  return bs>=1?best:null;
+}
+function handleQuery(text){
+  addMsg(text,true);
+  document.querySelectorAll('.ai-quick').forEach(q=>q.remove());
+  const m=findBest(text);
+  if(m){botReply(m);}
+  else{
+    setTimeout(()=>{addMsg(T('chat.nomatch'),false);addQuick([1,2,3,4,5,6,7]);},420);
+  }
+}
+function sendMsg(){
+  const i=document.getElementById('aiInput');
+  const v=i.value.trim(); if(!v)return;
+  i.value=''; handleQuery(v);
+}
+
+/* ═══════════════════ INIT ═══════════════════ */
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('[data-lang-btn]').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.langBtn)));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('on'));
+    document.querySelectorAll('.tab-pane').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    document.querySelector('[data-pane="'+b.dataset.tab+'"]').classList.add('on');
+  }));
+  document.querySelectorAll('.dim-card').forEach(c=>c.addEventListener('click',()=>{
+    const was=c.classList.contains('on');
+    document.querySelectorAll('.dim-card').forEach(x=>x.classList.remove('on'));
+    if(!was)c.classList.add('on');
+  }));
+  document.querySelectorAll('.preset').forEach(p=>p.addEventListener('click',()=>{
+    const s=PRESETS[p.dataset.preset];
+    VIS=s.v.slice(); UNIQ=s.u;
+    document.querySelectorAll('.preset').forEach(x=>x.classList.remove('on'));
+    p.classList.add('on');
+    document.getElementById('uniqR').value=UNIQ;
+    document.getElementById('uniqV').textContent=UNIQ;
+    buildSliders(); render();
+  }));
+  document.getElementById('uniqR').addEventListener('input',e=>{
+    UNIQ=+e.target.value; document.getElementById('uniqV').textContent=UNIQ;
+    document.querySelectorAll('.preset').forEach(x=>x.classList.remove('on'));
+    render();
+  });
+  document.getElementById('thrR').addEventListener('input',e=>{
+    THR=+e.target.value; document.getElementById('thrV').textContent=THR+'%'; render();
+  });
+  document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('show')));
+  setLang('zh');
+  initReveals();
+});
+</script>
+
 </body>
 </html>
